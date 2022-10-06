@@ -9,7 +9,7 @@ export default function PageContent(): JSX.Element {
             <li className="breadcrumbs__item">
               <Link className="breadcrumbs__link" to="index.html">Главная
                 <svg width="5" height="8" aria-hidden="true">
-                  <use to="#icon-arrow-mini"></use>
+                  <use xlinkHref="#icon-arrow-mini"></use>
                 </svg>
               </Link>
             </li>
@@ -45,7 +45,7 @@ export default function PageContent(): JSX.Element {
                     <legend className="title title--h5">Категория</legend>
                     <div className="custom-checkbox catalog-filter__item">
                       <label>
-                        <input type="checkbox" name="photocamera" checked />
+                        <input type="checkbox" name="photocamera" />
                         <span className="custom-checkbox__icon"></span>
                         <span className="custom-checkbox__label">Фотокамера</span>
                       </label>
@@ -62,7 +62,7 @@ export default function PageContent(): JSX.Element {
                     <legend className="title title--h5">Тип камеры</legend>
                     <div className="custom-checkbox catalog-filter__item">
                       <label>
-                        <input type="checkbox" name="digital" checked />
+                        <input type="checkbox" name="digital" />
                         <span className="custom-checkbox__icon"></span>
                         <span className="custom-checkbox__label">Цифровая</span>
                       </label>
@@ -83,7 +83,7 @@ export default function PageContent(): JSX.Element {
                     </div>
                     <div className="custom-checkbox catalog-filter__item">
                       <label>
-                        <input type="checkbox" name="collection" checked disabled />
+                        <input type="checkbox" name="collection" />
                         <span className="custom-checkbox__icon"></span>
                         <span className="custom-checkbox__label">Коллекционная</span>
                       </label>
@@ -93,7 +93,7 @@ export default function PageContent(): JSX.Element {
                     <legend className="title title--h5">Уровень</legend>
                     <div className="custom-checkbox catalog-filter__item">
                       <label>
-                        <input type="checkbox" name="zero" checked />
+                        <input type="checkbox" name="zero"/>
                         <span className="custom-checkbox__icon"></span>
                         <span className="custom-checkbox__label">Нулевой</span>
                       </label>
@@ -125,7 +125,7 @@ export default function PageContent(): JSX.Element {
                     <p className="title title--h5">Сортировать:</p>
                     <div className="catalog-sort__type">
                       <div className="catalog-sort__btn-text">
-                        <input type="radio" id="sortPrice" name="sort" checked />
+                        <input type="radio" id="sortPrice" name="sort" />
                         <label htmlFor="sortPrice">по цене</label>
                       </div>
                       <div className="catalog-sort__btn-text">
@@ -135,10 +135,10 @@ export default function PageContent(): JSX.Element {
                     </div>
                     <div className="catalog-sort__order">
                       <div className="catalog-sort__btn catalog-sort__btn--up">
-                        <input type="radio" id="up" name="sort-icon" checked aria-label="По возрастанию" />
+                        <input type="radio" id="up" name="sort-icon" aria-label="По возрастанию" />
                         <label htmlFor="up">
                           <svg width="16" height="14" aria-hidden="true">
-                            <use to="#icon-sort"></use>
+                            <use xlinkHref="#icon-sort"></use>
                           </svg>
                         </label>
                       </div>
@@ -146,7 +146,7 @@ export default function PageContent(): JSX.Element {
                         <input type="radio" id="down" name="sort-icon" aria-label="По убыванию" />
                         <label htmlFor="down">
                           <svg width="16" height="14" aria-hidden="true">
-                            <use to="#icon-sort"></use>
+                            <use xlinkHref="#icon-sort"></use>
                           </svg>
                         </label>
                       </div>
@@ -165,19 +165,19 @@ export default function PageContent(): JSX.Element {
                   <div className="product-card__info">
                     <div className="rate product-card__rate">
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                       <p className="visually-hidden">Рейтинг: 3</p>
                       <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>23</p>
@@ -203,19 +203,19 @@ export default function PageContent(): JSX.Element {
                   <div className="product-card__info">
                     <div className="rate product-card__rate">
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                       <p className="visually-hidden">Рейтинг: 4</p>
                       <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>12</p>
@@ -227,7 +227,7 @@ export default function PageContent(): JSX.Element {
                   <div className="product-card__buttons">
                     <Link className="btn btn--purple-border product-card__btn product-card__btn--in-cart" to="#">
                       <svg width="16" height="16" aria-hidden="true">
-                        <use to="#icon-basket"></use>
+                        <use xlinkHref="#icon-basket"></use>
                       </svg>В корзине
                     </Link>
                     <Link className="btn btn--transparent" to="#">Подробнее
@@ -244,19 +244,19 @@ export default function PageContent(): JSX.Element {
                   <div className="product-card__info">
                     <div className="rate product-card__rate">
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <p className="visually-hidden">Рейтинг: 5</p>
                       <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>849</p>
@@ -282,19 +282,19 @@ export default function PageContent(): JSX.Element {
                   <div className="product-card__info">
                     <div className="rate product-card__rate">
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                       <p className="visually-hidden">Рейтинг: 4</p>
                       <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>12</p>
@@ -320,19 +320,19 @@ export default function PageContent(): JSX.Element {
                   <div className="product-card__info">
                     <div className="rate product-card__rate">
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <p className="visually-hidden">Рейтинг: 5</p>
                       <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>849</p>
@@ -358,19 +358,19 @@ export default function PageContent(): JSX.Element {
                   <div className="product-card__info">
                     <div className="rate product-card__rate">
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                       <p className="visually-hidden">Рейтинг: 3</p>
                       <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>23</p>
@@ -396,19 +396,19 @@ export default function PageContent(): JSX.Element {
                   <div className="product-card__info">
                     <div className="rate product-card__rate">
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <p className="visually-hidden">Рейтинг: 5</p>
                       <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>849</p>
@@ -434,19 +434,19 @@ export default function PageContent(): JSX.Element {
                   <div className="product-card__info">
                     <div className="rate product-card__rate">
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                       <p className="visually-hidden">Рейтинг: 3</p>
                       <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>23</p>
@@ -472,19 +472,19 @@ export default function PageContent(): JSX.Element {
                   <div className="product-card__info">
                     <div className="rate product-card__rate">
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-full-star"></use>
+                        <use xlinkHref="#icon-full-star"></use>
                       </svg>
                       <svg width="17" height="16" aria-hidden="true">
-                        <use to="#icon-star"></use>
+                        <use xlinkHref="#icon-star"></use>
                       </svg>
                       <p className="visually-hidden">Рейтинг: 4</p>
                       <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>12</p>

@@ -1,18 +1,19 @@
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 export default function Header(): JSX.Element {
   return (
     <header className="header" id="header">
       <div className="container">
-        <Link className="header__logo" to="index.html" aria-label="Переход на главную">
+        <Link className="header__logo" to={AppRoute.Main} aria-label="Переход на главную">
           <svg width="100" height="36" aria-hidden="true">
-            <use to="#icon-logo"></use>
+            <use xlinkHref="#icon-logo"></use>
           </svg>
         </Link>
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <Link className="main-nav__link" to="catalog.html">Каталог</Link>
+              <Link className="main-nav__link" to={AppRoute.Main}>Каталог</Link>
             </li>
             <li className="main-nav__item">
               <Link className="main-nav__link" to="#">Гарантии</Link>
@@ -29,7 +30,7 @@ export default function Header(): JSX.Element {
           <form>
             <label>
               <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
-                <use to="#icon-lens"></use>
+                <use xlinkHref="#icon-lens"></use>
               </svg>
               <input className="form-search__input" type="text" autoComplete="off" placeholder="Поиск по сайту" />
             </label>
@@ -43,13 +44,13 @@ export default function Header(): JSX.Element {
           </form>
           <button className="form-search__reset" type="reset">
             <svg width="10" height="10" aria-hidden="true">
-              <use to="#icon-close"></use>
+              <use xlinkHref="#icon-close"></use>
             </svg><span className="visually-hidden">Сбросить поиск</span>
           </button>
         </div>
         <Link className="header__basket-link" to="#">
           <svg width="16" height="16" aria-hidden="true">
-            <use to="#icon-basket"></use>
+            <use xlinkHref="#icon-basket"></use>
           </svg>
         </Link>
       </div>
