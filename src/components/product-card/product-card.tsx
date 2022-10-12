@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { HOST_URL } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { changeModalActive, setSelectedCamera } from '../../store/app-process/app-process';
 import { Camera } from '../../types/camera';
 import RatingBar from '../rating-bar/rating-bar';
 
@@ -8,6 +10,12 @@ type ProductCardProps = {
 }
 
 export default function ProductCard ({camera}: ProductCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const HandleClickBuyButton = () => {
+    dispatch(setSelectedCamera(camera));
+    dispatch(changeModalActive(true));
+  };
 
   return (
     <div className="product-card">
@@ -24,7 +32,12 @@ export default function ProductCard ({camera}: ProductCardProps): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">Купить
+        <button
+          onClick={HandleClickBuyButton}
+          className="btn btn--purple product-card__btn"
+          type="button"
+        >
+          Купить
         </button>
         <Link className="btn btn--transparent" to="#">Подробнее
         </Link>

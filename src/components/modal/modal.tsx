@@ -1,9 +1,19 @@
+import { HOST_URL } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { changeModalActive, setSelectedCamera } from '../../store/app-process/app-process';
+import { Camera } from '../../types/camera';
+
 type ModalProps = {
-  cameraId: number;
+  camera: Camera;
 }
 
-export default function Modal({cameraId}: ModalProps): JSX.Element {
-  window.console.log(cameraId);
+export default function Modal({camera}: ModalProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const HandleClickCloseButton = () => {
+    dispatch(setSelectedCamera(undefined));
+    dispatch(changeModalActive(false));
+  };
 
   return (
     <div className="modal is-active">
@@ -14,21 +24,21 @@ export default function Modal({cameraId}: ModalProps): JSX.Element {
           <div className="basket-item basket-item--short">
             <div className="basket-item__img">
               <picture>
-                <source type="image/webp" srcSet="img/content/img9.webp, img/content/img9@2x.webp 2x" />
-                <img src="img/content/img9.jpg" srcSet="img/content/img9@2x.jpg 2x" width="140" height="120" alt="Фотоаппарат «Орлёнок»" />
+                <source type="image/webp" srcSet={`${HOST_URL}/${camera.previewImgWebp}, ${HOST_URL}/${camera.previewImgWebp2x} 2x`} />
+                <img src={`${HOST_URL}/${camera.previewImg}`} srcSet={`${HOST_URL}/${camera.previewImg2x} 2x`} width="140" height="120" alt="Фотоаппарат «Орлёнок»" />
               </picture>
             </div>
             <div className="basket-item__description">
-              <p className="basket-item__title">Фотоаппарат «Орлёнок»</p>
+              <p className="basket-item__title">{camera.name}</p>
               <ul className="basket-item__list">
                 <li className="basket-item__list-item">
                   <span className="basket-item__article">Артикул:</span>
-                  <span className="basket-item__number">O78DFGSD832</span>
+                  <span className="basket-item__number">{camera.vendorCode}</span>
                 </li>
-                <li className="basket-item__list-item">Плёночная фотокамера</li>
-                <li className="basket-item__list-item">Любительский уровень</li>
+                <li className="basket-item__list-item">{camera.category}</li>
+                <li className="basket-item__list-item">{camera.level} уровень</li>
               </ul>
-              <p className="basket-item__price"><span className="visually-hidden">Цена:</span>18 970 ₽</p>
+              <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{camera.price} ₽</p>
             </div>
           </div>
           <div className="modal__buttons">
@@ -38,7 +48,12 @@ export default function Modal({cameraId}: ModalProps): JSX.Element {
               </svg>Добавить в корзину
             </button>
           </div>
-          <button className="cross-btn" type="button" aria-label="Закрыть попап">
+          <button
+            onClick={HandleClickCloseButton}
+            className="cross-btn"
+            type="button"
+            aria-label="Закрыть попап"
+          >
             <svg width="10" height="10" aria-hidden="true">
               <use xlinkHref="#icon-close"></use>
             </svg>

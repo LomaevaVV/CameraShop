@@ -18,7 +18,8 @@ export const APIRoute = {
 
 export enum NameSpace {
   Cameras = 'CAMERAS',
-  Promo = 'PROMO'
+  Promo = 'PROMO',
+  App = 'APP'
 }
 
 export const enum FetchStatus {
