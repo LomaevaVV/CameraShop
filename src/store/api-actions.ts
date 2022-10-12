@@ -1,26 +1,29 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { APIRoute } from '../const';
+import { APIRoute, MAX_CARDS_ON_PAGE } from '../const';
 import { Cameras } from '../types/camera';
 import { AppDispatch, State } from '../types/state';
 import { toast } from 'react-toastify';
 import { Promo } from '../types/promo';
+import { generatePath } from 'react-router-dom';
 
-
-export const fetchCamerasAction = createAsyncThunk<Cameras, undefined, {
+export const fetchCamerasAction = createAsyncThunk<{data: Cameras; camerasTotalCount: string}, number, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchCameras',
-  async (_arg, {extra: api}) => {
+  async (pageId, {extra: api}) => {
     try {
-      const {data} = await api.get<Cameras>(APIRoute.Cameras);
+      const {data, headers} = await api.get<Cameras>(generatePath(APIRoute.Cameras, {FirstObjOnPageIdx: String((pageId - 1) * MAX_CARDS_ON_PAGE)}));
 
-      return data;
+      return {
+        data,
+        camerasTotalCount: headers['x-total-count']
+      };
     } catch(e) {
-      toast.error('Offers loading error', {
-        position: 'top-center',
+      toast.error('Cameras loading error', {
+        position: toast.POSITION.TOP_CENTER,
       });
 
       throw e;
@@ -40,8 +43,8 @@ export const fetchPromoAction = createAsyncThunk<Promo, undefined, {
 
         return data;
       } catch(e) {
-        toast.error('Offers loading error', {
-          position: 'top-center',
+        toast.error('Promo loading error', {
+          position: toast.POSITION.TOP_CENTER,
         });
 
         throw e;

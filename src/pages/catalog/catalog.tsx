@@ -5,6 +5,7 @@ import PageContent from '../../components/page-content/page-content';
 import { useAppSelector } from '../../hooks';
 import { getPromo } from '../../store/promo/selectors';
 
+
 export default function Catalog(): JSX.Element {
   const promo = useAppSelector(getPromo);
 

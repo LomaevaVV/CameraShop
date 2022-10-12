@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { HOST_URL } from '../../const';
 import { Promo } from '../../types/promo';
 
 type BannerProps = {
@@ -9,8 +10,8 @@ export default function Banner ({promo}: BannerProps): JSX.Element {
   return (
     <div className="banner">
       <picture>
-        <source type="image/webp" srcSet={`${promo.previewImgWebp}, ${promo.previewImgWebp2x} 2x`} />
-        <img src={`${promo.previewImg}`} srcSet={`${promo.previewImg2x} 2x`} width="1280" height="280" alt="баннер" />
+        <source type="image/webp" srcSet={`${HOST_URL}/${promo.previewImgWebp}, ${HOST_URL}/${promo.previewImgWebp2x} 2x`} />
+        <img src={`${HOST_URL}/${promo.previewImg}`} srcSet={`${HOST_URL}/${promo.previewImg2x} 2x`} width="1280" height="280" alt="баннер" />
       </picture>
       <p className="banner__info">
         <span className="banner__message">Новинка!</span>

@@ -6,8 +6,18 @@ import Filters from '../filters/filters';
 import Pagination from '../pagination/pagination';
 import ProductCard from '../product-card/product-card';
 import SortForm from '../sort-form/sort-form';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { fetchCamerasAction } from '../../store/api-actions';
+import { store } from '../../store';
 
 export default function Catalog(): JSX.Element {
+  const activePage = Number(useParams().page);
+
+  useEffect(() => {
+    store.dispatch(fetchCamerasAction(activePage));
+  }, [activePage]);
+
   const cameras = useAppSelector(getCameras);
   const camerasFetchStatus = useAppSelector(getCamerasFetchStatus);
 

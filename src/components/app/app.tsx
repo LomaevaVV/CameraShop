@@ -1,6 +1,6 @@
-import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, generatePath, Navigate, Route, Routes} from 'react-router-dom';
 import Catalog from '../../pages/catalog/catalog';
-import { AppRoute } from '../../const';
+import { AppRoute, DEFOLT_CATALOG_PAGE } from '../../const';
 
 function App(): JSX.Element {
   return (
@@ -8,10 +8,14 @@ function App(): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<Navigate to={AppRoute.Catalog} />}
+          element={<Navigate to={generatePath(AppRoute.CatalogPage, { page: String(DEFOLT_CATALOG_PAGE) })} />}
         />
         <Route
           path={AppRoute.Catalog}
+          element={<Navigate to={generatePath(AppRoute.CatalogPage, { page: String(DEFOLT_CATALOG_PAGE) })} />}
+        />
+        <Route
+          path={AppRoute.CatalogPage}
           element={<Catalog />}
         />
       </Routes>

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { HOST_URL } from '../../const';
 import { Camera } from '../../types/camera';
 import RatingBar from '../rating-bar/rating-bar';
 
@@ -12,8 +13,8 @@ export default function ProductCard ({camera}: ProductCardProps): JSX.Element {
     <div className="product-card">
       <div className="product-card__img">
         <picture>
-          <source type="image/webp" srcSet={`${camera.previewImgWebp}, ${camera.previewImgWebp2x} 2x`} />
-          <img src={`${camera.previewImg}`} srcSet={`${camera.previewImg2x} 2x`} width="280" height="240" alt={camera.name} />
+          <source type="image/webp" srcSet={`${HOST_URL}/${camera.previewImgWebp}, ${HOST_URL}/${camera.previewImgWebp2x} 2x`} />
+          <img src={`${HOST_URL}/${camera.previewImg}`} srcSet={`${HOST_URL}/${camera.previewImg2x} 2x`} width="280" height="240" alt={camera.name} />
         </picture>
       </div>
       <div className="product-card__info">

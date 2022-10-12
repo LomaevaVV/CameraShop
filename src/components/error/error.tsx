@@ -6,7 +6,7 @@ import { fetchCamerasAction } from '../../store/api-actions';
 
 export default function Error(): JSX.Element {
   const onErrorButtonHover = () => {
-    store.dispatch(fetchCamerasAction());
+    store.dispatch(fetchCamerasAction(1));
   };
 
   return (
