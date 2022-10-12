@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { HOST_URL } from '../../const';
+import { generatePath, Link } from 'react-router-dom';
+import { AppRoute, HOST_URL } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeModalActive, setSelectedCamera } from '../../store/app-process/app-process';
 import { Camera } from '../../types/camera';
@@ -39,7 +39,7 @@ export default function ProductCard ({camera}: ProductCardProps): JSX.Element {
         >
           Купить
         </button>
-        <Link className="btn btn--transparent" to="#">Подробнее
+        <Link className="btn btn--transparent" to={generatePath(AppRoute.Product, {id: String(camera.id)})}>Подробнее
         </Link>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import Catalog from '../catalog/catalog';
+import { PropsWithChildren } from 'react';
 
-export default function PageContent(): JSX.Element {
+export default function PageContent({children}: PropsWithChildren): JSX.Element {
   return (
     <div className="page-content">
       <div className="breadcrumbs">
@@ -19,7 +19,7 @@ export default function PageContent(): JSX.Element {
           </ul>
         </div>
       </div>
-      <Catalog />
+      {children}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import {BrowserRouter, generatePath, Navigate, Route, Routes} from 'react-router-dom';
-import Catalog from '../../pages/catalog/catalog';
+import CatalogPage from '../../pages/catalog-page/catalog-page';
 import { AppRoute, DEFOLT_CATALOG_PAGE } from '../../const';
+import ProductPage from '../../pages/product-page/product-page';
 
 function App(): JSX.Element {
   return (
@@ -16,7 +17,11 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.CatalogPage}
-          element={<Catalog />}
+          element={<CatalogPage />}
+        />
+        <Route
+          path={AppRoute.Product}
+          element={<ProductPage />}
         />
       </Routes>
     </BrowserRouter>

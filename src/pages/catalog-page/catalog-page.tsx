@@ -7,9 +7,10 @@ import { getPromo } from '../../store/promo/selectors';
 import Modal from '../../components/modal/modal';
 import { getModalActive, getSelectedCamera } from '../../store/app-process/selectors';
 import { Camera } from '../../types/camera';
+import Catalog from '../../components/catalog/catalog';
 
 
-export default function Catalog(): JSX.Element {
+export default function CatalogPage(): JSX.Element {
   const promo = useAppSelector(getPromo);
   const isModalActive = useAppSelector(getModalActive);
   const selectidCard: Camera | undefined = useAppSelector(getSelectedCamera);
@@ -20,7 +21,9 @@ export default function Catalog(): JSX.Element {
 
       <main>
         {promo !== null && <Banner promo={promo}/>}
-        <PageContent />
+        <PageContent>
+          <Catalog />
+        </PageContent>
         {isModalActive && selectidCard && <Modal camera={selectidCard}/>}
       </main>
 
