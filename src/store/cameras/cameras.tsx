@@ -1,18 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, FetchStatus } from '../../const';
-import { Cameras } from '../../types/camera';
-import { fetchCamerasAction } from '../api-actions';
+import { Camera, Cameras } from '../../types/camera';
+import { fetchCamerasAction, fetchProductAction } from '../api-actions';
 
 type DataCameras = {
   cameras: Cameras;
   camerasFetchStatus: string;
   camerasTotalCount: number;
+  product: Camera | undefined;
+  productFetchStatus: string;
 };
 
 const initialState: DataCameras = {
   cameras: [],
   camerasFetchStatus: FetchStatus.Idle,
   camerasTotalCount: 0,
+  product: undefined,
+  productFetchStatus: FetchStatus.Idle,
 };
 
 export const dataCameras = createSlice({
@@ -32,6 +36,17 @@ export const dataCameras = createSlice({
       .addCase(fetchCamerasAction.rejected, (state) => {
         state.cameras = [];
         state.camerasFetchStatus = FetchStatus.Rejected;
+      })
+      .addCase(fetchProductAction.pending, (state) => {
+        state.productFetchStatus = FetchStatus.Loading;
+      })
+      .addCase(fetchProductAction.fulfilled, (state, action) => {
+        state.product = action.payload;
+        state.productFetchStatus = FetchStatus.Success;
+      })
+      .addCase(fetchProductAction.rejected, (state) => {
+        state.product = undefined;
+        state.productFetchStatus = FetchStatus.Rejected;
       });
   }
 });

@@ -5,9 +5,30 @@ import PageContent from '../../components/page-content/page-content';
 import Product from '../../components/product/product';
 import ProductSimilar from '../../components/product-similar/product-similar';
 import ReviwBlock from '../../components/review-block/review-block';
+import { useRef, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchProductAction } from '../../store/api-actions';
+import { getProduct, getProductFetchStatus } from '../../store/cameras/selectors';
+import { Camera } from '../../types/camera';
 
 
 export default function ProductPage(): JSX.Element {
+  const {id} = useParams();
+  const dispatch = useAppDispatch();
+  const isRenderedRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    if (!isRenderedRef.current) {
+      dispatch(fetchProductAction(Number(id)));
+      isRenderedRef.current = true;
+    }
+  }, [dispatch, id]);
+
+  const prosuctFetchStatus = useAppSelector(getProductFetchStatus);
+  const camera: Camera | undefined = useAppSelector(getProduct);
+
+  window.console.log(prosuctFetchStatus, camera);
 
   return (
     <div className="wrapper">
@@ -15,7 +36,7 @@ export default function ProductPage(): JSX.Element {
 
       <main>
         <PageContent>
-          <Product />
+          {camera && <Product camera={camera}/>}
           <ProductSimilar />
           <ReviwBlock />
         </PageContent>

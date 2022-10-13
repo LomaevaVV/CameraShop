@@ -1,5 +1,5 @@
 import { generatePath, Link } from 'react-router-dom';
-import { AppRoute, HOST_URL } from '../../const';
+import { AppRoute, ClassName, HOST_URL } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeModalActive, setSelectedCamera } from '../../store/app-process/app-process';
 import { Camera } from '../../types/camera';
@@ -26,7 +26,7 @@ export default function ProductCard ({camera}: ProductCardProps): JSX.Element {
         </picture>
       </div>
       <div className="product-card__info">
-        <RatingBar rating={camera.rating} reviewCount={camera.reviewCount}/>
+        <RatingBar rating={camera.rating} reviewCount={camera.reviewCount} ratingBarClassName={ClassName.ProductCard}/>
         <p className="product-card__title">{camera.name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{camera.price} ₽
         </p>

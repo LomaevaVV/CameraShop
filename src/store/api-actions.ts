@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute, MAX_CARDS_ON_PAGE } from '../const';
-import { Cameras } from '../types/camera';
+import { Camera, Cameras } from '../types/camera';
 import { AppDispatch, State } from '../types/state';
 import { toast } from 'react-toastify';
 import { Promo } from '../types/promo';
@@ -50,3 +50,22 @@ export const fetchPromoAction = createAsyncThunk<Promo, undefined, {
         throw e;
       }
     });
+
+
+export const fetchProductAction = createAsyncThunk<Camera, number, {
+      dispatch: AppDispatch;
+      state: State;
+      extra: AxiosInstance;
+    }>(
+      'data/fetchCamera',
+      async (cameraId, {extra: api}) => {
+        try {
+          const {data} = await api.get<Camera>(generatePath(APIRoute.Camera, {id: String(cameraId)}));
+          return data;
+        } catch(e) {
+          toast.error('Offer details loading error', {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          throw e;
+        }
+      });

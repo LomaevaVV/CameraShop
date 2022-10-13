@@ -1,15 +1,15 @@
 type RatingBarProps = {
   rating: number;
   reviewCount: number;
+  ratingBarClassName: string;
 }
 
-export default function RatingBar ({rating, reviewCount}: RatingBarProps): JSX.Element {
+export default function RatingBar ({rating, reviewCount, ratingBarClassName}: RatingBarProps): JSX.Element {
   const ratingBar = [1, 2, 3, 4, 5];
-
 
   return (
 
-    <div className="rate product-card__rate">
+    <div className={`rate ${ratingBarClassName}__rate`}>
       {ratingBar.map((item) => {
         if (item <= rating) {
           return (
