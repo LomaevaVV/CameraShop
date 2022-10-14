@@ -10,3 +10,5 @@ export const getCamerasTotalCount = (state: State): number => state[NameSpace.Ca
 
 export const getProduct = (state: State): Camera | undefined => state[NameSpace.Cameras].product;
 export const getProductFetchStatus = (state: State): string => state[NameSpace.Cameras].productFetchStatus;
+
+export const getSimilar = (state: State): Cameras | [] => state[NameSpace.Cameras].similar;

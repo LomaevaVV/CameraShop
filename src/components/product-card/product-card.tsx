@@ -4,12 +4,14 @@ import { useAppDispatch } from '../../hooks';
 import { changeModalActive, setSelectedCamera } from '../../store/app-process/app-process';
 import { Camera } from '../../types/camera';
 import RatingBar from '../rating-bar/rating-bar';
+import cn from 'classnames';
 
 type ProductCardProps = {
   camera: Camera;
+  isActive?: boolean;
 }
 
-export default function ProductCard ({camera}: ProductCardProps): JSX.Element {
+export default function ProductCard ({camera, isActive}: ProductCardProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const HandleClickBuyButton = () => {
@@ -17,8 +19,12 @@ export default function ProductCard ({camera}: ProductCardProps): JSX.Element {
     dispatch(changeModalActive(true));
   };
 
+  const getCardClassName = () :string=> cn('product-card', {
+    'is-active': isActive
+  });
+
   return (
-    <div className="product-card">
+    <div className={getCardClassName()}>
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`${HOST_URL}/${camera.previewImgWebp}, ${HOST_URL}/${camera.previewImgWebp2x} 2x`} />

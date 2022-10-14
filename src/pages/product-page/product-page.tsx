@@ -5,30 +5,35 @@ import PageContent from '../../components/page-content/page-content';
 import Product from '../../components/product/product';
 import ProductSimilar from '../../components/product-similar/product-similar';
 import ReviwBlock from '../../components/review-block/review-block';
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchProductAction } from '../../store/api-actions';
-import { getProduct, getProductFetchStatus } from '../../store/cameras/selectors';
+import { fetchProductAction, fetchReviewsAction, fetchSimilarAction } from '../../store/api-actions';
+import { getProduct, getProductFetchStatus, getSimilar } from '../../store/cameras/selectors';
 import { Camera } from '../../types/camera';
+import { getSelectedCamera, getModalActive } from '../../store/app-process/selectors';
+import Modal from '../../components/modal/modal';
+import { getReviews } from '../../store/reviews/selectors';
 
 
 export default function ProductPage(): JSX.Element {
   const {id} = useParams();
   const dispatch = useAppDispatch();
-  const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (!isRenderedRef.current) {
-      dispatch(fetchProductAction(Number(id)));
-      isRenderedRef.current = true;
-    }
+    dispatch(fetchProductAction(Number(id)));
+    dispatch(fetchSimilarAction(Number(id)));
+    dispatch(fetchReviewsAction(Number(id)));
   }, [dispatch, id]);
 
   const prosuctFetchStatus = useAppSelector(getProductFetchStatus);
   const camera: Camera | undefined = useAppSelector(getProduct);
+  const similar = useAppSelector(getSimilar);
+  const reviews = useAppSelector(getReviews);
+  const isModalActive = useAppSelector(getModalActive);
+  const selectidCard: Camera | undefined = useAppSelector(getSelectedCamera);
 
-  window.console.log(prosuctFetchStatus, camera);
+  window.console.log(useAppSelector(getReviews), prosuctFetchStatus);
 
   return (
     <div className="wrapper">
@@ -37,9 +42,10 @@ export default function ProductPage(): JSX.Element {
       <main>
         <PageContent>
           {camera && <Product camera={camera}/>}
-          <ProductSimilar />
-          <ReviwBlock />
+          {similar.length > 0 && <ProductSimilar cameras={similar}/>}
+          <ReviwBlock reviews={reviews}/>
         </PageContent>
+        {isModalActive && selectidCard && <Modal camera={selectidCard}/>}
       </main>
       <a className="up-btn" href="#header">
         <svg width="12" height="18" aria-hidden="true">

@@ -1,6 +1,6 @@
 type RatingBarProps = {
   rating: number;
-  reviewCount: number;
+  reviewCount?: number;
   ratingBarClassName: string;
 }
 
@@ -25,7 +25,12 @@ export default function RatingBar ({rating, reviewCount, ratingBarClassName}: Ra
         }
       })}
       <p className="visually-hidden">Рейтинг: {rating}</p>
-      <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviewCount}</p>
+      {reviewCount &&
+        <p className="rate__count">
+          <span className="visually-hidden">Всего оценок:
+          </span>
+          {reviewCount}
+        </p>}
     </div>
   );
 }

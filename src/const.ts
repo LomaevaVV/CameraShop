@@ -1,6 +1,7 @@
 export const MAX_CARDS_ON_PAGE = 9;
 export const DEFOLT_CATALOG_PAGE = 1;
 export const PAGINATION_STEP = 1;
+export const MAX_CARDS_ON_SLIDER = 3;
 export const HOST_URL = 'http://localhost:3000';
 
 export enum AppRoute {
@@ -20,7 +21,8 @@ export const APIRoute = {
 export enum NameSpace {
   Cameras = 'CAMERAS',
   Promo = 'PROMO',
-  App = 'APP'
+  App = 'APP',
+  Reviews = 'REVIEWS'
 }
 
 export const enum FetchStatus {
@@ -33,6 +35,7 @@ export const enum FetchStatus {
 export enum ClassName {
   Product = 'product',
   ProductCard = 'product-card',
+  ReviewCard = 'review-card',
 }
 
 
