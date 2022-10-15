@@ -11,9 +11,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchProductAction, fetchReviewsAction, fetchSimilarAction } from '../../store/api-actions';
 import { getProduct, getProductFetchStatus, getSimilar } from '../../store/cameras/selectors';
 import { Camera } from '../../types/camera';
-import { getSelectedCamera, getModalActive } from '../../store/app-process/selectors';
+import { getSelectedCamera, getModalState } from '../../store/app-process/selectors';
 import Modal from '../../components/modal/modal';
 import { getReviews } from '../../store/reviews/selectors';
+import { ModalState } from '../../const';
 
 
 export default function ProductPage(): JSX.Element {
@@ -30,7 +31,7 @@ export default function ProductPage(): JSX.Element {
   const camera: Camera | undefined = useAppSelector(getProduct);
   const similar = useAppSelector(getSimilar);
   const reviews = useAppSelector(getReviews);
-  const isModalActive = useAppSelector(getModalActive);
+  const modalState: string = useAppSelector(getModalState);
   const selectidCard: Camera | undefined = useAppSelector(getSelectedCamera);
 
   window.console.log(useAppSelector(getReviews), prosuctFetchStatus);
@@ -45,7 +46,7 @@ export default function ProductPage(): JSX.Element {
           {similar.length > 0 && <ProductSimilar cameras={similar}/>}
           <ReviwBlock reviews={reviews}/>
         </PageContent>
-        {isModalActive && selectidCard && <Modal camera={selectidCard}/>}
+        {modalState !== ModalState.Closed && <Modal camera={selectidCard} modalState={modalState}/>}
       </main>
       <a className="up-btn" href="#header">
         <svg width="12" height="18" aria-hidden="true">

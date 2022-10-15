@@ -38,4 +38,10 @@ export enum ClassName {
   ReviewCard = 'review-card',
 }
 
+export enum ModalState {
+  Closed = 'closed',
+  AddReview = 'AddReview',
+  AddBasket = 'AddBasket',
+}
+
 

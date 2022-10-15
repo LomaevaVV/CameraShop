@@ -1,7 +1,7 @@
 import { generatePath, Link } from 'react-router-dom';
-import { AppRoute, ClassName, HOST_URL } from '../../const';
+import { AppRoute, ClassName, HOST_URL, ModalState } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { changeModalActive, setSelectedCamera } from '../../store/app-process/app-process';
+import { changeModalState, setSelectedCamera } from '../../store/app-process/app-process';
 import { Camera } from '../../types/camera';
 import RatingBar from '../rating-bar/rating-bar';
 import cn from 'classnames';
@@ -16,7 +16,7 @@ export default function ProductCard ({camera, isActive}: ProductCardProps): JSX.
 
   const HandleClickBuyButton = () => {
     dispatch(setSelectedCamera(camera));
-    dispatch(changeModalActive(true));
+    dispatch(changeModalState(ModalState.AddBasket));
   };
 
   const getCardClassName = () :string=> cn('product-card', {
