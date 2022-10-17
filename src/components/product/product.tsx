@@ -1,12 +1,23 @@
-import { ClassName, HOST_URL } from '../../const';
+import { ClassName, HOST_URL, ProductTubs } from '../../const';
 import { Camera } from '../../types/camera';
 import RatingBar from '../rating-bar/rating-bar';
+import cn from 'classnames';
+import { useEffect, useState } from 'react';
 
 type ProductProps = {
   camera: Camera;
 }
 
 export default function Product({camera}: ProductProps): JSX.Element {
+  const [activeTab, setActiveTab] = useState(ProductTubs.Features);
+
+  useEffect(() => {
+    setActiveTab(ProductTubs.Features);
+  }, [camera]);
+
+  const getClassName = (className: string, tabName: string) => cn(className, {
+    'is-active': activeTab === tabName
+  });
 
   return (
     <div className="page-content__section">
@@ -29,11 +40,23 @@ export default function Product({camera}: ProductProps): JSX.Element {
             </button>
             <div className="tabs product__tabs">
               <div className="tabs__controls product__tabs-controls">
-                <button className="tabs__control" type="button">Характеристики</button>
-                <button className="tabs__control is-active" type="button">Описание</button>
+                <button
+                  onClick={() => setActiveTab(ProductTubs.Features)}
+                  className={getClassName('tabs__control', ProductTubs.Features)}
+                  type="button"
+                >
+                  Характеристики
+                </button>
+                <button
+                  onClick={() => setActiveTab(ProductTubs.Description)}
+                  className={getClassName('tabs__control', ProductTubs.Description)}
+                  type="button"
+                >
+                  Описание
+                </button>
               </div>
               <div className="tabs__content">
-                <div className="tabs__element">
+                <div className={getClassName('tabs__element', ProductTubs.Features)}>
                   <ul className="product__tabs-list">
                     <li className="item-list"><span className="item-list__title">Артикул:</span>
                       <p className="item-list__text"> {camera.vendorCode}</p>
@@ -49,7 +72,7 @@ export default function Product({camera}: ProductProps): JSX.Element {
                     </li>
                   </ul>
                 </div>
-                <div className="tabs__element is-active">
+                <div className={getClassName('tabs__element', ProductTubs.Description)}>
                   <div className="product__tabs-text">
                     <p>{camera.description}</p>
                     <p>Вы&nbsp;тоже можете прикоснуться к&nbsp;волшебству аналоговой съёмки, заказав этот чудо-аппарат. Кто знает, может с&nbsp;{camera.name}&nbsp;начнётся ваш путь к&nbsp;наградам всех престижных кинофестивалей.</p>

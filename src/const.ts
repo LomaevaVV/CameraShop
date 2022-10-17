@@ -1,6 +1,7 @@
 export const MAX_CARDS_ON_PAGE = 9;
 export const DEFOLT_CATALOG_PAGE = 1;
 export const PAGINATION_STEP = 1;
+export const PAGE_PATH_ARRAY_IDX = 1;
 export const MAX_CARDS_ON_SLIDER = 3;
 export const HOST_URL = 'http://localhost:3000';
 
@@ -44,4 +45,7 @@ export enum ModalState {
   AddBasket = 'AddBasket',
 }
 
-
+export enum ProductTubs {
+  Description = 'description',
+  Features = 'features'
+}

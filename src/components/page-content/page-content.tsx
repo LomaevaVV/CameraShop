@@ -3,11 +3,12 @@ import { PropsWithChildren } from 'react';
 import { useAppSelector } from '../../hooks';
 import { Camera } from '../../types/camera';
 import { getProduct } from '../../store/cameras/selectors';
-import { AppRoute } from '../../const';
+import { AppRoute, PAGE_PATH_ARRAY_IDX } from '../../const';
 
 export default function PageContent({children}: PropsWithChildren): JSX.Element {
   const camera: Camera | undefined = useAppSelector(getProduct);
   const pathname = useLocation().pathname;
+  const getPageName = (path: string) => path.split('/')[PAGE_PATH_ARRAY_IDX];
 
   return (
     <div className="page-content">
@@ -21,13 +22,13 @@ export default function PageContent({children}: PropsWithChildren): JSX.Element 
                 </svg>
               </Link>
             </li>
-            {pathname.includes(AppRoute.Catalog) &&
+            {pathname.includes(getPageName(AppRoute.Catalog)) &&
               <li className="breadcrumbs__item">
                 <span className="breadcrumbs__link breadcrumbs__link--active">
                   Каталог
                 </span>
               </li>}
-            {pathname.includes(AppRoute.Product.slice(0,8)) &&
+            {pathname.includes(getPageName(AppRoute.Product)) &&
               <>
                 <li className="breadcrumbs__item">
                   <Link className="breadcrumbs__link" to={AppRoute.Catalog}>
