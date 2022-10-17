@@ -1,6 +1,9 @@
+import dayjs from 'dayjs';
+import 'dayjs/locale/ru';
 import { ClassName } from '../../const';
 import { Review } from '../../types/review';
 import RatingBar from '../rating-bar/rating-bar';
+
 
 type ReviwCardProps = {
   review: Review;
@@ -8,11 +11,12 @@ type ReviwCardProps = {
 
 export default function ReviwCard({review}: ReviwCardProps): JSX.Element {
 
+
   return (
     <li className="review-card">
       <div className="review-card__head">
         <p className="title title--h4">{review.userName}</p>
-        <time className="review-card__data" dateTime="2022-04-13">{review.createAt}</time>
+        <time className="review-card__data" dateTime="2022-04-13">{dayjs(review.createAt).locale('ru').format('D MMMM')}</time>
       </div>
       <RatingBar
         rating={review.rating}

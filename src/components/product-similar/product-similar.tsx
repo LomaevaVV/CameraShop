@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { MAX_CARDS_ON_SLIDER } from '../../const';
-import { Camera, Cameras } from '../../types/camera';
+import { Cameras } from '../../types/camera';
 import ProductCard from '../product-card/product-card';
 
 type ProductSimilarProps = {
@@ -12,18 +12,14 @@ export default function ProductSimilar({cameras}: ProductSimilarProps): JSX.Elem
 
   let camerasOnSlider = cameras.slice(firstCardIdx, firstCardIdx + MAX_CARDS_ON_SLIDER);
 
-  const isCardActive = (camera: Camera) => camerasOnSlider.includes(camera);
-
-  // const handleSliderNextClick = () => {
-  //   setFirstCardIdx(firstCardIdx + 1);
-  //   camerasOnSlider = cameras.slice(firstCardIdx, firstCardIdx + MAX_CARDS_ON_SLIDER);
-  //   window.console.log(firstCardIdx, camerasOnSlider, 1);
-  // };
+  const handleSliderNextClick = () => {
+    setFirstCardIdx(firstCardIdx + 1);
+    camerasOnSlider = cameras.slice(firstCardIdx, firstCardIdx + MAX_CARDS_ON_SLIDER);
+  };
 
   const handleSliderPrevClick = () => {
     setFirstCardIdx(firstCardIdx - 1);
     camerasOnSlider = cameras.slice(firstCardIdx, firstCardIdx + MAX_CARDS_ON_SLIDER);
-    window.console.log(firstCardIdx, camerasOnSlider);
   };
 
   return (
@@ -37,7 +33,7 @@ export default function ProductSimilar({cameras}: ProductSimilarProps): JSX.Elem
                 <ProductCard
                   key={item.id}
                   camera={item}
-                  isActive={isCardActive(item)}
+                  isActive={camerasOnSlider.includes(item)}
                 />
               ))}
             </div>
@@ -46,7 +42,7 @@ export default function ProductSimilar({cameras}: ProductSimilarProps): JSX.Elem
               className="slider-controls slider-controls--prev"
               type="button"
               aria-label="Предыдущий слайд"
-              disabled
+              disabled={camerasOnSlider.includes(cameras[0])}
             >
               <svg width="7" height="12" aria-hidden="true">
                 <use xlinkHref="#icon-arrow"></use>
@@ -56,10 +52,8 @@ export default function ProductSimilar({cameras}: ProductSimilarProps): JSX.Elem
               className="slider-controls slider-controls--next"
               type="button"
               aria-label="Следующий слайд"
-              onClick={() => {
-                setFirstCardIdx(firstCardIdx + 1);
-                window.console.log(firstCardIdx);
-              }}
+              onClick={handleSliderNextClick}
+              disabled={camerasOnSlider.includes(cameras[cameras.length - 1])}
             >
               <svg width="7" height="12" aria-hidden="true">
                 <use xlinkHref="#icon-arrow"></use>
