@@ -1,7 +1,11 @@
-import { ModalState } from '../../const';
-import { useAppDispatch } from '../../hooks';
-import { changeModalState } from '../../store/app-process/app-process';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { ModalState, MORE_REVIEWS_STEP, SCROLL_TIMEOUT } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeModalState, setReviewsAmount } from '../../store/app-process/app-process';
+import { getReviewsAmount, getReviewsOnPage } from '../../store/app-process/selectors';
 import { Reviews } from '../../types/review';
+import { debounce } from '../../utils';
 import ReviwCard from './review-card';
 
 type ReviwBlockProps = {
@@ -9,12 +13,36 @@ type ReviwBlockProps = {
 }
 
 export default function ReviwBlock({reviews}: ReviwBlockProps): JSX.Element {
-  const reviewsActive = reviews.slice(0, 3);
+  const {id} = useParams();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setReviewsAmount(MORE_REVIEWS_STEP));
+  }, [dispatch, id]);
+
+  const reviewsAmount = useAppSelector(getReviewsAmount);
+  const reviewsOnPage = useAppSelector(getReviewsOnPage);
 
   const HandleClickNewReviewBtn = () => {
     dispatch(changeModalState(ModalState.AddReview));
   };
+
+  const handleMoreReviewsBtnClick = () => {
+    dispatch(setReviewsAmount(reviewsAmount + MORE_REVIEWS_STEP));
+  };
+
+  const handleWindowScroll = debounce(() => {
+    dispatch(setReviewsAmount(reviewsAmount + MORE_REVIEWS_STEP));
+  }, SCROLL_TIMEOUT);
+
+  useEffect(() => {
+    if (!reviewsOnPage.includes(reviews[reviews.length - 1])) {
+      window.addEventListener('scroll', handleWindowScroll);
+
+      return () => {
+        window.removeEventListener('scroll', handleWindowScroll);
+      };
+    }}, [handleWindowScroll, reviews, reviewsOnPage]);
 
   return (
     <div className="page-content__section">
@@ -31,7 +59,7 @@ export default function ReviwBlock({reviews}: ReviwBlockProps): JSX.Element {
             </button>
           </div>
           <ul className="review-block__list">
-            {reviewsActive.map((item) => (
+            {reviewsOnPage.map((item) => (
               <ReviwCard
                 key={item.id}
                 review={item}
@@ -39,7 +67,13 @@ export default function ReviwBlock({reviews}: ReviwBlockProps): JSX.Element {
             ))}
           </ul>
           <div className="review-block__buttons">
-            <button className="btn btn--purple" type="button">Показать больше отзывов
+            <button
+              onClick={handleMoreReviewsBtnClick}
+              className="btn btn--purple"
+              type="button"
+              disabled = {reviewsOnPage.includes(reviews[reviews.length - 1])}
+            >
+              Показать больше отзывов
             </button>
           </div>
         </div>

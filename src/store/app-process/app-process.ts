@@ -1,15 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ModalState, NameSpace } from '../../const';
+import { ModalState, MORE_REVIEWS_STEP, NameSpace } from '../../const';
 import { Camera } from '../../types/camera';
+import { Reviews } from '../../types/review';
 
 type AppProcess = {
   ModalState: string;
   selectedCameraId: Camera | undefined;
+  reviewsAmount: number;
+  reviewsOnPage: Reviews;
 };
 
 const initialState: AppProcess = {
   ModalState: ModalState.Closed,
-  selectedCameraId: undefined
+  selectedCameraId: undefined,
+  reviewsAmount: MORE_REVIEWS_STEP,
+  reviewsOnPage: [],
 };
 
 export const appProcess = createSlice({
@@ -21,8 +26,11 @@ export const appProcess = createSlice({
     },
     setSelectedCamera: (state, action: {payload: Camera | undefined}) => {
       state.selectedCameraId = action.payload;
+    },
+    setReviewsAmount: (state, action: {payload: number}) => {
+      state.reviewsAmount = action.payload;
     }
   }
 });
 
-export const {changeModalState, setSelectedCamera} = appProcess.actions;
+export const {changeModalState, setSelectedCamera, setReviewsAmount} = appProcess.actions;
