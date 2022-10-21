@@ -5,16 +5,14 @@ import PageContent from '../../components/page-content/page-content';
 import { useAppSelector } from '../../hooks';
 import { getPromo } from '../../store/promo/selectors';
 import Modal from '../../components/modal/modal';
-import { getModalState, getSelectedCamera } from '../../store/app-process/selectors';
-import { Camera } from '../../types/camera';
 import Catalog from '../../components/catalog/catalog';
 import { ModalState } from '../../const';
+import { getModalState } from '../../store/app-process/selectors';
 
 
 export default function CatalogPage(): JSX.Element {
   const promo = useAppSelector(getPromo);
-  const modalState = useAppSelector(getModalState);
-  const selectidCard: Camera | undefined = useAppSelector(getSelectedCamera);
+  const modalState: string = useAppSelector(getModalState);
 
   return (
     <div className="wrapper">
@@ -25,7 +23,7 @@ export default function CatalogPage(): JSX.Element {
         <PageContent>
           <Catalog />
         </PageContent>
-        {modalState !== ModalState.Closed && <Modal camera={selectidCard} modalState={modalState}/>}
+        {modalState !== ModalState.Closed && <Modal modalState={modalState}/>}
       </main>
 
       <Footer />

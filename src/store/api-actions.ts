@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { APIRoute, MAX_CARDS_ON_PAGE } from '../const';
+import { APIRoute, MAX_CARDS_ON_PAGE, ModalState } from '../const';
 import { Camera, Cameras } from '../types/camera';
 import { AppDispatch, State } from '../types/state';
 import { toast } from 'react-toastify';
 import { Promo } from '../types/promo';
 import { generatePath } from 'react-router-dom';
-import { Reviews } from '../types/review';
+import { Review, ReviewComment, Reviews } from '../types/review';
+import { changeModalState } from './app-process/app-process';
 
 export const fetchCamerasAction = createAsyncThunk<{data: Cameras; camerasTotalCount: string}, number, {
   dispatch: AppDispatch;
@@ -99,7 +100,7 @@ export const fetchReviewsAction = createAsyncThunk<Reviews, number, {
   'data/fetchReviews',
   async (offerId, {extra: api}) => {
     try {
-      const {data} = await api.get<Reviews>(generatePath(APIRoute.Camera, {id: String(`${offerId}/reviews`)}));
+      const {data} = await api.get<Reviews>(generatePath(APIRoute.Camera, {id: String(`${offerId}/reviews?_sort=createAt&_order=desc`)}));
 
       return data;
     } catch(e) {
@@ -110,3 +111,27 @@ export const fetchReviewsAction = createAsyncThunk<Reviews, number, {
       throw e;
     }
   });
+
+export const postReviewAction = createAsyncThunk<Review, ReviewComment, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/post ReviewComment',
+  async ({userName, review, rating, advantage, disadvantage, cameraId}, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.post<Review>(APIRoute.Reviews,
+        {userName, review, rating, advantage, disadvantage, cameraId}
+      );
+
+      dispatch(changeModalState(ModalState.ReviewSuccess));
+      return data;
+    } catch(e) {
+      toast.error('Unable to to post a review', {
+        position: toast.POSITION.TOP_CENTER,
+      });
+
+      throw e;
+    }
+  },
+);

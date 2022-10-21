@@ -1,15 +1,51 @@
-type addReviewModalProps = {
+import React from 'react';
+import { useAppDispatch } from '../../hooks';
+import { postReviewAction } from '../../store/api-actions';
+import cn from 'classnames';
+import { useForm } from 'react-hook-form';
+import { ReviewComment, ReviewCommentKeysType } from '../../types/review';
+import { MIN_LENGTH_REVIEW } from '../../const';
+
+const RatingStarsTitles = [
+  {title: 'Отлично', value:'5'},
+  {title: 'Хорошо', value: '4'},
+  {title: 'Нормально', value: '3'},
+  {title: 'Плохо', value: '2'},
+  {title: 'Ужасно', value: '1'}
+];
+
+type AddReviewModalProps = {
   onClick: () => void;
+  cameraId: number;
 }
 
-export default function AddReviewModal({onClick}: addReviewModalProps): JSX.Element {
+export default function AddReviewModal({onClick, cameraId}: AddReviewModalProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors } } = useForm<ReviewComment>({
+      mode: 'all'
+    });
+
+  const onSubmit = (data: ReviewComment) => dispatch(postReviewAction({...data, rating: Number(data.rating), cameraId}));
+
+  const getClassName = (inputName: ReviewCommentKeysType) => cn('form-review__item', {
+    'is-invalid': errors[inputName]
+  });
+
   return (
     <div className="modal__content">
       <p className="title title--h4">Оставить отзыв</p>
       <div className="form-review">
-        <form method="post">
+        <form method="post" onSubmit={(e) => {
+          handleSubmit(onSubmit)(e)
+            .catch(() => {throw e;});
+        }}
+        >
           <div className="form-review__rate">
-            <fieldset className="rate form-review__item">
+            <fieldset className={`rate ${getClassName('rating')}`}>
               <legend className="rate__caption">Рейтинг
                 <svg width="9" height="9" aria-hidden="true">
                   <use xlinkHref="#icon-snowflake"></use>
@@ -17,65 +53,100 @@ export default function AddReviewModal({onClick}: addReviewModalProps): JSX.Elem
               </legend>
               <div className="rate__bar">
                 <div className="rate__group">
-                  <input className="visually-hidden" id="star-5" name="rate" type="radio" value="5" />
-                  <label className="rate__label" htmlFor="star-5" title="Отлично"></label>
-                  <input className="visually-hidden" id="star-4" name="rate" type="radio" value="4" />
-                  <label className="rate__label" htmlFor="star-4" title="Хорошо"></label>
-                  <input className="visually-hidden" id="star-3" name="rate" type="radio" value="3" />
-                  <label className="rate__label" htmlFor="star-3" title="Нормально"></label>
-                  <input className="visually-hidden" id="star-2" name="rate" type="radio" value="2" />
-                  <label className="rate__label" htmlFor="star-2" title="Плохо"></label>
-                  <input className="visually-hidden" id="star-1" name="rate" type="radio" value="1" />
-                  <label className="rate__label" htmlFor="star-1" title="Ужасно"></label>
+                  {RatingStarsTitles.map(({title, value}) => {
+                    window.console.log(value);
+                    return (
+                      <React.Fragment key={value}>
+                        <input
+                          className="visually-hidden"
+                          id={`star-${value}`}
+                          type="radio"
+                          value={value}
+                          { ...register('rating', {
+                            required: true,
+                          })}
+                        />
+                        <label className="rate__label" htmlFor={`star-${value}`} title={title}></label>
+                      </React.Fragment>
+                    );})}
                 </div>
                 <div className="rate__progress"><span className="rate__stars">0</span> <span>/</span> <span className="rate__all-stars">5</span>
                 </div>
               </div>
-              <p className="rate__message">Нужно оценить товар</p>
+              {errors?.rating && <p className="rate__message">Нужно оценить товар</p>}
             </fieldset>
-            <div className="custom-input form-review__item">
+            <div className={`custom-input ${getClassName('userName')}`}>
               <label>
                 <span className="custom-input__label">Ваше имя
                   <svg width="9" height="9" aria-hidden="true">
                     <use xlinkHref="#icon-snowflake"></use>
                   </svg>
                 </span>
-                <input type="text" name="user-name" placeholder="Введите ваше имя" required />
+                <input
+                  type="text"
+                  placeholder="Введите ваше имя"
+                  { ...register('userName', {
+                    required: true,
+                  })}
+                />
               </label>
-              <p className="custom-input__error">Нужно указать имя</p>
+              {errors?.userName && <p className="custom-input__error">Нужно указать имя</p>}
             </div>
-            <div className="custom-input form-review__item">
+            <div className={`custom-input ${getClassName('advantage')}`}>
               <label>
                 <span className="custom-input__label">Достоинства
                   <svg width="9" height="9" aria-hidden="true">
                     <use xlinkHref="#icon-snowflake"></use>
                   </svg>
                 </span>
-                <input type="text" name="user-plus" placeholder="Основные преимущества товара" required />
+                <input
+                  type="text"
+                  placeholder="Основные преимущества товара"
+                  {...register('advantage', {
+                    required: true
+                  })}
+                />
               </label>
-              <p className="custom-input__error">Нужно указать достоинства</p>
+              {errors?.advantage && <p className="custom-input__error">Нужно указать достоинства</p>}
             </div>
-            <div className="custom-input form-review__item">
+            <div className={`custom-input ${getClassName('disadvantage')}`}>
               <label>
                 <span className="custom-input__label">Недостатки
                   <svg width="9" height="9" aria-hidden="true">
                     <use xlinkHref="#icon-snowflake"></use>
                   </svg>
                 </span>
-                <input type="text" name="user-minus" placeholder="Главные недостатки товара" required />
+                <input
+                  type="text"
+                  placeholder="Главные недостатки товара"
+                  {...register('disadvantage', {
+                    required: true
+                  })}
+                />
               </label>
-              <p className="custom-input__error">Нужно указать недостатки</p>
+              {errors?.disadvantage && <p className="custom-input__error">Нужно указать недостатки</p>}
             </div>
-            <div className="custom-textarea form-review__item">
+            <div className={`custom-textarea ${getClassName('review')}`}>
               <label>
                 <span className="custom-textarea__label">Комментарий
                   <svg width="9" height="9" aria-hidden="true">
                     <use xlinkHref="#icon-snowflake"></use>
                   </svg>
                 </span>
-                <textarea name="user-comment" minLength={5} placeholder="Поделитесь своим опытом покупки"></textarea>
+                <textarea
+                  minLength={5}
+                  placeholder="Поделитесь своим опытом покупки"
+                  {...register('review', {
+                    required: true,
+                    minLength: {
+                      value: MIN_LENGTH_REVIEW,
+                      message: `Комментарий не менее ${MIN_LENGTH_REVIEW} символов`
+                    },
+                  })}
+                >
+                </textarea>
               </label>
-              <div className="custom-textarea__error">Нужно добавить комментарий</div>
+              {errors?.disadvantage && <div className="custom-textarea__error">{errors?.review?.message ? errors.review.message : 'Нужно добавить комментарий'}</div>}
             </div>
           </div>
           <button className="btn btn--purple form-review__btn" type="submit">Отправить отзыв</button>

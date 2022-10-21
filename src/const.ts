@@ -5,6 +5,7 @@ export const PAGE_PATH_ARRAY_IDX = 1;
 export const MAX_CARDS_ON_SLIDER = 3;
 export const MORE_REVIEWS_STEP = 3;
 export const SCROLL_TIMEOUT = 1000;
+export const MIN_LENGTH_REVIEW = 5;
 export const HOST_URL = 'http://localhost:3000';
 
 export enum AppRoute {
@@ -18,7 +19,8 @@ export enum AppRoute {
 export const APIRoute = {
   Cameras: '/cameras?_limit=9&_start=:FirstObjOnPageIdx',
   Camera: '/cameras/:id',
-  Promo: '/promo'
+  Promo: '/promo',
+  Reviews: '/reviews'
 } as const;
 
 export enum NameSpace {
@@ -43,8 +45,9 @@ export enum ClassName {
 
 export enum ModalState {
   Closed = 'closed',
-  AddReview = 'AddReview',
-  AddBasket = 'AddBasket',
+  AddReview = 'addReview',
+  ReviewSuccess = 'reviewSuccess',
+  AddBasket = 'addBasket',
 }
 
 export enum ProductTubs {

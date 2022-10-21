@@ -9,4 +9,15 @@ export type Review = {
   cameraId: number;
 };
 
+export type ReviewComment = {
+  userName: string;
+  review: string;
+  rating: number;
+  advantage: string;
+  disadvantage: string;
+  cameraId: number;
+};
+
 export type Reviews = Review[];
+
+export type ReviewCommentKeysType = keyof ReviewComment;

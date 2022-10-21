@@ -32,7 +32,9 @@ export default function ReviwBlock({reviews}: ReviwBlockProps): JSX.Element {
   };
 
   const handleWindowScroll = debounce(() => {
-    dispatch(setReviewsAmount(reviewsAmount + MORE_REVIEWS_STEP));
+    if (window.scrollY + 1 > document.documentElement.scrollHeight - document.documentElement.clientHeight) {
+      dispatch(setReviewsAmount(reviewsAmount + MORE_REVIEWS_STEP));
+    }
   }, SCROLL_TIMEOUT);
 
   useEffect(() => {
