@@ -1,5 +1,5 @@
 import { generatePath, Link } from 'react-router-dom';
-import { AppRoute, ClassName, HOST_URL, ModalState } from '../../const';
+import { AppRoute, ClassName, ModalState } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeModalState, setSelectedCamera } from '../../store/app-process/app-process';
 import { Camera } from '../../types/camera';
@@ -27,8 +27,8 @@ export default function ProductCard ({camera, isActive}: ProductCardProps): JSX.
     <div className={getCardClassName()}>
       <div className="product-card__img">
         <picture>
-          <source type="image/webp" srcSet={`${HOST_URL}/${camera.previewImgWebp}, ${HOST_URL}/${camera.previewImgWebp2x} 2x`} />
-          <img src={`${HOST_URL}/${camera.previewImg}`} srcSet={`${HOST_URL}/${camera.previewImg2x} 2x`} width="280" height="240" alt={camera.name} />
+          <source type="image/webp" srcSet={`${AppRoute.Main}${camera.previewImgWebp}, ${AppRoute.Main}${camera.previewImgWebp2x} 2x`} />
+          <img src={`${AppRoute.Main}${camera.previewImg}`} srcSet={`${AppRoute.Main}${camera.previewImg2x} 2x`} width="280" height="240" alt={camera.name} />
         </picture>
       </div>
       <div className="product-card__info">

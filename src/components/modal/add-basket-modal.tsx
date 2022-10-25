@@ -1,4 +1,4 @@
-import { HOST_URL } from '../../const';
+import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 
 type addBasketModalProps = {
@@ -13,8 +13,8 @@ export default function AddBasketModal({camera, onClick}: addBasketModalProps): 
       <div className="basket-item basket-item--short">
         <div className="basket-item__img">
           <picture>
-            <source type="image/webp" srcSet={`${HOST_URL}/${camera.previewImgWebp}, ${HOST_URL}/${camera.previewImgWebp2x} 2x`} />
-            <img src={`${HOST_URL}/${camera.previewImg}`} srcSet={`${HOST_URL}/${camera.previewImg2x} 2x`} width="140" height="120" alt="Фотоаппарат «Орлёнок»" />
+            <source type="image/webp" srcSet={`${AppRoute.Main}${camera.previewImgWebp}, ${AppRoute.Main}${camera.previewImgWebp2x} 2x`} />
+            <img src={`${AppRoute.Main}${camera.previewImg}`} srcSet={`${AppRoute.Main}${camera.previewImg2x} 2x`} width="140" height="120" alt="Фотоаппарат «Орлёнок»" />
           </picture>
         </div>
         <div className="basket-item__description">

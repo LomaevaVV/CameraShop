@@ -1,4 +1,4 @@
-import { ClassName, HOST_URL, ProductTubs } from '../../const';
+import { AppRoute, ClassName, ProductTubs } from '../../const';
 import { Camera } from '../../types/camera';
 import RatingBar from '../rating-bar/rating-bar';
 import cn from 'classnames';
@@ -25,8 +25,8 @@ export default function Product({camera}: ProductProps): JSX.Element {
         <div className="container">
           <div className="product__img">
             <picture>
-              <source type="image/webp" srcSet={`${HOST_URL}/${camera.previewImgWebp}, ${HOST_URL}/${camera.previewImgWebp2x} 2x`} />
-              <img src={`${HOST_URL}/${camera.previewImg}`} srcSet={`${HOST_URL}/${camera.previewImg2x} 2x`} width="560" height="480" alt="Ретрокамера Das Auge IV" />
+              <source type="image/webp" srcSet={`${AppRoute.Main}${camera.previewImgWebp}, ${AppRoute.Main}${camera.previewImgWebp2x} 2x`} />
+              <img src={`${AppRoute.Main}${camera.previewImg}`} srcSet={`${AppRoute.Main}${camera.previewImg2x} 2x`} width="560" height="480" alt="Ретрокамера Das Auge IV" />
             </picture>
           </div>
           <div className="product__content">

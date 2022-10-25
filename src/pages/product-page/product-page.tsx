@@ -14,7 +14,9 @@ import { Camera } from '../../types/camera';
 import Modal from '../../components/modal/modal';
 import { getReviews } from '../../store/reviews/selectors';
 import { getModalState } from '../../store/app-process/selectors';
-import { ModalState } from '../../const';
+import { FetchStatus, ModalState } from '../../const';
+import Loader from '../../components/loader/loader';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 
 export default function ProductPage(): JSX.Element {
@@ -33,7 +35,16 @@ export default function ProductPage(): JSX.Element {
   const reviews = useAppSelector(getReviews);
   const modalState: string = useAppSelector(getModalState);
 
-  window.console.log(useAppSelector(getReviews), prosuctFetchStatus);
+  if (
+    prosuctFetchStatus === FetchStatus.Idle ||
+    prosuctFetchStatus === FetchStatus.Loading
+  ) {
+    return <Loader />;
+  }
+
+  if (!camera || prosuctFetchStatus === FetchStatus.Rejected) {
+    return (<NotFoundPage />);
+  }
 
   return (
     <div className="wrapper">

@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeModalState, setReviewsAmount } from '../../store/app-process/app-process';
 import { getReviewsAmount, getReviewsOnPage } from '../../store/app-process/selectors';
 import { Reviews } from '../../types/review';
-import { debounce } from '../../utils';
+import { debounce } from '../../utils/utils';
 import ReviwCard from './review-card';
 
 type ReviwBlockProps = {
