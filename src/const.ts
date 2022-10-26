@@ -18,7 +18,7 @@ export enum AppRoute {
 export const APIRoute = {
   Cameras: '/cameras?_limit=9&_start=:FirstObjOnPageIdx',
   Camera: '/cameras/:id',
-  Promo: '/promo',
+  Promo: '/pro/mo',
   Reviews: '/reviews'
 } as const;
 

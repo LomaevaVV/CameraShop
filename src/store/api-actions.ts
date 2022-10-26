@@ -45,7 +45,7 @@ export const fetchPromoAction = createAsyncThunk<Promo, undefined, {
 
       return data;
     } catch(e) {
-      toast.error('Promo loading error', {
+      toast.warn('Promo loading error', {
         position: toast.POSITION.TOP_CENTER,
       });
 

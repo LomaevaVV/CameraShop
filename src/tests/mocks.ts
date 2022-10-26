@@ -1,11 +1,10 @@
 import { commerce, datatype, image, internet } from 'faker';
-import { Promo } from '../../types/promo';
-import { Camera } from '../../types/camera';
-import { Review } from '../../types/review';
-import { ReviewComment } from '../../types/review';
+import { Promo } from '../types/promo';
+import { Camera } from '../types/camera';
+import { Review } from '../types/review';
+import { ReviewComment } from '../types/review';
 
-export const MOCK_REVIEWS_AMOUNT = 17;
-export const MOCK_CAMERAS_AMOUNT = 35;
+export const FAKE_CAMERAS_AMOUNT = 37;
 
 export const makeFakePromo = (): Promo => ({
   id: datatype.number(),

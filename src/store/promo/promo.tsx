@@ -3,7 +3,7 @@ import { NameSpace, FetchStatus } from '../../const';
 import { Promo } from '../../types/promo';
 import { fetchPromoAction } from '../api-actions';
 
-type DataPromo = {
+export type DataPromo = {
   promo: Promo | null;
   promoFetchStatus: string;
 };

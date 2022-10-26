@@ -3,7 +3,7 @@ import { NameSpace, FetchStatus } from '../../const';
 import { Camera, Cameras } from '../../types/camera';
 import { fetchCamerasAction, fetchProductAction, fetchSimilarAction } from '../api-actions';
 
-type DataCameras = {
+export type DataCameras = {
   cameras: Cameras;
   camerasFetchStatus: string;
   camerasTotalCount: number;
