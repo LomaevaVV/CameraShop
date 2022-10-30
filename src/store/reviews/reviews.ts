@@ -28,7 +28,7 @@ export const dataReviews = createSlice({
       .addCase(postReviewAction.fulfilled, (state, action) => {
         state.reviewPostStatus = FetchStatus.Success;
         state.reviews.pop();
-        state.reviews.unshift(action.payload);
+        action.payload && state.reviews.unshift(action.payload);
       })
       .addCase(postReviewAction.rejected, (state) => {
         state.reviewPostStatus = FetchStatus.Rejected;

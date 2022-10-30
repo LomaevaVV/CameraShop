@@ -39,7 +39,8 @@
     "parserOptions": {
       "project": [
         "tsconfig.json",
-        "babel.config.json"
+        "babel.config.json",
+        "jest.config.json"
       ]
     },
     "overrides": [
@@ -67,6 +68,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.12.13",
     "@babel/preset-typescript": "^7.18.6",
     "@jedmao/redux-mock-store": "^3.0.5",
     "@testing-library/jest-dom": "^5.16.5",
@@ -81,6 +83,7 @@
     "axios-mock-adapter": "^1.21.2",
     "eslint-config-htmlacademy": "^7.0.0",
     "faker": "^5.5.3",
+    "jest-environment-jsdom": "^29.2.2",
     "redux-devtools-extension": "^2.13.9",
     "ts-jest": "^29.0.3",
     "typescript": "^4.8.4"

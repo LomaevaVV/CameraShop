@@ -3,15 +3,15 @@ import { ModalState, MORE_REVIEWS_STEP, NameSpace } from '../../const';
 import { Camera } from '../../types/camera';
 import { Reviews } from '../../types/review';
 
-type AppProcess = {
-  ModalState: string;
+export type AppProcess = {
+  modalState: string;
   selectedCameraId: Camera | undefined;
   reviewsAmount: number;
   reviewsOnPage: Reviews;
 };
 
 const initialState: AppProcess = {
-  ModalState: ModalState.Closed,
+  modalState: ModalState.Closed,
   selectedCameraId: undefined,
   reviewsAmount: MORE_REVIEWS_STEP,
   reviewsOnPage: [],
@@ -22,7 +22,7 @@ export const appProcess = createSlice({
   initialState,
   reducers: {
     changeModalState: (state, action: {payload: string}) => {
-      state.ModalState = action.payload;
+      state.modalState = action.payload;
     },
     setSelectedCamera: (state, action: {payload: Camera | undefined}) => {
       state.selectedCameraId = action.payload;

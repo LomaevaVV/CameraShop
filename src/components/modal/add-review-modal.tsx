@@ -53,22 +53,20 @@ export default function AddReviewModal({onClick, cameraId}: AddReviewModalProps)
               </legend>
               <div className="rate__bar">
                 <div className="rate__group">
-                  {RatingStarsTitles.map(({title, value}) => {
-                    window.console.log(value);
-                    return (
-                      <React.Fragment key={value}>
-                        <input
-                          className="visually-hidden"
-                          id={`star-${value}`}
-                          type="radio"
-                          value={value}
-                          { ...register('rating', {
-                            required: true,
-                          })}
-                        />
-                        <label className="rate__label" htmlFor={`star-${value}`} title={title}></label>
-                      </React.Fragment>
-                    );})}
+                  {RatingStarsTitles.map(({title, value}) => (
+                    <React.Fragment key={value}>
+                      <input
+                        className="visually-hidden"
+                        id={`star-${value}`}
+                        type="radio"
+                        value={value}
+                        { ...register('rating', {
+                          required: true,
+                        })}
+                      />
+                      <label className="rate__label" htmlFor={`star-${value}`} title={title}></label>
+                    </React.Fragment>
+                  ))}
                 </div>
                 <div className="rate__progress"><span className="rate__stars">0</span> <span>/</span> <span className="rate__all-stars">5</span>
                 </div>

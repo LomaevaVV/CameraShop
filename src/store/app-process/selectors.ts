@@ -5,7 +5,7 @@ import { Reviews } from '../../types/review';
 import { State } from '../../types/state';
 import { getReviews } from '../reviews/selectors';
 
-export const getModalState = (state: State): string => state[NameSpace.App].ModalState;
+export const getModalState = (state: State): string => state[NameSpace.App].modalState;
 export const getSelectedCamera = (state: State): Camera | undefined => state[NameSpace.App].selectedCameraId;
 export const getReviewsAmount = (state: State): number => state[NameSpace.App].reviewsAmount;
 

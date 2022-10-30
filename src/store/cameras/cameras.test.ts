@@ -1,17 +1,13 @@
-import { FetchStatus, MAX_CARDS_ON_PAGE } from '../../const';
-import { makeFakeCamera, FAKE_CAMERAS_AMOUNT } from '../../tests/mocks';
+import { FetchStatus } from '../../const';
+import { makeFakeProduct, FAKE_CAMERAS_AMOUNT, makeFakeCameras } from '../../tests/mocks';
 
 import { fetchProductAction, fetchCamerasAction, fetchSimilarAction } from '../api-actions';
 import { dataCameras, DataCameras } from './cameras';
 import { Camera, Cameras } from '../../types/camera';
 
-const fakeCameras: Cameras = [];
+const fakeCameras: Cameras = makeFakeCameras();
 
-for (let i = 0; i < MAX_CARDS_ON_PAGE; i++) {
-  fakeCameras.push(makeFakeCamera());
-}
-
-const fakeCamera: Camera = makeFakeCamera();
+const fakeCamera: Camera = makeFakeProduct();
 
 describe('Reducer: cameras', () => {
   let state: DataCameras;
