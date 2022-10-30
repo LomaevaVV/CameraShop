@@ -16,7 +16,7 @@ export default function Pagination(): JSX.Element {
   });
 
   return (
-    <div className="pagination">
+    <div className="pagination" data-testid='pagination'>
       <ul className="pagination__list">
         {activePage !== DEFOLT_CATALOG_PAGE &&
           <li className="pagination__item">

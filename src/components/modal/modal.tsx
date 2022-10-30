@@ -40,8 +40,8 @@ export default function Modal({modalState}: ModalProps): JSX.Element {
   });
 
   return (
-    <div className={getClassName()}>
-      <div className="modal__wrapper">
+    <div className={getClassName()} >
+      <div className="modal__wrapper" data-testid="modal">
         <div className="modal__overlay"></div>
         {modalState === ModalState.AddBasket
           && selectidCard

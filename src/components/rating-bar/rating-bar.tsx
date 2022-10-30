@@ -26,7 +26,7 @@ export default function RatingBar ({rating, reviewCount, ratingBarClassName}: Ra
       })}
       <p className="visually-hidden">Рейтинг: {rating}</p>
       {reviewCount &&
-        <p className="rate__count">
+        <p className="rate__count" data-testid='rate__count'>
           <span className="visually-hidden">Всего оценок:
           </span>
           {reviewCount}

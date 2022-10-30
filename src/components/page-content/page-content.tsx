@@ -39,7 +39,7 @@ export default function PageContent({children}: PropsWithChildren): JSX.Element 
                   </Link>
                 </li>
                 <li className="breadcrumbs__item">
-                  <span className="breadcrumbs__link breadcrumbs__link--active">{camera?.name}</span>
+                  <span className="breadcrumbs__link breadcrumbs__link--active" data-testid='camera_breadcrumb'>{camera?.name}</span>
                 </li>
               </>}
           </ul>
