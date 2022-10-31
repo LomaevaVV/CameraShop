@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import browserHistory from './browser-history';
 import App from './components/app/app';
+import HistoryRouter from './components/history-route/history-route';
+import ScrollToTop from './components/scroll-to-top/scroll-to-top';
 import { store } from './store';
 import { fetchPromoAction } from './store/api-actions';
 
@@ -16,8 +19,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
-      <ToastContainer />
+      <HistoryRouter history={browserHistory}>
+        <ScrollToTop />
+        <App />
+        <ToastContainer />
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>,
 );

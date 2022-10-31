@@ -1,6 +1,6 @@
 import { generatePath, Link, useParams } from 'react-router-dom';
 import cn from 'classnames';
-import { AppRoute, DEFOLT_CATALOG_PAGE, MAX_CARDS_ON_PAGE, PAGINATION_STEP } from '../../const';
+import { AppRoute, DEFAULT_CATALOG_PAGE, MAX_CARDS_ON_PAGE, PAGINATION_STEP } from '../../const';
 import { useAppSelector } from '../../hooks/index';
 import { getCamerasTotalCount } from '../../store/cameras/selectors';
 
@@ -18,7 +18,7 @@ export default function Pagination(): JSX.Element {
   return (
     <div className="pagination" data-testid='pagination'>
       <ul className="pagination__list">
-        {activePage !== DEFOLT_CATALOG_PAGE &&
+        {activePage !== DEFAULT_CATALOG_PAGE &&
           <li className="pagination__item">
             <Link
               className="pagination__link pagination__link--text"

@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { generatePath } from 'react-router-dom';
 import { Action } from 'redux';
 import thunk, { ThunkDispatch } from 'redux-thunk';
-import { APIRoute, DEFOLT_CATALOG_PAGE, MAX_CARDS_ON_PAGE } from '../const';
+import { APIRoute, DEFAULT_CATALOG_PAGE, MAX_CARDS_ON_PAGE } from '../const';
 import { createAPI } from '../services/api';
 import { makeFakeProduct, makeFakeReviewComment, makeFakePromo, makeFakeReviews, FAKE_CAMERAS_AMOUNT } from '../tests/mocks';
 import { State } from '../types/state';
@@ -25,12 +25,12 @@ describe('Async actions', () => {
 
   it('should dispatch fetchCamerasAction when GET /cameras?_limit=9&_page=:page when "page" - is a page-number', async () => {
     mockAPI
-      .onGet(generatePath(APIRoute.Cameras, { FirstObjOnPageIdx: String(String((DEFOLT_CATALOG_PAGE - 1) * MAX_CARDS_ON_PAGE)) }))
+      .onGet(generatePath(APIRoute.Cameras, { FirstObjOnPageIdx: String(String((DEFAULT_CATALOG_PAGE - 1) * MAX_CARDS_ON_PAGE)) }))
       .reply(200, { data: [] as Camera[], camerasTotalCount: FAKE_CAMERAS_AMOUNT }, { 'x-total-count': FAKE_CAMERAS_AMOUNT });
 
     const store = mockStore();
 
-    await store.dispatch(fetchCamerasAction(DEFOLT_CATALOG_PAGE));
+    await store.dispatch(fetchCamerasAction(DEFAULT_CATALOG_PAGE));
 
     const actions = store.getActions().map(( { type }: Action<string> ) => type );
 
