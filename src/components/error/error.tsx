@@ -1,12 +1,12 @@
 import {Link} from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, DEFAULT_CATALOG_PAGE } from '../../const';
 import { store } from '../../store';
 import { fetchCamerasAction } from '../../store/api-actions';
 
 
 export default function Error(): JSX.Element {
   const onErrorButtonHover = () => {
-    store.dispatch(fetchCamerasAction(1));
+    store.dispatch(fetchCamerasAction(DEFAULT_CATALOG_PAGE));
   };
 
   return (

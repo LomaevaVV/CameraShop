@@ -23,7 +23,7 @@ describe('Async actions', () => {
       ThunkDispatch<State, typeof api, Action>
     >(middlewares);
 
-  it('should dispatch fetchCamerasAction when GET /cameras?_limit=9&_page=:page when "page" - is a page-number', async () => {
+  it('should dispatch fetchCamerasAction when GET /cameras?_limit=9&_start=:FirstObjOnPageIdx, where FirstObjOnPageIdx - is a idx of first product on page', async () => {
     mockAPI
       .onGet(generatePath(APIRoute.Cameras, { FirstObjOnPageIdx: String(String((DEFAULT_CATALOG_PAGE - 1) * MAX_CARDS_ON_PAGE)) }))
       .reply(200, { data: [] as Camera[], camerasTotalCount: FAKE_CAMERAS_AMOUNT }, { 'x-total-count': FAKE_CAMERAS_AMOUNT });

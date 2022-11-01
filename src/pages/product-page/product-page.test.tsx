@@ -28,7 +28,7 @@ describe('Component: ProductPage', () => {
       APP: {
         ModalState: ModalState.Closed,
         reviewsAmount: MORE_REVIEWS_STEP,
-        reviewsOnPage: fakeReviews.slice(0, 3),
+        reviewsOnPage: fakeReviews.slice(0, MORE_REVIEWS_STEP),
       },
     });
 

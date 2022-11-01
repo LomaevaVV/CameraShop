@@ -10,20 +10,15 @@ export default function RatingBar ({rating, reviewCount, ratingBarClassName}: Ra
   return (
 
     <div className={`rate ${ratingBarClassName}__rate`}>
-      {ratingBar.map((item) => {
-        if (item <= rating) {
-          return (
-            <svg key={item} width="17" height="16" aria-hidden="true">
-              <use xlinkHref="#icon-full-star"></use>
-            </svg>
-          );
-        }
-        else { return (
-          <svg key={item} width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>);
-        }
-      })}
+      {ratingBar.map((item) => item <= rating
+        ?
+        <svg key={item} width="17" height="16" aria-hidden="true">
+          <use xlinkHref="#icon-full-star"></use>
+        </svg>
+        :
+        <svg key={item} width="17" height="16" aria-hidden="true">
+          <use xlinkHref="#icon-star"></use>
+        </svg>)}
       <p className="visually-hidden">Рейтинг: {rating}</p>
       {reviewCount &&
         <p className="rate__count" data-testid='rate__count'>
