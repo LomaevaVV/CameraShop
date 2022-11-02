@@ -17,6 +17,7 @@ import { getModalState } from '../../store/app-process/selectors';
 import { FetchStatus, ModalState } from '../../const';
 import Loader from '../../components/loader/loader';
 import NotFoundPage from '../not-found-page/not-found-page';
+import { scrollToTop } from '../../utils';
 
 
 export default function ProductPage(): JSX.Element {
@@ -58,11 +59,11 @@ export default function ProductPage(): JSX.Element {
         </PageContent>
         {modalState !== ModalState.Closed && <Modal modalState={modalState}/>}
       </main>
-      <a className="up-btn" href="#header">
+      <button type="button" className="up-btn" onClick={() => scrollToTop(0)}>
         <svg width="12" height="18" aria-hidden="true">
           <use xlinkHref="#icon-arrow2"></use>
         </svg>
-      </a>
+      </button>
 
       <Footer />
     </div>

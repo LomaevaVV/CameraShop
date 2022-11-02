@@ -8,3 +8,8 @@ export function debounce<F extends (...args: Parameters<F>) => ReturnType<F>>(
     timeout = setTimeout(() => func(...args), waitFor);
   };
 }
+
+export const scrollToTop = (x: number) => window.scrollTo({
+  top: x,
+  behavior: 'smooth'
+});

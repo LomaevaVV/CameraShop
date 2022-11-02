@@ -8,6 +8,8 @@ import AddBasketModal from './add-basket-modal';
 import AddReviewModal from './add-review-modal';
 import ReviewSuccess from './review-success';
 import cn from 'classnames';
+import FocusLock from 'react-focus-lock';
+import { RemoveScroll } from 'react-remove-scroll';
 
 type ModalProps = {
   modalState: string;
@@ -21,17 +23,13 @@ export default function Modal({modalState}: ModalProps): JSX.Element {
 
   const handleClickCloseButton = () => {
     dispatch(changeModalState(ModalState.Closed));
-    document.body.style.overflow = 'unset';
   };
 
   const handleEscPress = (evt: KeyboardEvent) => {
     if (evt.key === 'Esc' || evt.key === 'Escape') {
       dispatch(changeModalState(ModalState.Closed));
-      document.body.style.overflow = 'unset';
     }
   };
-
-  document.body.style.overflow = 'hidden';
 
   document.addEventListener('keydown', handleEscPress);
 
@@ -40,20 +38,24 @@ export default function Modal({modalState}: ModalProps): JSX.Element {
   });
 
   return (
-    <div className={getClassName()} >
-      <div className="modal__wrapper" data-testid="modal">
-        <div className="modal__overlay"></div>
-        {modalState === ModalState.AddBasket
-          && selectidCard
-          && <AddBasketModal camera={selectidCard} onClick={handleClickCloseButton}/>}
+    <FocusLock>
+      <RemoveScroll enabled>
+        <div className={getClassName()} >
+          <div className="modal__wrapper" data-testid="modal">
+            <div className="modal__overlay"></div>
+            {modalState === ModalState.AddBasket
+              && selectidCard
+              && <AddBasketModal camera={selectidCard} onClick={handleClickCloseButton}/>}
 
-        {modalState === ModalState.AddReview
-          && camera
-          && <AddReviewModal cameraId={camera.id} onClick={handleClickCloseButton}/>}
+            {modalState === ModalState.AddReview
+              && camera
+              && <AddReviewModal cameraId={camera.id} onClick={handleClickCloseButton}/>}
 
-        {modalState === ModalState.ReviewSuccess
-          && <ReviewSuccess onClick={handleClickCloseButton}/>}
-      </div>
-    </div>
+            {modalState === ModalState.ReviewSuccess
+              && <ReviewSuccess onClick={handleClickCloseButton}/>}
+          </div>
+        </div>
+      </RemoveScroll>
+    </FocusLock>
   );
 }
