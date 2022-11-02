@@ -56,6 +56,7 @@ export default function AddReviewModal({onClick, cameraId}: AddReviewModalProps)
                   {RatingStarsTitles.map(({title, value}) => (
                     <React.Fragment key={value}>
                       <input
+                        autoFocus
                         className="visually-hidden"
                         id={`star-${value}`}
                         type="radio"

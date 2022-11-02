@@ -42,7 +42,7 @@ export default function Modal({modalState}: ModalProps): JSX.Element {
       <RemoveScroll enabled>
         <div className={getClassName()} >
           <div className="modal__wrapper" data-testid="modal">
-            <div className="modal__overlay"></div>
+            <div className="modal__overlay" onClick={() => dispatch(changeModalState(ModalState.Closed))}></div>
             {modalState === ModalState.AddBasket
               && selectidCard
               && <AddBasketModal camera={selectidCard} onClick={handleClickCloseButton}/>}

@@ -10,7 +10,7 @@ export default function ReviewSuccess({onClick}: ReviewSuccessProps): JSX.Elemen
         <use xlinkHref="#icon-review-success"></use>
       </svg>
       <div className="modal__buttons">
-        <button onClick={onClick} className="btn btn--purple modal__btn modal__btn--fit-width" type="button">Вернуться к покупкам
+        <button autoFocus onClick={onClick} className="btn btn--purple modal__btn modal__btn--fit-width" type="button">Вернуться к покупкам
         </button>
       </div>
       <button onClick={onClick} className="cross-btn" type="button" aria-label="Закрыть попап">
