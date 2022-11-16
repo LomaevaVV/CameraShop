@@ -20,6 +20,7 @@ describe('Reducer: cameras', () => {
       product: undefined,
       productFetchStatus: FetchStatus.Idle,
       similar: [],
+      camerasByName: []
     };
   });
 

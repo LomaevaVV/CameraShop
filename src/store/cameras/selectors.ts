@@ -12,3 +12,4 @@ export const getProduct = (state: State): Camera | undefined => state[NameSpace.
 export const getProductFetchStatus = (state: State): string => state[NameSpace.Cameras].productFetchStatus;
 
 export const getSimilar = (state: State): Cameras | [] => state[NameSpace.Cameras].similar;
+export const getCamerasByName = (state: State): Cameras | [] => state[NameSpace.Cameras].camerasByName;

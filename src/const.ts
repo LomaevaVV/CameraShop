@@ -16,7 +16,7 @@ export enum AppRoute {
 }
 
 export const APIRoute = {
-  Cameras: '/cameras?_limit=9&_start=:FirstObjOnPageIdx',
+  Cameras: '/cameras',
   Camera: '/cameras/:id',
   Promo: '/promo',
   Reviews: '/reviews'
@@ -52,4 +52,10 @@ export enum ModalState {
 export enum ProductTubs {
   Description = 'description',
   Features = 'features'
+}
+
+export enum QueryParams {
+  CamerasAmountOnPage = '_limit',
+  FirstCameraOnPage = '_start',
+  SeachByName = 'name_like'
 }

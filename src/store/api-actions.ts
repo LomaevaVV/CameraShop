@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { APIRoute, MAX_CARDS_ON_PAGE, ModalState } from '../const';
+import { APIRoute, MAX_CARDS_ON_PAGE, ModalState, QueryParams } from '../const';
 import { Camera, Cameras } from '../types/camera';
 import { AppDispatch, State } from '../types/state';
 import { toast } from 'react-toastify';
@@ -17,7 +17,11 @@ export const fetchCamerasAction = createAsyncThunk<{data: Cameras; camerasTotalC
   'data/fetchCameras',
   async (pageId, {extra: api}) => {
     try {
-      const {data, headers} = await api.get<Cameras>(generatePath(APIRoute.Cameras, {FirstObjOnPageIdx: String((pageId - 1) * MAX_CARDS_ON_PAGE)}));
+      const {data, headers} = await api.get<Cameras>(APIRoute.Cameras,
+        {params: {
+          [QueryParams.CamerasAmountOnPage]: MAX_CARDS_ON_PAGE,
+          [QueryParams.FirstCameraOnPage]: String((pageId - 1) * MAX_CARDS_ON_PAGE)
+        }});
 
       return {
         data,
@@ -32,6 +36,29 @@ export const fetchCamerasAction = createAsyncThunk<{data: Cameras; camerasTotalC
     }
   });
 
+
+export const fetchCamerasBySearchAction = createAsyncThunk< Cameras, string, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>(
+    'data/fetchCamerasByName',
+    async (name, {extra: api}) => {
+      try {
+        const {data} = await api.get<Cameras>(APIRoute.Cameras,
+          {params: {
+            [QueryParams.SeachByName]:name
+          }});
+
+        return data;
+      } catch(e) {
+        toast.error('Cameras search error', {
+          position: toast.POSITION.TOP_CENTER,
+        });
+
+        throw e;
+      }
+    });
 
 export const fetchPromoAction = createAsyncThunk<Promo, undefined, {
   dispatch: AppDispatch;

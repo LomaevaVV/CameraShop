@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, FetchStatus } from '../../const';
 import { Camera, Cameras } from '../../types/camera';
-import { fetchCamerasAction, fetchProductAction, fetchSimilarAction } from '../api-actions';
+import { fetchCamerasAction, fetchProductAction, fetchSimilarAction, fetchCamerasBySearchAction } from '../api-actions';
 
 export type DataCameras = {
   cameras: Cameras;
@@ -10,6 +10,7 @@ export type DataCameras = {
   product: Camera | undefined;
   productFetchStatus: string;
   similar: Cameras;
+  camerasByName: Cameras;
 };
 
 const initialState: DataCameras = {
@@ -19,6 +20,7 @@ const initialState: DataCameras = {
   product: undefined,
   productFetchStatus: FetchStatus.Idle,
   similar: [],
+  camerasByName: []
 };
 
 export const dataCameras = createSlice({
@@ -52,6 +54,9 @@ export const dataCameras = createSlice({
       })
       .addCase(fetchSimilarAction.fulfilled, (state, action) => {
         state.similar = action.payload;
+      })
+      .addCase(fetchCamerasBySearchAction.fulfilled, (state, action) => {
+        state.camerasByName = action.payload;
       });
   }
 });
