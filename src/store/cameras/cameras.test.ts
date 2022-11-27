@@ -1,9 +1,9 @@
-import { FetchStatus } from '../../const';
+import { DEFAULT_CATALOG_PAGE, FetchStatus } from '../../const';
 import { makeFakeProduct, FAKE_CAMERAS_AMOUNT, makeFakeCameras } from '../../tests/mocks';
 
 import { fetchProductAction, fetchCamerasAction, fetchSimilarAction } from '../api-actions';
 import { dataCameras, DataCameras } from './cameras';
-import { Camera, Cameras } from '../../types/camera';
+import { Camera, Cameras, CamerasPriceRange } from '../../types/camera';
 
 const fakeCameras: Cameras = makeFakeCameras();
 
@@ -20,7 +20,19 @@ describe('Reducer: cameras', () => {
       product: undefined,
       productFetchStatus: FetchStatus.Idle,
       similar: [],
-      camerasByName: []
+      camerasByName: [],
+      priceRange: {} as CamerasPriceRange,
+      priceRangeFetchStatus: FetchStatus.Idle,
+      camerasFetchParams: {
+        pageId: DEFAULT_CATALOG_PAGE,
+        sortType: null,
+        sortOrder: null,
+        minPrice: null,
+        maxPrice: null,
+        category: null,
+        type: null,
+        level: null
+      }
     };
   });
 

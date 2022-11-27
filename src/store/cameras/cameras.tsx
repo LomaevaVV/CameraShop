@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace, FetchStatus } from '../../const';
-import { Camera, Cameras } from '../../types/camera';
-import { fetchCamerasAction, fetchProductAction, fetchSimilarAction, fetchCamerasBySearchAction } from '../api-actions';
+import { NameSpace, FetchStatus, DEFAULT_CATALOG_PAGE } from '../../const';
+import { Camera, Cameras, CamerasFetchParams, CamerasPriceRange } from '../../types/camera';
+import { fetchCamerasAction, fetchProductAction, fetchSimilarAction, fetchCamerasBySearchAction, fetchPriceRangeAction } from '../api-actions';
 
 export type DataCameras = {
   cameras: Cameras;
@@ -11,6 +11,9 @@ export type DataCameras = {
   productFetchStatus: string;
   similar: Cameras;
   camerasByName: Cameras;
+  priceRange: CamerasPriceRange;
+  priceRangeFetchStatus: string;
+  camerasFetchParams: CamerasFetchParams;
 };
 
 const initialState: DataCameras = {
@@ -20,13 +23,29 @@ const initialState: DataCameras = {
   product: undefined,
   productFetchStatus: FetchStatus.Idle,
   similar: [],
-  camerasByName: []
+  camerasByName: [],
+  priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
+  priceRangeFetchStatus: FetchStatus.Idle,
+  camerasFetchParams: {
+    pageId: DEFAULT_CATALOG_PAGE,
+    sortType: null,
+    sortOrder: null,
+    minPrice: null,
+    maxPrice: null,
+    category: null,
+    type: null,
+    level: null
+  }
 };
 
 export const dataCameras = createSlice({
   name: NameSpace.Cameras,
   initialState,
-  reducers: {},
+  reducers: {
+    setCamerasFetchParams: (state, action: {payload: CamerasFetchParams}) => {
+      state.camerasFetchParams = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchCamerasAction.pending, (state) => {
@@ -57,6 +76,12 @@ export const dataCameras = createSlice({
       })
       .addCase(fetchCamerasBySearchAction.fulfilled, (state, action) => {
         state.camerasByName = action.payload;
+      })
+      .addCase(fetchPriceRangeAction.fulfilled, (state, action) => {
+        state.priceRange = action.payload;
+        state.priceRangeFetchStatus = FetchStatus.Success;
       });
   }
 });
+
+export const {setCamerasFetchParams} = dataCameras.actions;

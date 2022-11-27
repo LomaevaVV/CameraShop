@@ -8,6 +8,8 @@ export type AppProcess = {
   selectedCameraId: Camera | undefined;
   reviewsAmount: number;
   reviewsOnPage: Reviews;
+  sortType: string;
+  sortOrder: string;
 };
 
 const initialState: AppProcess = {
@@ -15,6 +17,8 @@ const initialState: AppProcess = {
   selectedCameraId: undefined,
   reviewsAmount: MORE_REVIEWS_STEP,
   reviewsOnPage: [],
+  sortType: '',
+  sortOrder: '',
 };
 
 export const appProcess = createSlice({
@@ -29,8 +33,14 @@ export const appProcess = createSlice({
     },
     setReviewsAmount: (state, action: {payload: number}) => {
       state.reviewsAmount = action.payload;
+    },
+    setSortType: (state, action: {payload: string}) => {
+      state.sortType = action.payload;
+    },
+    setSortOrder: (state, action: {payload: string}) => {
+      state.sortOrder = action.payload;
     }
   }
 });
 
-export const {changeModalState, setSelectedCamera, setReviewsAmount} = appProcess.actions;
+export const {changeModalState, setSelectedCamera, setReviewsAmount, setSortType, setSortOrder} = appProcess.actions;

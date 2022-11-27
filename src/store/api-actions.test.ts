@@ -30,7 +30,16 @@ describe('Async actions', () => {
 
     const store = mockStore();
 
-    await store.dispatch(fetchCamerasAction(DEFAULT_CATALOG_PAGE));
+    await store.dispatch(fetchCamerasAction({
+      pageId: DEFAULT_CATALOG_PAGE,
+      sortType: '',
+      sortOrder: '',
+      minPrice: null,
+      maxPrice: null,
+      category: null,
+      type: null,
+      level: null
+    }));
 
     const actions = store.getActions().map(( { type }: Action<string> ) => type );
 

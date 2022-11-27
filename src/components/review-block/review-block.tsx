@@ -23,7 +23,7 @@ export default function ReviwBlock({reviews}: ReviwBlockProps): JSX.Element {
   const reviewsAmount = useAppSelector(getReviewsAmount);
   const reviewsOnPage = useAppSelector(getReviewsOnPage);
 
-  const HandleClickNewReviewBtn = () => {
+  const handleClickNewReviewBtn = () => {
     dispatch(changeModalState(ModalState.AddReview));
   };
 
@@ -53,7 +53,7 @@ export default function ReviwBlock({reviews}: ReviwBlockProps): JSX.Element {
           <div className="page-content__headed">
             <h2 className="title title--h3">Отзывы</h2>
             <button
-              onClick={HandleClickNewReviewBtn}
+              onClick={handleClickNewReviewBtn}
               className="btn"
               type="button"
             >

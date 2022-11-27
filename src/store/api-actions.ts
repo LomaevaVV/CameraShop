@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { APIRoute, MAX_CARDS_ON_PAGE, ModalState, QueryParams } from '../const';
-import { Camera, Cameras } from '../types/camera';
+import { APIRoute, MAX_CARDS_ON_PAGE, ModalState, QueryParams, SortOrder, SortType } from '../const';
+import { Camera, CamerasFetchParams, Cameras, CamerasPriceRange } from '../types/camera';
 import { AppDispatch, State } from '../types/state';
 import { toast } from 'react-toastify';
 import { Promo } from '../types/promo';
@@ -9,18 +9,25 @@ import { generatePath } from 'react-router-dom';
 import { Review, ReviewComment, Reviews } from '../types/review';
 import { changeModalState } from './app-process/app-process';
 
-export const fetchCamerasAction = createAsyncThunk<{data: Cameras; camerasTotalCount: string}, number, {
+export const fetchCamerasAction = createAsyncThunk<{data: Cameras; camerasTotalCount: string}, CamerasFetchParams, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchCameras',
-  async (pageId, {extra: api}) => {
+  async ({pageId, sortType, sortOrder, minPrice, maxPrice, category, type, level}, {extra: api}) => {
     try {
       const {data, headers} = await api.get<Cameras>(APIRoute.Cameras,
         {params: {
           [QueryParams.CamerasAmountOnPage]: MAX_CARDS_ON_PAGE,
-          [QueryParams.FirstCameraOnPage]: String((pageId - 1) * MAX_CARDS_ON_PAGE)
+          [QueryParams.FirstCameraOnPage]: String((pageId - 1) * MAX_CARDS_ON_PAGE),
+          [QueryParams.SortType]: String(sortType),
+          [QueryParams.SortOrder]: String(sortOrder),
+          [QueryParams.FilterMinPrice]: minPrice,
+          [QueryParams.FilterMaxPrice]: maxPrice,
+          [QueryParams.FilterType]: type,
+          [QueryParams.FilterCategory]: category,
+          [QueryParams.FilterLevel]: level,
         }});
 
       return {
@@ -35,6 +42,41 @@ export const fetchCamerasAction = createAsyncThunk<{data: Cameras; camerasTotalC
       throw e;
     }
   });
+
+export const fetchPriceRangeAction = createAsyncThunk<CamerasPriceRange, undefined, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>(
+    'data/fetchCamerasPriceRange',
+    async (_arg, {extra: api}) => {
+      try {
+        const cameraMinPrice = await api.get<Cameras>(APIRoute.Cameras,
+          {params: {
+            [QueryParams.CamerasAmountOnPage]: 1,
+            [QueryParams.SortType]: String(SortType.Price),
+            [QueryParams.SortOrder]: String(SortOrder.Asc)
+          }});
+
+        const cameraMaxPrice = await api.get<Cameras>(APIRoute.Cameras,
+          {params: {
+            [QueryParams.CamerasAmountOnPage]: 1,
+            [QueryParams.SortType]: String(SortType.Price),
+            [QueryParams.SortOrder]: String(SortOrder.Desc)
+          }});
+
+        return {
+          camerasMinPrice: Number(cameraMinPrice.data[0].price),
+          camerasMaxPrice: Number(cameraMaxPrice.data[0].price),
+        };
+      } catch(e) {
+        toast.error('Cameras price range loadig error', {
+          position: toast.POSITION.TOP_CENTER,
+        });
+
+        throw e;
+      }
+    });
 
 
 export const fetchCamerasBySearchAction = createAsyncThunk< Cameras, string, {

@@ -57,5 +57,68 @@ export enum ProductTubs {
 export enum QueryParams {
   CamerasAmountOnPage = '_limit',
   FirstCameraOnPage = '_start',
-  SeachByName = 'name_like'
+  SeachByName = 'name_like',
+  SortType = '_sort',
+  SortOrder = '_order',
+  FilterType = 'type',
+  FilterCategory = 'category',
+  FilterLevel = 'level',
+  FilterMinPrice = 'price_gte',
+  FilterMaxPrice = 'price_lte'
 }
+
+export const fetchQueryParams: {[key:string]: string} = {
+  CamerasAmountOnPage: '_limit',
+  FirstCameraOnPage: '_start',
+  SeachByName: 'name_like',
+  SortType: '_sort',
+  SortOrder: '_order',
+  type: 'type',
+  category: 'category',
+  level: 'level',
+  minPrice: 'price_gte',
+  maxPrice: 'price_lte'
+};
+
+export const enum SortType {
+  Price = 'price',
+  Rating = 'rating'
+}
+
+export const enum SortOrder {
+  Asc = 'asc',
+  Desc = 'desc'
+}
+
+export const FilterNames: {
+  [key: string]: {
+    [key: string]: string;
+  };
+} =
+  {
+    category: {
+      photocamera: 'Фотоаппарат',
+      videocamera: 'Видеокамера',
+    },
+    type: {
+      digital: 'Цифровая',
+      film: 'Плёночная',
+      snapshot: 'Моментальная',
+      collection: 'Коллекционная'
+    },
+    level: {
+      zero: 'Нулевой',
+      nonProfessional: 'Любительский',
+      professional: 'Профессиональный'
+    }
+  } as const;
+
+export const FilterTitles : {
+      [key: string]: string;
+  } =
+    {
+      category: 'Категория',
+      type: 'Тип камеры',
+      level: 'Уровень',
+    } as const;
+

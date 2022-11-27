@@ -16,9 +16,11 @@ export default function SearchForm(): JSX.Element {
   const handleSearchChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setInputValue(String(evt.target.value));
 
-    if (inputValue) {
+    if (evt.target.value) {
       dispatch(fetchCamerasBySearchAction(String(evt.target.value)));
       setListOpened(true);
+    } else {
+      setListOpened(false);
     }
   };
 

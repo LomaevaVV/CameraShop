@@ -14,6 +14,8 @@ describe('Reducer: app-process', () => {
       selectedCameraId: undefined,
       reviewsAmount: MORE_REVIEWS_STEP,
       reviewsOnPage: [],
+      sortType: '',
+      sortOrder: '',
     };
   });
 

@@ -6,7 +6,17 @@ import { fetchCamerasAction } from '../../store/api-actions';
 
 export default function Error(): JSX.Element {
   const onErrorButtonHover = () => {
-    store.dispatch(fetchCamerasAction(DEFAULT_CATALOG_PAGE));
+    const camerasFetchParams = {
+      pageId: DEFAULT_CATALOG_PAGE,
+      sortType: '',
+      sortOrder: '',
+      minPrice: null,
+      maxPrice: null,
+      category: null,
+      type: null,
+      level: null
+    };
+    store.dispatch(fetchCamerasAction(camerasFetchParams));
   };
 
   return (
