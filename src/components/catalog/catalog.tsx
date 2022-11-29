@@ -1,8 +1,7 @@
-import { useEffect, useRef} from 'react';
+import { useEffect} from 'react';
 import { generatePath, Navigate, useParams, useSearchParams } from 'react-router-dom';
 import { queryParams, FetchStatus, MAX_CARDS_ON_PAGE, AppRoute, DEFAULT_CATALOG_PAGE } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
-import { redirectToRoute } from '../../store/action';
 import { fetchCamerasAction, fetchPriceRangeAction } from '../../store/api-actions';
 import { getSortOrder, getSortType } from '../../store/app-process/selectors';
 import { getCameras, getCamerasFetchStatus, getCamerasTotalCount, getCarrentSearchParams } from '../../store/cameras/selectors';
@@ -27,7 +26,6 @@ export default function Catalog(): JSX.Element {
   useEffect(() => {
     dispatch(fetchPriceRangeAction());
     carrentSearchParams?.length !== 0 && setsearhParams(carrentSearchParams);
-    window.console.log('ПАРАМЕТРЫ',carrentSearchParams);
   }, [carrentSearchParams, dispatch, setsearhParams]);
 
   useEffect(() => {
@@ -50,17 +48,6 @@ export default function Catalog(): JSX.Element {
     searchParams,
     pagesAmount
   ]);
-
-  const isRenderedRef = useRef<boolean>(false);
-
-  useEffect(() => {
-    if (!isRenderedRef.current) {
-      if (pagesAmount < activePage) {
-        dispatch(redirectToRoute(AppRoute.Catalog));
-      }
-    }
-    isRenderedRef.current = true;
-  }, [activePage, dispatch, pagesAmount]);
 
   const cameras = useAppSelector(getCameras);
   const camerasFetchStatus = useAppSelector(getCamerasFetchStatus);

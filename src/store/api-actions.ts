@@ -12,13 +12,15 @@ import { changeModalState } from './app-process/app-process';
 export const fetchCamerasAction = createAsyncThunk<{
   data: Cameras;
   camerasTotalCount: string;
+  camerasByFiltersMinPrice: number;
+  camerasByFiltersMaxPrice: number;
 }, CamerasFetchParams, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchCameras',
-  async ({pageId, sortType, sortOrder, minPrice, maxPrice, category, type, level}, {dispatch, extra: api}) => {
+  async ({pageId, sortType, sortOrder, minPrice, maxPrice, category, type, level}, { extra: api}) => {
     try {
       const {data, headers} = await api.get<Cameras>(APIRoute.Cameras,
         {params: {
@@ -33,9 +35,35 @@ export const fetchCamerasAction = createAsyncThunk<{
           [queryParams.level]: level,
         }});
 
+      const camerasByFiltersMinPrice = await api.get<Cameras>(APIRoute.Cameras,
+        {params: {
+          [queryParams.camerasAmountOnPage]: 1,
+          [queryParams.sortType]: String(SortType.Price),
+          [queryParams.SortOrder]: String(SortOrder.Asc),
+          [queryParams.minPrice]: minPrice,
+          [queryParams.maxPrice]: maxPrice,
+          [queryParams.type]: type,
+          [queryParams.category]: category,
+          [queryParams.level]: level,
+        }});
+
+      const camerasByFiltersMaxPrice = await api.get<Cameras>(APIRoute.Cameras,
+        {params: {
+          [queryParams.camerasAmountOnPage]: 1,
+          [queryParams.sortType]: String(SortType.Price),
+          [queryParams.sortOrder]: String(SortOrder.Desc),
+          [queryParams.minPrice]: minPrice,
+          [queryParams.maxPrice]: maxPrice,
+          [queryParams.type]: type,
+          [queryParams.category]: category,
+          [queryParams.level]: level,
+        }});
+
       return {
         data,
-        camerasTotalCount: headers['x-total-count']
+        camerasTotalCount: headers['x-total-count'],
+        camerasByFiltersMinPrice: Number(camerasByFiltersMinPrice.data[0].price),
+        camerasByFiltersMaxPrice: Number(camerasByFiltersMaxPrice.data[0].price),
       };
     } catch(e) {
       toast.error('Cameras loading error', {

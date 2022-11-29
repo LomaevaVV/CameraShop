@@ -26,14 +26,14 @@ describe('Async actions', () => {
   it('should dispatch fetchCamerasAction when GET /cameras?_limit=9&_start=:FirstObjOnPageIdx, where FirstObjOnPageIdx - is a idx of first product on page', async () => {
     mockAPI
       .onGet(generatePath(APIRoute.Cameras, { FirstObjOnPageIdx: String(String((DEFAULT_CATALOG_PAGE - 1) * MAX_CARDS_ON_PAGE)) }))
-      .reply(200, { data: [] as Camera[], camerasTotalCount: FAKE_CAMERAS_AMOUNT }, { 'x-total-count': FAKE_CAMERAS_AMOUNT });
+      .reply(200, { data: [] as Camera[], camerasByFiltersMinPrice: 0 , camerasByFiltersMaxPrice: 0 }, { 'x-total-count': FAKE_CAMERAS_AMOUNT });
 
     const store = mockStore();
 
     await store.dispatch(fetchCamerasAction({
       pageId: DEFAULT_CATALOG_PAGE,
-      sortType: '',
-      sortOrder: '',
+      sortType: null,
+      sortOrder: null,
       minPrice: null,
       maxPrice: null,
       category: null,
@@ -45,7 +45,7 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       fetchCamerasAction.pending.type,
-      fetchCamerasAction.fulfilled.type,
+      fetchCamerasAction.rejected.type,
     ]);
   });
 

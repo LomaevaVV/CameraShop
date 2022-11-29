@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getPriceRange } from '../../store/cameras/selectors';
+import { getPriceRange, getPriceRangeByFilters } from '../../store/cameras/selectors';
 import { queryParams } from '../../const';
 import { setCarrentSearchParams } from '../../store/cameras/cameras';
 
@@ -10,6 +10,7 @@ export default function PriceRange(): JSX.Element {
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const {camerasMinPrice, camerasMaxPrice} = useAppSelector(getPriceRange);
+  const priceRangeByFilters = useAppSelector(getPriceRangeByFilters);
 
   const [priceRangeData, setPriceRangeData] = useState({
     priceDown: '',
@@ -28,12 +29,12 @@ export default function PriceRange(): JSX.Element {
 
       setPriceRangeData(() => ({
         ...priceRangeData,
-        priceDown: minPriceBySeachParams.length === 1 ? minPriceBySeachParams[0][1] : '',
-        priceUp: maxPriceBySeachParams.length === 1 ? maxPriceBySeachParams[0][1] : '',
+        priceDown: minPriceBySeachParams.length === 1 ? String(priceRangeByFilters.camerasMinPrice) : '',
+        priceUp: maxPriceBySeachParams.length === 1 ? String(priceRangeByFilters.camerasMaxPrice) : '',
       }));
       isRenderedRef.current = true;
     }
-  }, [dispatch, priceRangeData, searchParams]);
+  }, [dispatch, priceRangeByFilters.camerasMaxPrice, priceRangeByFilters.camerasMinPrice, priceRangeData, searchParams]);
 
   const makeSearchParams = (paramKey: string, paramValue: string) => {
     if (paramValue === '' ) {
@@ -61,7 +62,6 @@ export default function PriceRange(): JSX.Element {
   };
 
   const handleInputDownBlure = () => {
-    window.console.log('ПРОВЕРКА ЦЕНЫ', Number(priceRangeData.priceDown), Number(priceRangeData.priceUp), Number(priceRangeData.priceDown) < Number(priceRangeData.priceUp));
     if (Number(priceRangeData.priceDown) <= camerasMinPrice
     || Number(priceRangeData.priceDown) > camerasMaxPrice
     || (!(Number(priceRangeData.priceDown) < Number(priceRangeData.priceUp)) && priceRangeData.priceUp !== '')) {
@@ -75,7 +75,6 @@ export default function PriceRange(): JSX.Element {
   };
 
   const handleInputUpBlure = () => {
-    window.console.log('ПРОВЕРКА ЦЕНЫ', Number(priceRangeData.priceDown), Number(priceRangeData.priceUp), Number(priceRangeData.priceDown) < Number(priceRangeData.priceUp));
     if (Number(priceRangeData.priceUp) < camerasMinPrice
     || Number(priceRangeData.priceUp) >= camerasMaxPrice
     || (!(Number(priceRangeData.priceDown) < Number(priceRangeData.priceUp)) && priceRangeData.priceDown !== '')) {
