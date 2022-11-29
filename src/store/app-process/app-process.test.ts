@@ -14,8 +14,8 @@ describe('Reducer: app-process', () => {
       selectedCameraId: undefined,
       reviewsAmount: MORE_REVIEWS_STEP,
       reviewsOnPage: [],
-      sortType: '',
-      sortOrder: '',
+      sortType: null,
+      sortOrder: null,
     };
   });
 
@@ -34,6 +34,8 @@ describe('Reducer: app-process', () => {
           selectedCameraId: undefined,
           reviewsAmount: MORE_REVIEWS_STEP,
           reviewsOnPage: [],
+          sortType: null,
+          sortOrder: null,
         });
     });
   });
@@ -47,6 +49,8 @@ describe('Reducer: app-process', () => {
           selectedCameraId: fakeCamera,
           reviewsAmount: MORE_REVIEWS_STEP,
           reviewsOnPage: [],
+          sortType: null,
+          sortOrder: null,
         });
     });
   });
@@ -61,6 +65,8 @@ describe('Reducer: app-process', () => {
           selectedCameraId: undefined,
           reviewsAmount: fakeReviewsAmount,
           reviewsOnPage: [],
+          sortType: null,
+          sortOrder: null,
         });
     });
   });

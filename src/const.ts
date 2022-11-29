@@ -54,31 +54,18 @@ export enum ProductTubs {
   Features = 'features'
 }
 
-export enum QueryParams {
-  CamerasAmountOnPage = '_limit',
-  FirstCameraOnPage = '_start',
-  SeachByName = 'name_like',
-  SortType = '_sort',
-  SortOrder = '_order',
-  FilterType = 'type',
-  FilterCategory = 'category',
-  FilterLevel = 'level',
-  FilterMinPrice = 'price_gte',
-  FilterMaxPrice = 'price_lte'
-}
-
-export const fetchQueryParams: {[key:string]: string} = {
-  CamerasAmountOnPage: '_limit',
-  FirstCameraOnPage: '_start',
-  SeachByName: 'name_like',
-  SortType: '_sort',
-  SortOrder: '_order',
+export const queryParams: {[key:string]: string} = {
+  camerasAmountOnPage: '_limit',
+  firstCameraOnPage: '_start',
+  seachByName: 'name_like',
+  sortType: '_sort',
+  sortOrder: '_order',
   type: 'type',
   category: 'category',
   level: 'level',
   minPrice: 'price_gte',
   maxPrice: 'price_lte'
-};
+} as const;
 
 export const enum SortType {
   Price = 'price',

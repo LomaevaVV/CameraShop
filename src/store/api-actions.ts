@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AxiosInstance } from 'axios';
-import { APIRoute, MAX_CARDS_ON_PAGE, ModalState, QueryParams, SortOrder, SortType } from '../const';
+import {AxiosInstance} from 'axios';
+import { APIRoute, queryParams, MAX_CARDS_ON_PAGE, ModalState, SortOrder, SortType} from '../const';
 import { Camera, CamerasFetchParams, Cameras, CamerasPriceRange } from '../types/camera';
 import { AppDispatch, State } from '../types/state';
 import { toast } from 'react-toastify';
@@ -9,25 +9,28 @@ import { generatePath } from 'react-router-dom';
 import { Review, ReviewComment, Reviews } from '../types/review';
 import { changeModalState } from './app-process/app-process';
 
-export const fetchCamerasAction = createAsyncThunk<{data: Cameras; camerasTotalCount: string}, CamerasFetchParams, {
+export const fetchCamerasAction = createAsyncThunk<{
+  data: Cameras;
+  camerasTotalCount: string;
+}, CamerasFetchParams, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchCameras',
-  async ({pageId, sortType, sortOrder, minPrice, maxPrice, category, type, level}, {extra: api}) => {
+  async ({pageId, sortType, sortOrder, minPrice, maxPrice, category, type, level}, {dispatch, extra: api}) => {
     try {
       const {data, headers} = await api.get<Cameras>(APIRoute.Cameras,
         {params: {
-          [QueryParams.CamerasAmountOnPage]: MAX_CARDS_ON_PAGE,
-          [QueryParams.FirstCameraOnPage]: String((pageId - 1) * MAX_CARDS_ON_PAGE),
-          [QueryParams.SortType]: String(sortType),
-          [QueryParams.SortOrder]: String(sortOrder),
-          [QueryParams.FilterMinPrice]: minPrice,
-          [QueryParams.FilterMaxPrice]: maxPrice,
-          [QueryParams.FilterType]: type,
-          [QueryParams.FilterCategory]: category,
-          [QueryParams.FilterLevel]: level,
+          [queryParams.camerasAmountOnPage]: MAX_CARDS_ON_PAGE,
+          [queryParams.firstCameraOnPage]: String((pageId - 1) * MAX_CARDS_ON_PAGE),
+          [queryParams.sortType]: sortType ? String(sortType) : null,
+          [queryParams.sortOrder]: sortOrder ? String(sortOrder) : null,
+          [queryParams.minPrice]: minPrice,
+          [queryParams.maxPrice]: maxPrice,
+          [queryParams.type]: type,
+          [queryParams.category]: category,
+          [queryParams.level]: level,
         }});
 
       return {
@@ -53,16 +56,16 @@ export const fetchPriceRangeAction = createAsyncThunk<CamerasPriceRange, undefin
       try {
         const cameraMinPrice = await api.get<Cameras>(APIRoute.Cameras,
           {params: {
-            [QueryParams.CamerasAmountOnPage]: 1,
-            [QueryParams.SortType]: String(SortType.Price),
-            [QueryParams.SortOrder]: String(SortOrder.Asc)
+            [queryParams.camerasAmountOnPage]: 1,
+            [queryParams.sortType]: String(SortType.Price),
+            [queryParams.SortOrder]: String(SortOrder.Asc)
           }});
 
         const cameraMaxPrice = await api.get<Cameras>(APIRoute.Cameras,
           {params: {
-            [QueryParams.CamerasAmountOnPage]: 1,
-            [QueryParams.SortType]: String(SortType.Price),
-            [QueryParams.SortOrder]: String(SortOrder.Desc)
+            [queryParams.camerasAmountOnPage]: 1,
+            [queryParams.sortType]: String(SortType.Price),
+            [queryParams.sortOrder]: String(SortOrder.Desc)
           }});
 
         return {
@@ -89,7 +92,7 @@ export const fetchCamerasBySearchAction = createAsyncThunk< Cameras, string, {
       try {
         const {data} = await api.get<Cameras>(APIRoute.Cameras,
           {params: {
-            [QueryParams.SeachByName]:name
+            [queryParams.seachByName]:name
           }});
 
         return data;

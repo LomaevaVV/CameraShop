@@ -1,9 +1,9 @@
-import { DEFAULT_CATALOG_PAGE, FetchStatus } from '../../const';
+import { FetchStatus } from '../../const';
 import { makeFakeProduct, FAKE_CAMERAS_AMOUNT, makeFakeCameras } from '../../tests/mocks';
 
 import { fetchProductAction, fetchCamerasAction, fetchSimilarAction } from '../api-actions';
 import { dataCameras, DataCameras } from './cameras';
-import { Camera, Cameras, CamerasPriceRange } from '../../types/camera';
+import { Camera, Cameras } from '../../types/camera';
 
 const fakeCameras: Cameras = makeFakeCameras();
 
@@ -21,18 +21,9 @@ describe('Reducer: cameras', () => {
       productFetchStatus: FetchStatus.Idle,
       similar: [],
       camerasByName: [],
-      priceRange: {} as CamerasPriceRange,
+      priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
       priceRangeFetchStatus: FetchStatus.Idle,
-      camerasFetchParams: {
-        pageId: DEFAULT_CATALOG_PAGE,
-        sortType: null,
-        sortOrder: null,
-        minPrice: null,
-        maxPrice: null,
-        category: null,
-        type: null,
-        level: null
-      }
+      carrentSearchParams: []
     };
   });
 
@@ -53,6 +44,10 @@ describe('Reducer: cameras', () => {
           product: undefined,
           productFetchStatus: FetchStatus.Idle,
           similar: [],
+          camerasByName: [],
+          priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
+          priceRangeFetchStatus: FetchStatus.Idle,
+          carrentSearchParams: []
         });
     });
 
@@ -65,6 +60,10 @@ describe('Reducer: cameras', () => {
           product: undefined,
           productFetchStatus: FetchStatus.Idle,
           similar: [],
+          camerasByName: [],
+          priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
+          priceRangeFetchStatus: FetchStatus.Idle,
+          carrentSearchParams: []
         });
     });
 
@@ -77,6 +76,10 @@ describe('Reducer: cameras', () => {
           product: undefined,
           productFetchStatus: FetchStatus.Idle,
           similar: [],
+          camerasByName: [],
+          priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
+          priceRangeFetchStatus: FetchStatus.Idle,
+          carrentSearchParams: []
         });
     });
   });
@@ -92,6 +95,10 @@ describe('Reducer: cameras', () => {
           product: undefined,
           productFetchStatus: FetchStatus.Loading,
           similar: [],
+          camerasByName: [],
+          priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
+          priceRangeFetchStatus: FetchStatus.Idle,
+          carrentSearchParams: []
         });
     });
 
@@ -104,6 +111,10 @@ describe('Reducer: cameras', () => {
           product: fakeCamera,
           productFetchStatus: FetchStatus.Success,
           similar: [],
+          camerasByName: [],
+          priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
+          priceRangeFetchStatus: FetchStatus.Idle,
+          carrentSearchParams: []
         });
     });
 
@@ -117,6 +128,10 @@ describe('Reducer: cameras', () => {
           product: undefined,
           productFetchStatus: FetchStatus.Rejected,
           similar: [],
+          camerasByName: [],
+          priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
+          priceRangeFetchStatus: FetchStatus.Idle,
+          carrentSearchParams: []
         });
     });
   });
@@ -131,6 +146,10 @@ describe('Reducer: cameras', () => {
           product: undefined,
           productFetchStatus: FetchStatus.Idle,
           similar: fakeCameras,
+          camerasByName: [],
+          priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
+          priceRangeFetchStatus: FetchStatus.Idle,
+          carrentSearchParams: []
         });
     });
   });

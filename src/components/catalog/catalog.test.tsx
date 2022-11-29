@@ -15,6 +15,12 @@ describe('Component: Catalog', () => {
       CAMERAS: {
         cameras: fakeCameras,
         camerasFetchStatus: FetchStatus.Success,
+        carrentSearchParams: [],
+        camerasTotalCount: 0,
+      },
+      APP: {
+        sortType: null,
+        sortOrder: null,
       },
     });
 
@@ -34,6 +40,10 @@ describe('Component: Catalog', () => {
     const fakeStore = storeForFake({
       CAMERAS: {
         camerasFetchStatus: FetchStatus.Rejected,
+      },
+      APP: {
+        sortType: null,
+        sortOrder: null,
       },
     });
 

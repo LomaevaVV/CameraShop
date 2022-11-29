@@ -1,11 +1,11 @@
 
 import { NameSpace } from '../../const';
 import { State } from '../../types/state';
-import { Camera, Cameras, CamerasFetchParams, CamerasPriceRange } from '../../types/camera';
+import { Camera, Cameras, CamerasPriceRange } from '../../types/camera';
 
 export const getCameras = (state: State): Cameras | [] => state[NameSpace.Cameras].cameras;
 export const getCamerasFetchStatus = (state: State): string => state[NameSpace.Cameras].camerasFetchStatus;
-export const getCamerasFetchParams = (state: State): CamerasFetchParams => state[NameSpace.Cameras].camerasFetchParams;
+export const getCarrentSearchParams = (state: State): [string, string][] => state[NameSpace.Cameras].carrentSearchParams;
 
 export const getCamerasTotalCount = (state: State): number => state[NameSpace.Cameras].camerasTotalCount;
 

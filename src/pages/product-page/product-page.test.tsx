@@ -21,6 +21,7 @@ describe('Component: ProductPage', () => {
         productFetchStatus: FetchStatus.Success,
         product: fakeProduct,
         similar: fakeCameras,
+        camerasByName: fakeCameras,
       },
       REVIEWS: {
         reviews: fakeReviews,

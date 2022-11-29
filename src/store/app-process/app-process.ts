@@ -8,8 +8,8 @@ export type AppProcess = {
   selectedCameraId: Camera | undefined;
   reviewsAmount: number;
   reviewsOnPage: Reviews;
-  sortType: string;
-  sortOrder: string;
+  sortType: string | null;
+  sortOrder: string | null;
 };
 
 const initialState: AppProcess = {
@@ -17,8 +17,8 @@ const initialState: AppProcess = {
   selectedCameraId: undefined,
   reviewsAmount: MORE_REVIEWS_STEP,
   reviewsOnPage: [],
-  sortType: '',
-  sortOrder: '',
+  sortType: null,
+  sortOrder: null,
 };
 
 export const appProcess = createSlice({

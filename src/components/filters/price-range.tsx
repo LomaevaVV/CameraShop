@@ -1,10 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getCamerasFetchParams, getPriceRange } from '../../store/cameras/selectors';
-import { toast } from 'react-toastify';
-import { QueryParams } from '../../const';
-import { setCamerasFetchParams } from '../../store/cameras/cameras';
+import { getPriceRange } from '../../store/cameras/selectors';
+import { queryParams } from '../../const';
+import { setCarrentSearchParams } from '../../store/cameras/cameras';
 
 
 export default function PriceRange(): JSX.Element {
@@ -22,12 +21,10 @@ export default function PriceRange(): JSX.Element {
   useEffect(() => {
     if (!isRenderedRef.current) {
       const minPriceBySeachParams = Array.from(searchParams.entries())
-        .filter(([paramName, _]) => paramName === QueryParams.FilterMinPrice);
+        .filter(([paramName, _]) => paramName === queryParams.minPrice);
 
       const maxPriceBySeachParams = Array.from(searchParams.entries())
-        .filter(([paramName, _]) => paramName === QueryParams.FilterMaxPrice);
-
-      window.console.log(minPriceBySeachParams, maxPriceBySeachParams);
+        .filter(([paramName, _]) => paramName === queryParams.maxPrice);
 
       setPriceRangeData(() => ({
         ...priceRangeData,
@@ -37,8 +34,6 @@ export default function PriceRange(): JSX.Element {
       isRenderedRef.current = true;
     }
   }, [dispatch, priceRangeData, searchParams]);
-
-  const camerasFetchParams = useAppSelector(getCamerasFetchParams);
 
   const makeSearchParams = (paramKey: string, paramValue: string) => {
     if (paramValue === '' ) {
@@ -51,72 +46,46 @@ export default function PriceRange(): JSX.Element {
       }
     }
 
-    let paramName = '';
-    paramKey === 'price_gte' ? paramName = 'minPrice' : paramName = 'maxPrice';
-
     setSearchParams(searchParams);
-    dispatch(setCamerasFetchParams({
-      ...camerasFetchParams,
-      [paramName]: paramValue
-    }));
+    dispatch(setCarrentSearchParams(Array.from(searchParams.entries())));
   };
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     evt.preventDefault();
     const {name, value} = evt.target;
 
-    setPriceRangeData(() => ({
+    Number(value) >= 0 && setPriceRangeData(() => ({
       ...priceRangeData,
       [name]: value
     }));
   };
 
   const handleInputDownBlure = () => {
-    if (Number(priceRangeData.priceDown) === camerasMinPrice) {
+    window.console.log('ПРОВЕРКА ЦЕНЫ', Number(priceRangeData.priceDown), Number(priceRangeData.priceUp), Number(priceRangeData.priceDown) < Number(priceRangeData.priceUp));
+    if (Number(priceRangeData.priceDown) <= camerasMinPrice
+    || Number(priceRangeData.priceDown) > camerasMaxPrice
+    || (!(Number(priceRangeData.priceDown) < Number(priceRangeData.priceUp)) && priceRangeData.priceUp !== '')) {
       setPriceRangeData(() => ({
         ...priceRangeData,
         priceDown: ''
-      }));}
-
-    if (Number(priceRangeData.priceDown) < camerasMinPrice
-      || Number(priceRangeData.priceDown) > camerasMaxPrice) {
-      setPriceRangeData(() => ({
-        ...priceRangeData,
-        priceDown: String(camerasMinPrice)
       }));
     }
 
-    if (Number(priceRangeData.priceDown) === Number(priceRangeData.priceUp)) {
-      toast.warn('По вашему запросу ничего не найдено', {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
-
-    makeSearchParams(QueryParams.FilterMinPrice, priceRangeData.priceDown);
+    makeSearchParams(queryParams.minPrice, priceRangeData.priceDown);
   };
 
   const handleInputUpBlure = () => {
-    if (Number(priceRangeData.priceUp) === camerasMaxPrice) {
+    window.console.log('ПРОВЕРКА ЦЕНЫ', Number(priceRangeData.priceDown), Number(priceRangeData.priceUp), Number(priceRangeData.priceDown) < Number(priceRangeData.priceUp));
+    if (Number(priceRangeData.priceUp) < camerasMinPrice
+    || Number(priceRangeData.priceUp) >= camerasMaxPrice
+    || (!(Number(priceRangeData.priceDown) < Number(priceRangeData.priceUp)) && priceRangeData.priceDown !== '')) {
       setPriceRangeData(() => ({
         ...priceRangeData,
         priceUp: ''
-      }));}
-
-    if (Number(priceRangeData.priceDown) > camerasMaxPrice
-      || Number(priceRangeData.priceDown) <= camerasMinPrice) {
-      setPriceRangeData(() => ({
-        ...priceRangeData,
-        priceUp: String(camerasMaxPrice)
       }));
     }
 
-    if (Number(priceRangeData.priceDown) === Number(priceRangeData.priceUp)) {
-      toast.warn('По вашему запросу ничего не найдено', {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
-
-    makeSearchParams(QueryParams.FilterMaxPrice, priceRangeData.priceUp);
+    makeSearchParams(queryParams.maxPrice, priceRangeData.priceUp);
   };
 
   return (

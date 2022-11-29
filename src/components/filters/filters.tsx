@@ -1,10 +1,12 @@
 import { useSearchParams } from 'react-router-dom';
 import { FetchStatus, FilterNames, FilterTitles } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setCarrentSearchParams } from '../../store/cameras/cameras';
 import { getCamerasFetchStatus, getPriceRangeFetchStatus } from '../../store/cameras/selectors';
 import PriceRange from './price-range';
 
 export default function Filters(): JSX.Element {
+  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const priceRangeFetchStatus = useAppSelector(getPriceRangeFetchStatus);
   const camerasFetchStatus = useAppSelector(getCamerasFetchStatus);
@@ -16,9 +18,11 @@ export default function Filters(): JSX.Element {
       const newParams = Array.from(searchParams.entries())
         .filter(([_, currentValue]) => currentValue !== filterGroop[nameOfFilter]);
       setSearchParams(new URLSearchParams(newParams));
+      dispatch(setCarrentSearchParams(newParams));
     } else {
       searchParams.append(titleOfFilter, filterGroop[nameOfFilter]);
       setSearchParams(searchParams);
+      dispatch(setCarrentSearchParams(Array.from(searchParams.entries())));
     }
   };
 
@@ -70,7 +74,10 @@ export default function Filters(): JSX.Element {
           <button
             className="btn catalog-filter__reset-btn"
             type="reset"
-            onClick={() => setSearchParams(new URLSearchParams())}
+            onClick={() => {
+              setSearchParams(new URLSearchParams());
+              dispatch(setCarrentSearchParams([]));
+            }}
             disabled={camerasFetchStatus === FetchStatus.Loading}
           >
             Сбросить фильтры

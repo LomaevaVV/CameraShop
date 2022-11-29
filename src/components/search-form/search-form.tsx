@@ -50,7 +50,7 @@ export default function SearchForm(): JSX.Element {
           />
         </label>
         <ul className="form-search__select-list">
-          {camerasByName.map((camera) => (
+          {camerasByName?.map((camera) => (
             <li
               className="form-search__select-item"
               tabIndex={0}
