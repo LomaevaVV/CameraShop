@@ -36,6 +36,16 @@ export default function PriceRange(): JSX.Element {
     }
   }, [dispatch, priceRangeByFilters.camerasMaxPrice, priceRangeByFilters.camerasMinPrice, priceRangeData, searchParams]);
 
+  const handleInputChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    evt.preventDefault();
+    const {name, value} = evt.target;
+
+    Number(value) >= 0 && setPriceRangeData(() => ({
+      ...priceRangeData,
+      [name]: value
+    }));
+  };
+
   const makeSearchParams = (paramKey: string, paramValue: string) => {
     if (paramValue === '' ) {
       searchParams.delete(paramKey);
@@ -51,40 +61,34 @@ export default function PriceRange(): JSX.Element {
     dispatch(setCarrentSearchParams(Array.from(searchParams.entries())));
   };
 
-  const handleInputChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    evt.preventDefault();
-    const {name, value} = evt.target;
-
-    Number(value) >= 0 && setPriceRangeData(() => ({
-      ...priceRangeData,
-      [name]: value
-    }));
-  };
-
   const handleInputDownBlure = () => {
-    if (Number(priceRangeData.priceDown) <= camerasMinPrice
-    || Number(priceRangeData.priceDown) > camerasMaxPrice
-    || (!(Number(priceRangeData.priceDown) < Number(priceRangeData.priceUp)) && priceRangeData.priceUp !== '')) {
+    let paramValue = priceRangeData.priceDown;
+    if (Number(paramValue) <= camerasMinPrice
+    || Number(paramValue) > camerasMaxPrice
+    || (Number(paramValue) > Number(priceRangeData.priceUp) && priceRangeData.priceUp !== '')) {
       setPriceRangeData(() => ({
         ...priceRangeData,
         priceDown: ''
       }));
+      paramValue = '';
     }
 
-    makeSearchParams(queryParams.minPrice, priceRangeData.priceDown);
+    makeSearchParams(queryParams.minPrice, paramValue);
   };
 
   const handleInputUpBlure = () => {
+    let paramValue = priceRangeData.priceUp;
     if (Number(priceRangeData.priceUp) < camerasMinPrice
     || Number(priceRangeData.priceUp) >= camerasMaxPrice
-    || (!(Number(priceRangeData.priceDown) < Number(priceRangeData.priceUp)) && priceRangeData.priceDown !== '')) {
+    || (Number(priceRangeData.priceDown) > Number(priceRangeData.priceUp) && priceRangeData.priceDown !== '')) {
       setPriceRangeData(() => ({
         ...priceRangeData,
         priceUp: ''
       }));
+      paramValue = '';
     }
 
-    makeSearchParams(queryParams.maxPrice, priceRangeData.priceUp);
+    makeSearchParams(queryParams.maxPrice, paramValue);
   };
 
   return (
