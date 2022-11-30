@@ -92,31 +92,34 @@ export default function PriceRange(): JSX.Element {
   };
 
   return (
-    <div className="catalog-filter__price-range">
-      <div className="custom-input">
-        <label>
-          <input
-            type="number"
-            name="priceDown"
-            placeholder={String(camerasMinPrice)}
-            onChange={handleInputChange}
-            value={priceRangeData.priceDown}
-            onBlur={handleInputDownBlure}
-          />
-        </label>
+    <fieldset className="catalog-filter__block">
+      <legend className="title title--h5">Цена, ₽</legend>
+      <div className="catalog-filter__price-range">
+        <div className="custom-input">
+          <label>
+            <input
+              type="number"
+              name="priceDown"
+              placeholder={String(camerasMinPrice)}
+              onChange={handleInputChange}
+              value={priceRangeData.priceDown}
+              onBlur={handleInputDownBlure}
+            />
+          </label>
+        </div>
+        <div className="custom-input">
+          <label>
+            <input
+              type="number"
+              name="priceUp"
+              placeholder={String(camerasMaxPrice)}
+              onChange={handleInputChange}
+              value={priceRangeData.priceUp}
+              onBlur={handleInputUpBlure}
+            />
+          </label>
+        </div>
       </div>
-      <div className="custom-input">
-        <label>
-          <input
-            type="number"
-            name="priceUp"
-            placeholder={String(camerasMaxPrice)}
-            onChange={handleInputChange}
-            value={priceRangeData.priceUp}
-            onBlur={handleInputUpBlure}
-          />
-        </label>
-      </div>
-    </div>
+    </fieldset>
   );
 }

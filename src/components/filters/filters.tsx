@@ -37,10 +37,7 @@ export default function Filters(): JSX.Element {
       <div className="catalog-filter">
         <form action="#">
           <h2 className="visually-hidden">Фильтр</h2>
-          <fieldset className="catalog-filter__block">
-            <legend className="title title--h5">Цена, ₽</legend>
-            {priceRangeFetchStatus === FetchStatus.Success && <PriceRange />}
-          </fieldset>
+          {priceRangeFetchStatus === FetchStatus.Success && <PriceRange />}
 
 
           {Object.keys(FilterNames).map((titleOfFilter) => {

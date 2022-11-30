@@ -3,12 +3,12 @@ import MockAdapter from 'axios-mock-adapter';
 import { generatePath } from 'react-router-dom';
 import { Action } from 'redux';
 import thunk, { ThunkDispatch } from 'redux-thunk';
-import { APIRoute, DEFAULT_CATALOG_PAGE, MAX_CARDS_ON_PAGE } from '../const';
+import { APIRoute, DEFAULT_CATALOG_PAGE } from '../const';
 import { createAPI } from '../services/api';
-import { makeFakeProduct, makeFakeReviewComment, makeFakePromo, makeFakeReviews, FAKE_CAMERAS_AMOUNT } from '../tests/mocks';
+import { makeFakeProduct, makeFakeReviewComment, makeFakePromo, makeFakeReviews, makeFakeCameras, FAKE_CAMERAS_AMOUNT } from '../tests/mocks';
 import { State } from '../types/state';
 import { Camera } from '../types/camera';
-import { fetchProductAction, fetchCamerasAction, fetchPromoAction, fetchReviewsAction, fetchSimilarAction, postReviewAction } from './api-actions';
+import { fetchProductAction, fetchPriceRangeAction, fetchCamerasAction, fetchPromoAction, fetchReviewsAction, fetchSimilarAction, postReviewAction } from './api-actions';
 import { appProcess } from './app-process/app-process';
 
 
@@ -16,6 +16,7 @@ describe('Async actions', () => {
   const api = createAPI();
   const mockAPI = new MockAdapter(api);
   const middlewares = [thunk.withExtraArgument(api)];
+  const fakeCameras = makeFakeCameras();
 
   const mockStore = configureMockStore<
       State,
@@ -25,8 +26,8 @@ describe('Async actions', () => {
 
   it('should dispatch fetchCamerasAction when GET /cameras?_limit=9&_start=:FirstObjOnPageIdx, where FirstObjOnPageIdx - is a idx of first product on page', async () => {
     mockAPI
-      .onGet(generatePath(APIRoute.Cameras, { FirstObjOnPageIdx: String(String((DEFAULT_CATALOG_PAGE - 1) * MAX_CARDS_ON_PAGE)) }))
-      .reply(200, { data: [] as Camera[], camerasByFiltersMinPrice: 0 , camerasByFiltersMaxPrice: 0 }, { 'x-total-count': FAKE_CAMERAS_AMOUNT });
+      .onGet(APIRoute.Cameras)
+      .reply(200, fakeCameras, { 'x-total-count': FAKE_CAMERAS_AMOUNT });
 
     const store = mockStore();
 
@@ -38,14 +39,31 @@ describe('Async actions', () => {
       maxPrice: null,
       category: null,
       type: null,
-      level: null
+      level: null,
     }));
 
     const actions = store.getActions().map(( { type }: Action<string> ) => type );
 
     expect(actions).toEqual([
       fetchCamerasAction.pending.type,
-      fetchCamerasAction.rejected.type,
+      fetchCamerasAction.fulfilled.type,
+    ]);
+  });
+
+  it('should dispatch fetchPriceRangeAction when GET /cameras', async () => {
+    mockAPI
+      .onGet(APIRoute.Cameras)
+      .reply(200, fakeCameras);
+
+    const store = mockStore();
+
+    await store.dispatch(fetchPriceRangeAction());
+
+    const actions = store.getActions().map(({ type }: Action<string>) => type);
+
+    expect(actions).toEqual([
+      fetchPriceRangeAction.pending.type,
+      fetchPriceRangeAction.fulfilled.type
     ]);
   });
 
