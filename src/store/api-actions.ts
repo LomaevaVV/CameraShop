@@ -12,8 +12,6 @@ import { changeModalState } from './app-process/app-process';
 export const fetchCamerasAction = createAsyncThunk<{
   data: Cameras;
   camerasTotalCount: string;
-  camerasByFiltersMinPrice: number;
-  camerasByFiltersMaxPrice: number;
 }, CamerasFetchParams, {
   dispatch: AppDispatch;
   state: State;
@@ -35,35 +33,9 @@ export const fetchCamerasAction = createAsyncThunk<{
           [queryParams.level]: level,
         }});
 
-      const camerasByFiltersMinPrice = await api.get<Cameras>(APIRoute.Cameras,
-        {params: {
-          [queryParams.camerasAmountOnPage]: 1,
-          [queryParams.sortType]: String(SortType.Price),
-          [queryParams.SortOrder]: String(SortOrder.Asc),
-          [queryParams.minPrice]: minPrice,
-          [queryParams.maxPrice]: maxPrice,
-          [queryParams.type]: type,
-          [queryParams.category]: category,
-          [queryParams.level]: level,
-        }});
-
-      const camerasByFiltersMaxPrice = await api.get<Cameras>(APIRoute.Cameras,
-        {params: {
-          [queryParams.camerasAmountOnPage]: 1,
-          [queryParams.sortType]: String(SortType.Price),
-          [queryParams.sortOrder]: String(SortOrder.Desc),
-          [queryParams.minPrice]: minPrice,
-          [queryParams.maxPrice]: maxPrice,
-          [queryParams.type]: type,
-          [queryParams.category]: category,
-          [queryParams.level]: level,
-        }});
-
       return {
         data,
-        camerasTotalCount: headers['x-total-count'],
-        camerasByFiltersMinPrice: Number(camerasByFiltersMinPrice.data[0].price),
-        camerasByFiltersMaxPrice: Number(camerasByFiltersMaxPrice.data[0].price),
+        camerasTotalCount: headers['x-total-count']
       };
     } catch(e) {
       toast.error('Cameras loading error', {
@@ -74,31 +46,41 @@ export const fetchCamerasAction = createAsyncThunk<{
     }
   });
 
-export const fetchPriceRangeAction = createAsyncThunk<CamerasPriceRange, undefined, {
+export const fetchPriceRangeAction = createAsyncThunk<CamerasPriceRange, CamerasFetchParams, {
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
   }>(
     'data/fetchCamerasPriceRange',
-    async (_arg, {extra: api}) => {
+    async ({minPrice, maxPrice, category, type, level}, {extra: api}) => {
       try {
         const cameraMinPrice = await api.get<Cameras>(APIRoute.Cameras,
           {params: {
             [queryParams.camerasAmountOnPage]: 1,
             [queryParams.sortType]: String(SortType.Price),
-            [queryParams.SortOrder]: String(SortOrder.Asc)
+            [queryParams.SortOrder]: String(SortOrder.Asc),
+            [queryParams.minPrice]: minPrice,
+            [queryParams.maxPrice]: maxPrice,
+            [queryParams.type]: type,
+            [queryParams.category]: category,
+            [queryParams.level]: level,
           }});
 
         const cameraMaxPrice = await api.get<Cameras>(APIRoute.Cameras,
           {params: {
             [queryParams.camerasAmountOnPage]: 1,
             [queryParams.sortType]: String(SortType.Price),
-            [queryParams.sortOrder]: String(SortOrder.Desc)
+            [queryParams.sortOrder]: String(SortOrder.Desc),
+            [queryParams.minPrice]: minPrice,
+            [queryParams.maxPrice]: maxPrice,
+            [queryParams.type]: type,
+            [queryParams.category]: category,
+            [queryParams.level]: level,
           }});
 
         return {
-          camerasMinPrice: Number(cameraMinPrice.data[0].price),
-          camerasMaxPrice: Number(cameraMaxPrice.data[0].price),
+          camerasMinPrice: cameraMinPrice.data.length > 0 ? Number(cameraMinPrice.data[0].price) : 0,
+          camerasMaxPrice: cameraMaxPrice.data.length > 0 ? Number(cameraMaxPrice.data[0].price) : 0,
         };
       } catch(e) {
         toast.error('Cameras price range loadig error', {

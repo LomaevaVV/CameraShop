@@ -30,20 +30,20 @@ export default function ProductPage(): JSX.Element {
     dispatch(fetchReviewsAction(Number(id)));
   }, [dispatch, id]);
 
-  const prosuctFetchStatus = useAppSelector(getProductFetchStatus);
+  const productFetchStatus = useAppSelector(getProductFetchStatus);
   const camera: Camera | undefined = useAppSelector(getProduct);
   const similar = useAppSelector(getSimilar);
   const reviews = useAppSelector(getReviews);
   const modalState: string = useAppSelector(getModalState);
 
   if (
-    prosuctFetchStatus === FetchStatus.Idle ||
-    prosuctFetchStatus === FetchStatus.Loading
+    productFetchStatus === FetchStatus.Idle ||
+    productFetchStatus === FetchStatus.Loading
   ) {
     return <Loader />;
   }
 
-  if (!camera || prosuctFetchStatus === FetchStatus.Rejected) {
+  if (!camera || productFetchStatus === FetchStatus.Rejected) {
     return (<NotFoundPage />);
   }
 

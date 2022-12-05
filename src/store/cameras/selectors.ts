@@ -5,7 +5,6 @@ import { Camera, Cameras, CamerasPriceRange } from '../../types/camera';
 
 export const getCameras = (state: State): Cameras | [] => state[NameSpace.Cameras].cameras;
 export const getCamerasFetchStatus = (state: State): string => state[NameSpace.Cameras].camerasFetchStatus;
-export const getPriceRangeByFilters = (state: State): CamerasPriceRange => state[NameSpace.Cameras].priceRangeByFilters;
 export const getCarrentSearchParams = (state: State): [string, string][] => state[NameSpace.Cameras].carrentSearchParams;
 
 export const getCamerasTotalCount = (state: State): number => state[NameSpace.Cameras].camerasTotalCount;

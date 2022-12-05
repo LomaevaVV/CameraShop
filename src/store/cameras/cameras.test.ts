@@ -15,7 +15,6 @@ describe('Reducer: cameras', () => {
   beforeEach(() => {
     state = {
       cameras: [],
-      priceRangeByFilters: {camerasMinPrice: 0, camerasMaxPrice: 0},
       camerasFetchStatus: FetchStatus.Idle,
       camerasTotalCount: 0,
       product: undefined,
@@ -40,7 +39,6 @@ describe('Reducer: cameras', () => {
       expect(dataCameras.reducer(state, { type: fetchCamerasAction.pending.type }))
         .toEqual({
           cameras: [],
-          priceRangeByFilters: {camerasMinPrice: 0, camerasMaxPrice: 0},
           camerasFetchStatus: FetchStatus.Loading,
           camerasTotalCount: 0,
           product: undefined,
@@ -57,7 +55,6 @@ describe('Reducer: cameras', () => {
       expect(dataCameras.reducer(state, { type: fetchCamerasAction.fulfilled.type, payload: { data: fakeCameras, camerasTotalCount: FAKE_CAMERAS_AMOUNT } }))
         .toEqual({
           cameras: fakeCameras,
-          priceRangeByFilters: {camerasMinPrice: 0, camerasMaxPrice: 0},
           camerasFetchStatus: FetchStatus.Success,
           camerasTotalCount: FAKE_CAMERAS_AMOUNT,
           product: undefined,
@@ -74,7 +71,6 @@ describe('Reducer: cameras', () => {
       expect(dataCameras.reducer(state, { type: fetchCamerasAction.rejected.type }))
         .toEqual({
           cameras: [],
-          priceRangeByFilters: {camerasMinPrice: 0, camerasMaxPrice: 0},
           camerasFetchStatus: FetchStatus.Rejected,
           camerasTotalCount: 0,
           product: undefined,
@@ -94,7 +90,6 @@ describe('Reducer: cameras', () => {
       expect(dataCameras.reducer(state, { type: fetchProductAction.pending.type }))
         .toEqual({
           cameras: [],
-          priceRangeByFilters: {camerasMinPrice: 0, camerasMaxPrice: 0},
           camerasFetchStatus: FetchStatus.Idle,
           camerasTotalCount: 0,
           product: undefined,
@@ -111,7 +106,6 @@ describe('Reducer: cameras', () => {
       expect(dataCameras.reducer(state, { type: fetchProductAction.fulfilled.type, payload: fakeCamera }))
         .toEqual({
           cameras: [],
-          priceRangeByFilters: {camerasMinPrice: 0, camerasMaxPrice: 0},
           camerasFetchStatus: FetchStatus.Idle,
           camerasTotalCount: 0,
           product: fakeCamera,
@@ -129,7 +123,6 @@ describe('Reducer: cameras', () => {
       expect(dataCameras.reducer(state, { type: fetchProductAction.rejected.type }))
         .toEqual({
           cameras: [],
-          priceRangeByFilters: {camerasMinPrice: 0, camerasMaxPrice: 0},
           camerasFetchStatus: FetchStatus.Idle,
           camerasTotalCount: 0,
           product: undefined,
@@ -148,7 +141,6 @@ describe('Reducer: cameras', () => {
       expect(dataCameras.reducer(state, { type: fetchSimilarAction.fulfilled.type, payload: fakeCameras }))
         .toEqual({
           cameras: [],
-          priceRangeByFilters: {camerasMinPrice: 0, camerasMaxPrice: 0},
           camerasFetchStatus: FetchStatus.Idle,
           camerasTotalCount: 0,
           product: undefined,

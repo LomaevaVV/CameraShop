@@ -3,10 +3,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import cn from 'classnames';
 import { fetchCamerasBySearchAction } from '../../store/api-actions';
 import { getCamerasByName } from '../../store/cameras/selectors';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 export default function SearchForm(): JSX.Element {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [listOpend, setListOpened] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -49,16 +50,15 @@ export default function SearchForm(): JSX.Element {
             value={inputValue}
           />
         </label>
-        <ul className="form-search__select-list">
+        <ul className="form-search__select-list scroller">
           {camerasByName?.map((camera) => (
             <li
               className="form-search__select-item"
               tabIndex={0}
               key={camera.name}
+              onClick={() => navigate(generatePath(AppRoute.Product, {id: String(camera.id)}))}
             >
-              <Link to={generatePath(AppRoute.Product, {id: String(camera.id)})}>
-                {camera.name}
-              </Link>
+              {camera.name}
             </li>
           ))}
         </ul>

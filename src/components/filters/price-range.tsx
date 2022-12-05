@@ -1,40 +1,19 @@
 import { useSearchParams } from 'react-router-dom';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getPriceRange, getPriceRangeByFilters } from '../../store/cameras/selectors';
+import { getPriceRange } from '../../store/cameras/selectors';
 import { queryParams } from '../../const';
 import { setCarrentSearchParams } from '../../store/cameras/cameras';
-
 
 export default function PriceRange(): JSX.Element {
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const {camerasMinPrice, camerasMaxPrice} = useAppSelector(getPriceRange);
-  const priceRangeByFilters = useAppSelector(getPriceRangeByFilters);
 
   const [priceRangeData, setPriceRangeData] = useState({
     priceDown: '',
     priceUp: ''
   });
-
-  const isRenderedRef = useRef<boolean>(false);
-
-  useEffect(() => {
-    if (!isRenderedRef.current) {
-      const minPriceBySeachParams = Array.from(searchParams.entries())
-        .filter(([paramName, _]) => paramName === queryParams.minPrice);
-
-      const maxPriceBySeachParams = Array.from(searchParams.entries())
-        .filter(([paramName, _]) => paramName === queryParams.maxPrice);
-
-      setPriceRangeData(() => ({
-        ...priceRangeData,
-        priceDown: minPriceBySeachParams.length === 1 ? String(priceRangeByFilters.camerasMinPrice) : '',
-        priceUp: maxPriceBySeachParams.length === 1 ? String(priceRangeByFilters.camerasMaxPrice) : '',
-      }));
-      isRenderedRef.current = true;
-    }
-  }, [dispatch, priceRangeByFilters.camerasMaxPrice, priceRangeByFilters.camerasMinPrice, priceRangeData, searchParams]);
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     evt.preventDefault();
@@ -63,9 +42,7 @@ export default function PriceRange(): JSX.Element {
 
   const handleInputDownBlure = () => {
     let paramValue = priceRangeData.priceDown;
-    if (Number(paramValue) <= camerasMinPrice
-    || Number(paramValue) > camerasMaxPrice
-    || (Number(paramValue) > Number(priceRangeData.priceUp) && priceRangeData.priceUp !== '')) {
+    if ((Number(paramValue) > Number(priceRangeData.priceUp) && priceRangeData.priceUp !== '')) {
       setPriceRangeData(() => ({
         ...priceRangeData,
         priceDown: ''
@@ -78,9 +55,7 @@ export default function PriceRange(): JSX.Element {
 
   const handleInputUpBlure = () => {
     let paramValue = priceRangeData.priceUp;
-    if (Number(priceRangeData.priceUp) < camerasMinPrice
-    || Number(priceRangeData.priceUp) >= camerasMaxPrice
-    || (Number(priceRangeData.priceDown) > Number(priceRangeData.priceUp) && priceRangeData.priceDown !== '')) {
+    if ((Number(priceRangeData.priceDown) > Number(priceRangeData.priceUp) && priceRangeData.priceDown !== '')) {
       setPriceRangeData(() => ({
         ...priceRangeData,
         priceUp: ''
@@ -123,3 +98,4 @@ export default function PriceRange(): JSX.Element {
     </fieldset>
   );
 }
+

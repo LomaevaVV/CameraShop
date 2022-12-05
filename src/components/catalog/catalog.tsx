@@ -24,9 +24,23 @@ export default function Catalog(): JSX.Element {
   const pagesAmount = Math.ceil(camerasTotalCount / MAX_CARDS_ON_PAGE);
 
   useEffect(() => {
-    dispatch(fetchPriceRangeAction());
-    carrentSearchParams?.length !== 0 && setsearhParams(carrentSearchParams);
-  }, [carrentSearchParams, dispatch, setsearhParams]);
+    carrentSearchParams?.length > 0 && setsearhParams(carrentSearchParams);
+  }, [activePage, carrentSearchParams, setsearhParams, sortOrder, sortType]);
+
+  useEffect(() => {
+    const camerasFetchParams = {
+      pageId: activePage,
+      sortType: sortType,
+      sortOrder: sortOrder,
+      minPrice: searchParams.getAll(queryParams.minPrice),
+      maxPrice: searchParams.getAll(queryParams.maxPrice),
+      category: searchParams.getAll(queryParams.category),
+      type: searchParams.getAll(queryParams.type),
+      level: searchParams.getAll(queryParams.level)
+    };
+    dispatch(fetchPriceRangeAction(camerasFetchParams));
+  }, [activePage, carrentSearchParams, dispatch, searchParams, sortOrder, sortType]);
+
 
   useEffect(() => {
     const camerasFetchParams = {
@@ -40,14 +54,7 @@ export default function Catalog(): JSX.Element {
       level: searchParams.getAll(queryParams.level)
     };
     dispatch(fetchCamerasAction(camerasFetchParams));
-  }, [
-    dispatch,
-    activePage,
-    sortType,
-    sortOrder,
-    searchParams,
-    pagesAmount
-  ]);
+  }, [dispatch, activePage, sortType, sortOrder, searchParams]);
 
   const cameras = useAppSelector(getCameras);
   const camerasFetchStatus = useAppSelector(getCamerasFetchStatus);
@@ -60,7 +67,7 @@ export default function Catalog(): JSX.Element {
   }
 
   return (
-    (pagesAmount < activePage)
+    (pagesAmount < activePage && camerasTotalCount !== 0)
       ? <Navigate to={generatePath(AppRoute.CatalogPage, { page: String(DEFAULT_CATALOG_PAGE) })}/>
       :
       <section className="catalog">

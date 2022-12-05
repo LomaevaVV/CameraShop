@@ -5,7 +5,6 @@ import { fetchCamerasAction, fetchProductAction, fetchSimilarAction, fetchCamera
 
 export type DataCameras = {
   cameras: Cameras;
-  priceRangeByFilters: CamerasPriceRange;
   camerasFetchStatus: string;
   camerasTotalCount: number;
   product: Camera | undefined;
@@ -19,7 +18,6 @@ export type DataCameras = {
 
 const initialState: DataCameras = {
   cameras: [],
-  priceRangeByFilters: {camerasMinPrice: 0, camerasMaxPrice: 0},
   camerasFetchStatus: FetchStatus.Idle,
   camerasTotalCount: 0,
   product: undefined,
@@ -47,10 +45,6 @@ export const dataCameras = createSlice({
       .addCase(fetchCamerasAction.fulfilled, (state, action) => {
         state.cameras = action.payload.data;
         state.camerasTotalCount = Number(action.payload.camerasTotalCount);
-        state.priceRangeByFilters = {
-          camerasMinPrice: action.payload.camerasByFiltersMinPrice ? action.payload.camerasByFiltersMinPrice : 0 ,
-          camerasMaxPrice: action.payload.camerasByFiltersMaxPrice ? action.payload.camerasByFiltersMaxPrice : 0
-        };
         state.camerasFetchStatus = FetchStatus.Success;
       })
       .addCase(fetchCamerasAction.rejected, (state) => {

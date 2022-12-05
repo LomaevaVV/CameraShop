@@ -1,30 +1,35 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import HistoryRouter from '../../components/history-route/history-route';
-import { makeFakeProduct, makeFakeReviewComment, storeForFake } from '../../tests/mocks';
+import { storeForFake, makeFakeProduct, makeFakeReviewComment } from '../../tests/mocks';
+import HistoryRouter from '../history-route/history-route';
 import AddReviewModal from './add-review-modal';
 
 const history = createMemoryHistory();
 const fakeProduct = makeFakeProduct();
 const fakeReviewComment = makeFakeReviewComment();
 
+const fakeStore = storeForFake({
+  REVIEWS: {
+    reviewComment: fakeReviewComment,
+  }
+});
+
+const fakeApp = (
+  <Provider store={fakeStore}>
+    <HistoryRouter history={history}>
+      <AddReviewModal cameraId={fakeProduct.id} onClick={() => null}/>
+    </HistoryRouter>
+  </Provider>
+);
+
 describe('Component: ReviewBlock', () => {
-  it('should render correctly', () => {
-    const fakeStore = storeForFake({
-      REVIEWS: {
-        reviewComment: fakeReviewComment,
-      }
-    });
+  it('should render correctly', async () => {
 
-    render(
-      <HistoryRouter history={history}>
-        <Provider store={fakeStore}>
-          <AddReviewModal cameraId={fakeProduct.id} onClick={() => null}/>
-        </Provider>
-      </HistoryRouter>,
-    );
+    render(fakeApp);
 
-    expect(screen.getByText('Оставить отзыв')).toBeInTheDocument();
+    const product = await screen.findByText('Оставить отзыв');
+
+    expect(product).toBeInTheDocument();
   });
 });

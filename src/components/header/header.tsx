@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { setCarrentSearchParams } from '../../store/cameras/cameras';
 import SearchForm from '../search-form/search-form';
 
 export default function Header(): JSX.Element {
+  const dispatch = useAppDispatch();
   return (
     <header className="header" id="header">
       <div className="container">
@@ -14,7 +17,7 @@ export default function Header(): JSX.Element {
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <Link className="main-nav__link" to={AppRoute.Main}>Каталог</Link>
+              <Link className="main-nav__link" onClick={() => dispatch(setCarrentSearchParams([]))} to={AppRoute.Main}>Каталог</Link>
             </li>
             <li className="main-nav__item">
               <Link className="main-nav__link" to="#">Гарантии</Link>

@@ -1,39 +1,12 @@
-import { useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { queryParams, SortOrder, SortType } from '../../const';
+import { SortOrder, SortType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { setSortOrder, setSortType } from '../../store/app-process/app-process';
 import { getSortOrder, getSortType } from '../../store/app-process/selectors';
-import { setCarrentSearchParams } from '../../store/cameras/cameras';
 
 export default function SortForm(): JSX.Element {
-  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const sortType = useAppSelector(getSortType);
   const sortOrder = useAppSelector(getSortOrder);
-  const isRenderedRef = useRef<boolean>(false);
-
-  useEffect(() => {
-    if (!isRenderedRef.current) {
-      const makeSearchParams = (paramKey: string, paramValue: string | null) => {
-        if (!paramValue) {
-          searchParams.has(paramKey) && searchParams.delete(paramKey);
-        } else {
-          searchParams.has(paramKey)
-            ? searchParams.set(paramKey, paramValue)
-            : searchParams.append(paramKey, paramValue);
-        }
-
-        setSearchParams(searchParams);
-        dispatch(setCarrentSearchParams(Array.from(searchParams.entries())));
-      };
-
-      makeSearchParams(queryParams.sortType, sortType);
-      makeSearchParams(queryParams.sortOrder, sortOrder);
-    }
-    isRenderedRef.current = true;
-  }, [dispatch, searchParams, setSearchParams, sortOrder, sortType]);
-
 
   return (
     <div className="catalog-sort">
