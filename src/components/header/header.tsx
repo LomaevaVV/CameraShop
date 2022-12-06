@@ -6,6 +6,7 @@ import SearchForm from '../search-form/search-form';
 
 export default function Header(): JSX.Element {
   const dispatch = useAppDispatch();
+
   return (
     <header className="header" id="header">
       <div className="container">
