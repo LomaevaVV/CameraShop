@@ -1,5 +1,5 @@
-import { AppRoute } from '../../const';
-import { Camera } from '../../types/camera';
+import { AppRoute } from '../../../const';
+import { Camera } from '../../../types/camera';
 
 type addBasketModalProps = {
   camera: Camera;

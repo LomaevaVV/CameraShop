@@ -1,10 +1,10 @@
 import React from 'react';
-import { useAppDispatch } from '../../hooks';
-import { postReviewAction } from '../../store/api-actions';
+import { useAppDispatch } from '../../../hooks';
+import { postReviewAction } from '../../../store/api-actions';
 import cn from 'classnames';
 import { useForm } from 'react-hook-form';
-import { ReviewComment, ReviewCommentKeysType } from '../../types/review';
-import { MIN_LENGTH_REVIEW } from '../../const';
+import { ReviewComment, ReviewCommentKeysType } from '../../../types/review';
+import { MIN_LENGTH_REVIEW } from '../../../const';
 
 const RatingStarsTitles = [
   {title: 'Отлично', value:'5'},

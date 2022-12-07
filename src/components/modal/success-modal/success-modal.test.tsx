@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import HistoryRouter from '../../components/history-route/history-route';
-import ReviewSuccess from './review-success';
+import { ModalState } from '../../../const';
+import HistoryRouter from '../../history-route/history-route';
+import SuccessModal from './success-modal';
 
 const history = createMemoryHistory();
 
@@ -10,7 +11,7 @@ describe('Component: ReviewCard', () => {
 
     render(
       <HistoryRouter history={history}>
-        <ReviewSuccess onClick={() => null}/>
+        <SuccessModal modalState={ModalState.ReviewSuccess} onClick={() => null}/>
       </HistoryRouter>,
     );
 

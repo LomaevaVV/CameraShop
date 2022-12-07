@@ -3,6 +3,7 @@ import CatalogPage from '../../pages/catalog-page/catalog-page';
 import { AppRoute, DEFAULT_CATALOG_PAGE } from '../../const';
 import ProductPage from '../../pages/product-page/product-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import BasketPage from '../../pages/basket-page/basket-page';
 
 function App(): JSX.Element {
   return (
@@ -26,6 +27,10 @@ function App(): JSX.Element {
       <Route
         path="*"
         element={<NotFoundPage />}
+      />
+      <Route
+        path={AppRoute.Basket}
+        element={<BasketPage />}
       />
     </Routes>
   );

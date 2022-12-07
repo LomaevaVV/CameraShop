@@ -12,7 +12,8 @@ export enum AppRoute {
   Catalog = '/catalog',
   CatalogPage = '/catalog/page_:page',
   Product = '/product/:id',
-  NotFound = '/*'
+  NotFound = '/*',
+  Basket = '/basket'
 }
 
 export const APIRoute = {
@@ -47,6 +48,8 @@ export enum ModalState {
   AddReview = 'addReview',
   ReviewSuccess = 'reviewSuccess',
   AddBasket = 'addBasket',
+  AddBasketSuccess = 'addBasketSuccess',
+  BasketRemove = 'basketRemove'
 }
 
 export enum ProductTubs {

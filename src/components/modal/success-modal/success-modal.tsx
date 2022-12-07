@@ -1,11 +1,17 @@
-type ReviewSuccessProps = {
+import { ModalState } from '../../../const';
+
+type SuccessModalProps = {
   onClick: () => void;
+  modalState: string;
 }
 
-export default function ReviewSuccess({onClick}: ReviewSuccessProps): JSX.Element {
+export default function SuccessModal({onClick, modalState}: SuccessModalProps): JSX.Element {
   return (
     <div className="modal__content">
-      <p className="title title--h4">Спасибо за отзыв</p>
+      <p className="title title--h4">
+        {modalState === ModalState.ReviewSuccess && 'Спасибо за отзыв'}
+        {modalState === ModalState.AddBasketSuccess && 'Спасибо за покупку'}
+      </p>
       <svg className="modal__icon" width="80" height="78" aria-hidden="true">
         <use xlinkHref="#icon-review-success"></use>
       </svg>

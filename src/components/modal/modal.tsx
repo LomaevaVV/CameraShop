@@ -4,12 +4,12 @@ import { changeModalState } from '../../store/app-process/app-process';
 import { getSelectedCamera } from '../../store/app-process/selectors';
 import { getProduct } from '../../store/cameras/selectors';
 import { Camera } from '../../types/camera';
-import AddBasketModal from './add-basket-modal';
-import AddReviewModal from './add-review-modal';
-import ReviewSuccess from './review-success';
+import AddBasketModal from './add-basket-modal/add-basket-modal';
+import AddReviewModal from './add-review-modal/add-review-modal';
 import cn from 'classnames';
 import FocusLock from 'react-focus-lock';
 import { RemoveScroll } from 'react-remove-scroll';
+import SuccessModal from './success-modal/success-modal';
 
 type ModalProps = {
   modalState: string;
@@ -51,8 +51,8 @@ export default function Modal({modalState}: ModalProps): JSX.Element {
               && camera
               && <AddReviewModal cameraId={camera.id} onClick={handleClickCloseButton}/>}
 
-            {modalState === ModalState.ReviewSuccess
-              && <ReviewSuccess onClick={handleClickCloseButton}/>}
+            {(modalState === ModalState.ReviewSuccess || modalState === ModalState.AddBasketSuccess)
+              && <SuccessModal modalState={modalState} onClick={handleClickCloseButton}/>}
           </div>
         </div>
       </RemoveScroll>
