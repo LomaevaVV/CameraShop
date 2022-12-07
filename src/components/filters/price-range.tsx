@@ -42,7 +42,7 @@ export default function PriceRange(): JSX.Element {
 
   const handleInputDownBlure = () => {
     let paramValue = priceRangeData.priceDown;
-    if ((Number(paramValue) > Number(priceRangeData.priceUp) && priceRangeData.priceUp !== '')) {
+    if ((Number(paramValue) > Number(camerasMaxPrice))) {
       setPriceRangeData(() => ({
         ...priceRangeData,
         priceDown: ''
@@ -55,7 +55,7 @@ export default function PriceRange(): JSX.Element {
 
   const handleInputUpBlure = () => {
     let paramValue = priceRangeData.priceUp;
-    if ((Number(priceRangeData.priceDown) > Number(priceRangeData.priceUp) && priceRangeData.priceDown !== '')) {
+    if ((Number(camerasMinPrice) > Number(paramValue))) {
       setPriceRangeData(() => ({
         ...priceRangeData,
         priceUp: ''
