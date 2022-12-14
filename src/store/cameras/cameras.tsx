@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, FetchStatus } from '../../const';
-import { Camera, Cameras, CamerasPriceRange } from '../../types/camera';
+import { Camera, Cameras, CamerasInBasket, CamerasPriceRange } from '../../types/camera';
 import { fetchCamerasAction, fetchProductAction, fetchSimilarAction, fetchCamerasBySearchAction, fetchPriceRangeAction } from '../api-actions';
 
 export type DataCameras = {
@@ -14,6 +14,7 @@ export type DataCameras = {
   priceRange: CamerasPriceRange;
   priceRangeFetchStatus: string;
   carrentSearchParams: [string, string][];
+  camerasInBasket: CamerasInBasket;
 };
 
 const initialState: DataCameras = {
@@ -26,7 +27,8 @@ const initialState: DataCameras = {
   camerasByName: [],
   priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
   priceRangeFetchStatus: FetchStatus.Idle,
-  carrentSearchParams: []
+  carrentSearchParams: [],
+  camerasInBasket: []
 };
 
 export const dataCameras = createSlice({
@@ -35,6 +37,9 @@ export const dataCameras = createSlice({
   reducers: {
     setCarrentSearchParams: (state, action: {payload: [string, string][]}) => {
       state.carrentSearchParams = action.payload;
+    },
+    setCamerasInBasket: (state, action: {payload: CamerasInBasket | []}) => {
+      state.camerasInBasket = action.payload;
     },
   },
   extraReducers(builder) {
@@ -75,4 +80,4 @@ export const dataCameras = createSlice({
   }
 });
 
-export const {setCarrentSearchParams} = dataCameras.actions;
+export const {setCarrentSearchParams, setCamerasInBasket} = dataCameras.actions;

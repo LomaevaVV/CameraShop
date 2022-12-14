@@ -1,14 +1,17 @@
-import { AppRoute, ClassName, ProductTubs } from '../../const';
+import { AppRoute, ClassName, ModalState, ProductTubs } from '../../const';
 import { Camera } from '../../types/camera';
 import RatingBar from '../rating-bar/rating-bar';
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
+import { changeModalState, setSelectedCamera } from '../../store/app-process/app-process';
+import { useAppDispatch } from '../../hooks';
 
 type ProductProps = {
   camera: Camera;
 }
 
 export default function Product({camera}: ProductProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const [activeTab, setActiveTab] = useState(ProductTubs.Features);
 
   useEffect(() => {
@@ -18,6 +21,11 @@ export default function Product({camera}: ProductProps): JSX.Element {
   const getClassName = (className: string, tabName: string) => cn(className, {
     'is-active': activeTab === tabName
   });
+
+  const HandleClickBuyButton = () => {
+    dispatch(setSelectedCamera(camera));
+    dispatch(changeModalState(ModalState.AddBasket));
+  };
 
   return (
     <div className="page-content__section">
@@ -33,7 +41,11 @@ export default function Product({camera}: ProductProps): JSX.Element {
             <h1 className="title title--h3">{camera.name}</h1>
             <RatingBar rating={camera.rating} reviewCount={camera.reviewCount} ratingBarClassName={ClassName.Product}/>
             <p className="product__price"><span className="visually-hidden">Цена:</span>{camera.price} ₽</p>
-            <button className="btn btn--purple" type="button">
+            <button
+              className="btn btn--purple"
+              type="button"
+              onClick={HandleClickBuyButton}
+            >
               <svg width="24" height="16" aria-hidden="true">
                 <use xlinkHref="#icon-add-basket"></use>
               </svg>Добавить в корзину

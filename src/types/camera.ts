@@ -31,4 +31,10 @@ export type CamerasPriceRange = {
   camerasMaxPrice: number;
 }
 
+export type CamerasInBasket = {
+  id: number;
+  amount: number;
+  camera: Camera;
+}[]
+
 export type Cameras = Camera[];

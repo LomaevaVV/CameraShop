@@ -23,7 +23,8 @@ describe('Reducer: cameras', () => {
       camerasByName: [],
       priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
       priceRangeFetchStatus: FetchStatus.Idle,
-      carrentSearchParams: []
+      carrentSearchParams: [],
+      camerasInBasket: []
     };
   });
 
@@ -47,7 +48,8 @@ describe('Reducer: cameras', () => {
           camerasByName: [],
           priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
           priceRangeFetchStatus: FetchStatus.Idle,
-          carrentSearchParams: []
+          carrentSearchParams: [],
+          camerasInBasket: []
         });
     });
 
@@ -63,7 +65,8 @@ describe('Reducer: cameras', () => {
           camerasByName: [],
           priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
           priceRangeFetchStatus: FetchStatus.Idle,
-          carrentSearchParams: []
+          carrentSearchParams: [],
+          camerasInBasket: []
         });
     });
 
@@ -79,7 +82,8 @@ describe('Reducer: cameras', () => {
           camerasByName: [],
           priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
           priceRangeFetchStatus: FetchStatus.Idle,
-          carrentSearchParams: []
+          carrentSearchParams: [],
+          camerasInBasket: []
         });
     });
   });
@@ -98,7 +102,8 @@ describe('Reducer: cameras', () => {
           camerasByName: [],
           priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
           priceRangeFetchStatus: FetchStatus.Idle,
-          carrentSearchParams: []
+          carrentSearchParams: [],
+          camerasInBasket: []
         });
     });
 
@@ -114,7 +119,8 @@ describe('Reducer: cameras', () => {
           camerasByName: [],
           priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
           priceRangeFetchStatus: FetchStatus.Idle,
-          carrentSearchParams: []
+          carrentSearchParams: [],
+          camerasInBasket: []
         });
     });
 
@@ -131,7 +137,8 @@ describe('Reducer: cameras', () => {
           camerasByName: [],
           priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
           priceRangeFetchStatus: FetchStatus.Idle,
-          carrentSearchParams: []
+          carrentSearchParams: [],
+          camerasInBasket: []
         });
     });
   });
@@ -149,7 +156,8 @@ describe('Reducer: cameras', () => {
           camerasByName: [],
           priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
           priceRangeFetchStatus: FetchStatus.Idle,
-          carrentSearchParams: []
+          carrentSearchParams: [],
+          camerasInBasket: []
         });
     });
   });

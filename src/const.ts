@@ -20,7 +20,9 @@ export const APIRoute = {
   Cameras: '/cameras',
   Camera: '/cameras/:id',
   Promo: '/promo',
-  Reviews: '/reviews'
+  Reviews: '/reviews',
+  Сoupons: '/coupons',
+  Orders: '/orders'
 } as const;
 
 export enum NameSpace {
@@ -49,7 +51,7 @@ export enum ModalState {
   ReviewSuccess = 'reviewSuccess',
   AddBasket = 'addBasket',
   AddBasketSuccess = 'addBasketSuccess',
-  BasketRemove = 'basketRemove'
+  DelFromBasket = 'delFromBasket'
 }
 
 export enum ProductTubs {

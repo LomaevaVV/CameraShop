@@ -4,12 +4,12 @@ import { changeModalState } from '../../store/app-process/app-process';
 import { getSelectedCamera } from '../../store/app-process/selectors';
 import { getProduct } from '../../store/cameras/selectors';
 import { Camera } from '../../types/camera';
-import AddBasketModal from './add-basket-modal/add-basket-modal';
 import AddReviewModal from './add-review-modal/add-review-modal';
 import cn from 'classnames';
 import FocusLock from 'react-focus-lock';
 import { RemoveScroll } from 'react-remove-scroll';
 import SuccessModal from './success-modal/success-modal';
+import BasketModal from './basket-modal/basket-modal';
 
 type ModalProps = {
   modalState: string;
@@ -43,16 +43,19 @@ export default function Modal({modalState}: ModalProps): JSX.Element {
         <div className={getClassName()} >
           <div className="modal__wrapper" data-testid="modal">
             <div className="modal__overlay" onClick={() => dispatch(changeModalState(ModalState.Closed))}></div>
-            {modalState === ModalState.AddBasket
+            {(modalState === ModalState.AddBasket
+              || modalState === ModalState.DelFromBasket)
               && selectidCard
-              && <AddBasketModal camera={selectidCard} onClick={handleClickCloseButton}/>}
+              && <BasketModal modalState={modalState} camera={selectidCard} onClick={handleClickCloseButton}/>}
 
             {modalState === ModalState.AddReview
               && camera
               && <AddReviewModal cameraId={camera.id} onClick={handleClickCloseButton}/>}
 
-            {(modalState === ModalState.ReviewSuccess || modalState === ModalState.AddBasketSuccess)
+            {(modalState === ModalState.ReviewSuccess
+              || modalState === ModalState.AddBasketSuccess)
               && <SuccessModal modalState={modalState} onClick={handleClickCloseButton}/>}
+
           </div>
         </div>
       </RemoveScroll>

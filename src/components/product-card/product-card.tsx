@@ -1,10 +1,11 @@
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute, ClassName, ModalState } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeModalState, setSelectedCamera } from '../../store/app-process/app-process';
-import { Camera } from '../../types/camera';
+import { Camera, CamerasInBasket } from '../../types/camera';
 import RatingBar from '../rating-bar/rating-bar';
 import cn from 'classnames';
+import { getCamerasInBasket } from '../../store/cameras/selectors';
 
 type ProductCardProps = {
   camera: Camera;
@@ -13,11 +14,29 @@ type ProductCardProps = {
 
 export default function ProductCard ({camera, isActive}: ProductCardProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const camerasInBasket: CamerasInBasket = useAppSelector(getCamerasInBasket);
+  const cameraInBasket = camerasInBasket.filter((item) => item.id === camera.id);
 
   const HandleClickBuyButton = () => {
     dispatch(setSelectedCamera(camera));
     dispatch(changeModalState(ModalState.AddBasket));
   };
+
+  const getBuyButton = () => cameraInBasket.length > 0
+    ?
+    <Link className="btn btn--purple-border product-card__btn product-card__btn--in-cart" to="#">
+      <svg width="16" height="16" aria-hidden="true">
+        <use xlinkHref="#icon-basket"></use>
+      </svg>В корзине
+    </Link>
+    :
+    <button
+      onClick={HandleClickBuyButton}
+      className="btn btn--purple product-card__btn"
+      type="button"
+    >
+      Купить
+    </button>;
 
   const getCardClassName = () :string=> cn('product-card', {
     'is-active': isActive
@@ -38,13 +57,7 @@ export default function ProductCard ({camera, isActive}: ProductCardProps): JSX.
         </p>
       </div>
       <div className="product-card__buttons">
-        <button
-          onClick={HandleClickBuyButton}
-          className="btn btn--purple product-card__btn"
-          type="button"
-        >
-          Купить
-        </button>
+        {getBuyButton()}
         <Link className="btn btn--transparent" to={generatePath(AppRoute.Product, {id: String(camera.id)})}>Подробнее
         </Link>
       </div>
