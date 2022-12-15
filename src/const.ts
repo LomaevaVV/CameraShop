@@ -29,7 +29,8 @@ export enum NameSpace {
   Cameras = 'CAMERAS',
   Promo = 'PROMO',
   App = 'APP',
-  Reviews = 'REVIEWS'
+  Reviews = 'REVIEWS',
+  Coupons = 'COUPONS'
 }
 
 export const enum FetchStatus {
@@ -114,3 +115,11 @@ export const FilterTitles : {
       level: 'Уровень',
     } as const;
 
+export const Coupons : {
+      [key: string]: string;
+  } =
+    {
+      'camera-333': 'camera-333',
+      'camera-444': 'camera-444',
+      'camera-555': 'camera-555',
+    } as const;

@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getBasketAmount } from '../../store/app-process/selectors';
 import { setCarrentSearchParams } from '../../store/cameras/cameras';
-import { getCamerasInBasket } from '../../store/cameras/selectors';
 import SearchForm from '../search-form/search-form';
 
 export default function Header(): JSX.Element {
   const dispatch = useAppDispatch();
-  const camerasInBasket = useAppSelector(getCamerasInBasket);
+  const basketAmount = useAppSelector(getBasketAmount);
 
   return (
     <header className="header" id="header">
@@ -38,7 +38,7 @@ export default function Header(): JSX.Element {
           <svg width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
           </svg>
-          {camerasInBasket.length !== 0 && <span className="header__basket-count">{camerasInBasket.length}</span>}
+          {basketAmount !== 0 && <span className="header__basket-count">{basketAmount}</span>}
         </Link>
       </div>
     </header>

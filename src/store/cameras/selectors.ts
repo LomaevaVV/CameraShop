@@ -16,4 +16,5 @@ export const getSimilar = (state: State): Cameras | [] => state[NameSpace.Camera
 export const getCamerasByName = (state: State): Cameras | [] => state[NameSpace.Cameras].camerasByName;
 export const getPriceRange = (state: State): CamerasPriceRange => state[NameSpace.Cameras].priceRange;
 export const getPriceRangeFetchStatus = (state: State): string => state[NameSpace.Cameras].priceRangeFetchStatus;
+
 export const getCamerasInBasket = (state: State): CamerasInBasket | [] => state[NameSpace.Cameras].camerasInBasket;

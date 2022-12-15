@@ -217,3 +217,23 @@ export const postReviewAction = createAsyncThunk<Review, ReviewComment, {
     }
   },
 );
+
+export const postDiscountByCoupon = createAsyncThunk<number, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/DiscountByCoupon',
+  async (coupon, {extra: api}) => {
+    try {
+      const {data} = await api.post<number>(APIRoute.Сoupons, {coupon});
+
+      return data;
+    } catch(e) {
+      toast.error('Coupon fetch error', {
+        position: toast.POSITION.TOP_CENTER,
+      });
+
+      throw e;
+    }
+  });
