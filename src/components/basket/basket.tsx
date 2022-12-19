@@ -4,6 +4,7 @@ import BasketItem from './basket-item';
 import BasketPromo from './basket-promo';
 import { getDiscount } from '../../store/coupons/selectors';
 import { getBasketValue } from '../../store/app-process/selectors';
+import cn from 'classnames';
 
 export default function Basket(): JSX.Element {
 
@@ -11,23 +12,35 @@ export default function Basket(): JSX.Element {
   const summaryValue = useAppSelector(getBasketValue);
   const discount = useAppSelector(getDiscount);
 
-  const getDiscountSum = summaryValue * discount / 100;
+  const discountSum = Math.floor(summaryValue * discount / 100);
+  const getClassName = () => cn('basket__summary-value', {
+    ' basket__summary-value--bonus': discountSum !== 0
+  });
 
   return (
     <section className="basket">
       <div className="container">
         <h1 className="title title--h2">Корзина</h1>
         <ul className="basket__list">
-          {camerasInBasket.map((item) => (
-            <BasketItem camera={item.camera} key={item.id} amount={item.amount}/>
+          {camerasInBasket.map((item, idx) => (
+            <BasketItem camerasInBasket={camerasInBasket} camera={item.camera} key={item.camera.name} amount={item.amount} idx={idx}/>
           ))}
         </ul>
         <div className="basket__summary">
           <BasketPromo />
           <div className="basket__summary-order">
-            <p className="basket__summary-item"><span className="basket__summary-text">Всего:</span><span className="basket__summary-value">{summaryValue}  ₽</span></p>
-            <p className="basket__summary-item"><span className="basket__summary-text">Скидка:</span><span className="basket__summary-value basket__summary-value--bonus">{getDiscountSum} ₽</span></p>
-            <p className="basket__summary-item"><span className="basket__summary-text basket__summary-text--total">К оплате:</span><span className="basket__summary-value basket__summary-value--total">{summaryValue - getDiscountSum} ₽</span></p>
+            <p className="basket__summary-item">
+              <span className="basket__summary-text">Всего:</span>
+              <span className="basket__summary-value">{summaryValue}  ₽</span>
+            </p>
+            <p className="basket__summary-item">
+              <span className="basket__summary-text">Скидка:</span>
+              <span className={getClassName()}>{discountSum} ₽</span>
+            </p>
+            <p className="basket__summary-item">
+              <span className="basket__summary-text basket__summary-text--total">К оплате:</span>
+              <span className="basket__summary-value basket__summary-value--total">{summaryValue - discountSum} ₽</span>
+            </p>
             <button
               className="btn btn--purple"
               type="submit"

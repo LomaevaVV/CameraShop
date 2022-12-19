@@ -8,6 +8,7 @@ import { Promo } from '../types/promo';
 import { generatePath } from 'react-router-dom';
 import { Review, ReviewComment, Reviews } from '../types/review';
 import { changeModalState } from './app-process/app-process';
+import { setCoupon } from './coupons/coupons';
 
 export const fetchCamerasAction = createAsyncThunk<{
   data: Cameras;
@@ -224,10 +225,11 @@ export const postDiscountByCoupon = createAsyncThunk<number, string, {
   extra: AxiosInstance;
 }>(
   'data/DiscountByCoupon',
-  async (coupon, {extra: api}) => {
+  async (coupon, {extra: api, dispatch}) => {
     try {
       const {data} = await api.post<number>(APIRoute.Сoupons, {coupon});
-
+      window.console.log('KUPON:' ,coupon);
+      dispatch(setCoupon(coupon));
       return data;
     } catch(e) {
       toast.error('Coupon fetch error', {
