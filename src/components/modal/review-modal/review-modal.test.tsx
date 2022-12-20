@@ -3,7 +3,7 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { storeForFake, makeFakeProduct, makeFakeReviewComment } from '../../../tests/mocks';
 import HistoryRouter from '../../history-route/history-route';
-import AddReviewModal from './add-review-modal';
+import AddReviewModal from './review-modal';
 
 const history = createMemoryHistory();
 const fakeProduct = makeFakeProduct();

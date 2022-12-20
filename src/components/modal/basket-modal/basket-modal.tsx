@@ -38,19 +38,18 @@ export default function BasketModal({camera, onClick, modalState}: basketModalPr
         }]));
     }
 
-    dispatch(changeModalState(ModalState.AddBasketSuccess));
+    dispatch(changeModalState(ModalState.BasketSuccess));
   };
 
   const handleDelBasketBtnClick = () => {
     dispatch(setCamerasInBasket([...camerasInBasket.filter((item) => item.id !== camera.id)]));
-
-    dispatch(changeModalState(ModalState.AddBasketSuccess));
+    dispatch(changeModalState(ModalState.Closed));
   };
 
   return (
     <div className="modal__content">
       <p className="title title--h4">
-        {modalState === ModalState.AddBasket
+        {modalState === ModalState.BasketAddItem
           ? 'Добавить товар в корзину'
           : 'Удалить этот товар?' }
       </p>
@@ -74,7 +73,7 @@ export default function BasketModal({camera, onClick, modalState}: basketModalPr
           <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{camera.price} ₽</p>
         </div>
       </div>
-      {modalState === ModalState.AddBasket
+      {modalState === ModalState.BasketAddItem
         ?
         <div className="modal__buttons">
           <button autoFocus
@@ -96,7 +95,11 @@ export default function BasketModal({camera, onClick, modalState}: basketModalPr
           >
             Удалить
           </button>
-          <Link className="btn btn--transparent modal__btn modal__btn--half-width" to="#">
+          <Link
+            onClick={onClick}
+            className="btn btn--transparent modal__btn modal__btn--half-width"
+            to="#"
+          >
             Продолжить покупки
           </Link>
         </div>}

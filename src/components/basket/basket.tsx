@@ -1,16 +1,30 @@
 import { getCamerasInBasket } from '../../store/cameras/selectors';
-import { useAppSelector } from '../../hooks/index';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import BasketItem from './basket-item';
 import BasketPromo from './basket-promo';
-import { getDiscount } from '../../store/coupons/selectors';
+import { getCoupon, getDiscount } from '../../store/coupons/selectors';
 import { getBasketValue } from '../../store/app-process/selectors';
 import cn from 'classnames';
+import { postOrder } from '../../store/api-actions';
+import { getOrderPostStatus } from '../../store/order/selectors';
+import { FetchStatus } from '../../const';
 
 export default function Basket(): JSX.Element {
+  const dispatch = useAppDispatch();
 
   const camerasInBasket = useAppSelector(getCamerasInBasket);
   const summaryValue = useAppSelector(getBasketValue);
   const discount = useAppSelector(getDiscount);
+  const coupon = useAppSelector(getCoupon);
+  const orderPostStatus = useAppSelector(getOrderPostStatus);
+
+  const handleBasketSubmit = () => {
+    const camerasIds = camerasInBasket.map((item) => item.id);
+    dispatch(postOrder({
+      camerasIds: camerasIds,
+      coupon: coupon === '' ? null : coupon
+    }));
+  };
 
   const discountSum = Math.floor(summaryValue * discount / 100);
   const getClassName = () => cn('basket__summary-value', {
@@ -44,6 +58,8 @@ export default function Basket(): JSX.Element {
             <button
               className="btn btn--purple"
               type="submit"
+              onSubmit={handleBasketSubmit}
+              disabled={orderPostStatus === FetchStatus.Loading}
             >
               Оформить заказ
             </button>

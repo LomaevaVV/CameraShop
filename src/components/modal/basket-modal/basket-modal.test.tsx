@@ -2,19 +2,19 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import HistoryRouter from '../../history-route/history-route';
 import { makeFakeProduct } from '../../../tests/mocks';
-import AddBasketModal from './basket-modal';
 import { ModalState } from '../../../const';
+import BasketModal from './basket-modal';
 
 const history = createMemoryHistory();
 const fakeProduct = makeFakeProduct();
-const fakeModalState = ModalState.AddBasket;
+const fakeModalState = ModalState.BasketAddItem;
 
 describe('Component: AddBasketModal', () => {
   it('should render correctly', () => {
 
     render(
       <HistoryRouter history={history}>
-        <AddBasketModal modalState={fakeModalState} camera={fakeProduct} onClick={ () => null }/>
+        <BasketModal modalState={fakeModalState} camera={fakeProduct} onClick={ () => null }/>
       </HistoryRouter>,
     );
 

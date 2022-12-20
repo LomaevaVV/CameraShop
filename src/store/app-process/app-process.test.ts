@@ -28,9 +28,9 @@ describe('Reducer: app-process', () => {
   describe('changeModalState test', () => {
 
     it('should update ModalStates by changeModalState', () => {
-      expect(appProcess.reducer(state, changeModalState(ModalState.AddBasket)))
+      expect(appProcess.reducer(state, changeModalState(ModalState.BasketAddItem)))
         .toEqual({
-          modalState: ModalState.AddBasket,
+          modalState: ModalState.BasketAddItem,
           selectedCameraId: undefined,
           reviewsAmount: MORE_REVIEWS_STEP,
           reviewsOnPage: [],

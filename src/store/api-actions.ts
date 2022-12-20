@@ -9,6 +9,7 @@ import { generatePath } from 'react-router-dom';
 import { Review, ReviewComment, Reviews } from '../types/review';
 import { changeModalState } from './app-process/app-process';
 import { setCoupon } from './coupons/coupons';
+import { Order } from '../types/order';
 
 export const fetchCamerasAction = createAsyncThunk<{
   data: Cameras;
@@ -219,12 +220,12 @@ export const postReviewAction = createAsyncThunk<Review, ReviewComment, {
   },
 );
 
-export const postDiscountByCoupon = createAsyncThunk<number, string, {
+export const postCouponGetDiscount = createAsyncThunk<number, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/DiscountByCoupon',
+  'data/post Coupon',
   async (coupon, {extra: api, dispatch}) => {
     try {
       const {data} = await api.post<number>(APIRoute.Сoupons, {coupon});
@@ -232,10 +233,32 @@ export const postDiscountByCoupon = createAsyncThunk<number, string, {
       dispatch(setCoupon(coupon));
       return data;
     } catch(e) {
-      toast.error('Coupon fetch error', {
+      toast.error('Coupon post error', {
         position: toast.POSITION.TOP_CENTER,
       });
 
       throw e;
     }
   });
+
+export const postOrder = createAsyncThunk<void, Order, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>(
+    'data/post Order',
+    async ({camerasIds, coupon}, {extra: api}) => {
+      try {
+        await api.post(APIRoute.Orders, {
+          camerasIds: camerasIds,
+          coupon: coupon
+        });
+
+      } catch(e) {
+        toast.error('Order post error', {
+          position: toast.POSITION.TOP_CENTER,
+        });
+
+        throw e;
+      }
+    });

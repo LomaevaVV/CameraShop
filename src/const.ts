@@ -30,7 +30,8 @@ export enum NameSpace {
   Promo = 'PROMO',
   App = 'APP',
   Reviews = 'REVIEWS',
-  Coupons = 'COUPONS'
+  Coupons = 'COUPONS',
+  Order = 'ORDER'
 }
 
 export const enum FetchStatus {
@@ -48,11 +49,12 @@ export enum ClassName {
 
 export enum ModalState {
   Closed = 'closed',
-  AddReview = 'addReview',
+  ReviewForm = 'reviewForm',
   ReviewSuccess = 'reviewSuccess',
-  AddBasket = 'addBasket',
-  AddBasketSuccess = 'addBasketSuccess',
-  DelFromBasket = 'delFromBasket'
+  BasketAddItem = 'basketAddItem',
+  BasketDelItem = 'basketDelItem',
+  BasketSuccess = 'basketSuccess',
+  OrderSuccess = 'orderSuccess'
 }
 
 export enum ProductTubs {

@@ -14,12 +14,12 @@ const RatingStarsTitles = [
   {title: 'Ужасно', value: '1'}
 ];
 
-type AddReviewModalProps = {
+type ReviewModalProps = {
   onClick: () => void;
   cameraId: number;
 }
 
-export default function AddReviewModal({onClick, cameraId}: AddReviewModalProps): JSX.Element {
+export default function ReviewModal({onClick, cameraId}: ReviewModalProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const {

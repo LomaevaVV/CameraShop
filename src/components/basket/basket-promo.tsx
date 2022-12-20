@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { postDiscountByCoupon } from '../../store/api-actions';
+import { postCouponGetDiscount } from '../../store/api-actions';
 import cn from 'classnames';
 import { getCoupon, getCouponPostStatus } from '../../store/coupons/selectors';
 import { FetchStatus } from '../../const';
@@ -27,7 +27,7 @@ export default function BasketPromo(): JSX.Element {
 
   const handlePromoBtnClick = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    dispatch(postDiscountByCoupon(couponValue));
+    dispatch(postCouponGetDiscount(couponValue));
   };
 
   const handleSearchChange = (evt: ChangeEvent<HTMLInputElement>) => {

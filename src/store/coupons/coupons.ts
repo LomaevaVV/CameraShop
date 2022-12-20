@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { FetchStatus, NameSpace } from '../../const';
-import { postDiscountByCoupon } from '../api-actions';
+import { postCouponGetDiscount } from '../api-actions';
 
 export type DataCoupons = {
   coupon: string;
@@ -27,14 +27,14 @@ export const dataCoupons = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(postDiscountByCoupon.fulfilled, (state, action) => {
+      .addCase(postCouponGetDiscount.fulfilled, (state, action) => {
         state.discount = action.payload;
         state.couponPostStatus = FetchStatus.Success;
       })
-      .addCase(postDiscountByCoupon.pending, (state) => {
+      .addCase(postCouponGetDiscount.pending, (state) => {
         state.couponPostStatus = FetchStatus.Loading;
       })
-      .addCase(postDiscountByCoupon.rejected, (state) => {
+      .addCase(postCouponGetDiscount.rejected, (state) => {
         state.discount = 0;
         state.couponPostStatus = FetchStatus.Rejected;
       });

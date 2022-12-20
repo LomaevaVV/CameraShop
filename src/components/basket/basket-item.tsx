@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { AppRoute, ModalState } from '../../const';
+import { AppRoute, ModalState} from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeModalState, setSelectedCamera } from '../../store/app-process/app-process';
 import { setCamerasInBasket } from '../../store/cameras/cameras';
@@ -17,8 +17,8 @@ export default function BasketItem({camerasInBasket, camera, amount, idx}: Baske
   const [carrentAmount, setCarrentAmount] = useState(amount);
 
   const handleRemoveBtnClick = () => {
-    dispatch(changeModalState(ModalState.DelFromBasket));
     dispatch(setSelectedCamera(camera));
+    dispatch(changeModalState(ModalState.BasketDelItem));
   };
 
   const updateCamerasInBasket = (newAmount: number) => {

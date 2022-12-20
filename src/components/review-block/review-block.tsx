@@ -24,7 +24,7 @@ export default function ReviwBlock({reviews}: ReviwBlockProps): JSX.Element {
   const reviewsOnPage = useAppSelector(getReviewsOnPage);
 
   const handleClickNewReviewBtn = () => {
-    dispatch(changeModalState(ModalState.AddReview));
+    dispatch(changeModalState(ModalState.ReviewForm));
   };
 
   const handleMoreReviewsBtnClick = () => {

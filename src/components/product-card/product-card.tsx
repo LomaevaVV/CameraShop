@@ -19,7 +19,7 @@ export default function ProductCard ({camera, isActive}: ProductCardProps): JSX.
 
   const HandleClickBuyButton = () => {
     dispatch(setSelectedCamera(camera));
-    dispatch(changeModalState(ModalState.AddBasket));
+    dispatch(changeModalState(ModalState.BasketAddItem));
   };
 
   const getBuyButton = () => cameraInBasket.length > 0

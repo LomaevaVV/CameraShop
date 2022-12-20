@@ -24,7 +24,7 @@ export default function Product({camera}: ProductProps): JSX.Element {
 
   const HandleClickBuyButton = () => {
     dispatch(setSelectedCamera(camera));
-    dispatch(changeModalState(ModalState.AddBasket));
+    dispatch(changeModalState(ModalState.BasketAddItem));
   };
 
   return (

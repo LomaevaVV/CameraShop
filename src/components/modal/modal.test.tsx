@@ -13,7 +13,7 @@ describe('Component: Modal', () => {
   it('should render correctly', () => {
     const fakeStore = storeForFake({
       APP: {
-        modalState: ModalState.AddBasket,
+        modalState: ModalState.BasketAddItem,
         selectidCard: fakeProduct,
       },
       CAMERAS: {
@@ -24,7 +24,7 @@ describe('Component: Modal', () => {
     render(
       <HistoryRouter history={history}>
         <Provider store={fakeStore}>
-          <Modal modalState={ModalState.AddBasket}/>
+          <Modal modalState={ModalState.BasketAddItem}/>
         </Provider>
       </HistoryRouter>,
     );
