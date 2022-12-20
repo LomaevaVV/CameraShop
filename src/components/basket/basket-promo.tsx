@@ -11,19 +11,16 @@ export default function BasketPromo(): JSX.Element {
   const couponPostStatus = useAppSelector(getCouponPostStatus);
   const coupon = useAppSelector(getCoupon);
   const [couponValue, setCouponValue] = useState('');
-  window.console.log('КУПОН:' ,coupon);
 
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (!isRenderedRef.current) {
-      couponPostStatus === FetchStatus.Rejected && dispatch(setCouponPostStatus(FetchStatus.Idle));
+      (couponPostStatus === FetchStatus.Rejected || coupon === '') && dispatch(setCouponPostStatus(FetchStatus.Idle));
       couponPostStatus === FetchStatus.Success && setCouponValue(coupon);
       isRenderedRef.current = true;
     }
   }, [coupon, couponPostStatus, dispatch]);
-
-  // window.console.log(couponValue);
 
   const handlePromoBtnClick = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();

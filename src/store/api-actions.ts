@@ -10,6 +10,7 @@ import { Review, ReviewComment, Reviews } from '../types/review';
 import { changeModalState } from './app-process/app-process';
 import { setCoupon } from './coupons/coupons';
 import { Order } from '../types/order';
+import { setCamerasInBasket } from './cameras/cameras';
 
 export const fetchCamerasAction = createAsyncThunk<{
   data: Cameras;
@@ -229,7 +230,6 @@ export const postCouponGetDiscount = createAsyncThunk<number, string, {
   async (coupon, {extra: api, dispatch}) => {
     try {
       const {data} = await api.post<number>(APIRoute.Сoupons, {coupon});
-      window.console.log('KUPON:' ,coupon);
       dispatch(setCoupon(coupon));
       return data;
     } catch(e) {
@@ -247,13 +247,16 @@ export const postOrder = createAsyncThunk<void, Order, {
     extra: AxiosInstance;
   }>(
     'data/post Order',
-    async ({camerasIds, coupon}, {extra: api}) => {
+    async ({camerasIds, coupon}, {extra: api, dispatch}) => {
       try {
         await api.post(APIRoute.Orders, {
           camerasIds: camerasIds,
           coupon: coupon
         });
 
+        dispatch(changeModalState(ModalState.OrderSuccess));
+        dispatch(setCamerasInBasket([]));
+        dispatch(setCoupon(''));
       } catch(e) {
         toast.error('Order post error', {
           position: toast.POSITION.TOP_CENTER,

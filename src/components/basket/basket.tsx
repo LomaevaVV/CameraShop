@@ -18,8 +18,9 @@ export default function Basket(): JSX.Element {
   const coupon = useAppSelector(getCoupon);
   const orderPostStatus = useAppSelector(getOrderPostStatus);
 
-  const handleBasketSubmit = () => {
+  const handleBasketClick = () => {
     const camerasIds = camerasInBasket.map((item) => item.id);
+
     dispatch(postOrder({
       camerasIds: camerasIds,
       coupon: coupon === '' ? null : coupon
@@ -58,8 +59,8 @@ export default function Basket(): JSX.Element {
             <button
               className="btn btn--purple"
               type="submit"
-              onSubmit={handleBasketSubmit}
-              disabled={orderPostStatus === FetchStatus.Loading}
+              onClick={handleBasketClick}
+              disabled={orderPostStatus === FetchStatus.Loading || camerasInBasket.length === 0}
             >
               Оформить заказ
             </button>

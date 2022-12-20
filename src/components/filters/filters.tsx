@@ -18,13 +18,11 @@ export default function Filters(): JSX.Element {
       const newParams = Array.from(searchParams.entries())
         .filter(([_, currentValue]) => currentValue !== filterGroop[nameOfFilter]);
       setSearchParams(new URLSearchParams(newParams));
-      window.console.log(newParams);
       dispatch(setCarrentSearchParams(newParams));
     } else {
       searchParams.append(titleOfFilter, filterGroop[nameOfFilter]);
       setSearchParams(searchParams);
       dispatch(setCarrentSearchParams(Array.from(searchParams.entries())));
-      window.console.log(Array.from(searchParams.entries()));
     }
   };
 

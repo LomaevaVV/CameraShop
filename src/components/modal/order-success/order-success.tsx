@@ -1,9 +1,19 @@
+import { AppRoute } from '../../../const';
+import { useAppDispatch } from '../../../hooks';
+import { redirectToRoute } from '../../../store/action';
 
 type OrderSuccessProps = {
   onClick: () => void;
 }
 
 export default function OrderSuccess({onClick}: OrderSuccessProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const handleToCatalogClick = () => {
+    dispatch(redirectToRoute(AppRoute.CatalogPage));
+    onClick();
+  };
+
   return (
     <div className="modal__content">
       <p className="title title--h4">
@@ -23,7 +33,7 @@ export default function OrderSuccess({onClick}: OrderSuccessProps): JSX.Element 
       <div className="modal__buttons">
         <button
           autoFocus
-          onClick={onClick}
+          onClick={handleToCatalogClick}
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
         >
