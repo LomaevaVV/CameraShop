@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import HistoryRouter from '../../components/history-route/history-route';
-import Error from './error';
+import HistoryRouter from '../history-route/history-route';
+import CatalogError from './catalog-error';
 
 const history = createMemoryHistory();
 
@@ -10,7 +10,7 @@ describe('Component: Error', () => {
 
     render(
       <HistoryRouter history={history}>
-        <Error />
+        <CatalogError />
       </HistoryRouter>,
     );
 

@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { fetchCamerasAction, fetchPriceRangeAction } from '../../store/api-actions';
 import { getSortOrder, getSortType } from '../../store/app-process/selectors';
 import { getCameras, getCamerasFetchStatus, getCamerasTotalCount, getCarrentSearchParams } from '../../store/cameras/selectors';
-import Error from '../error/error';
+import CatalogError from '../catalog-error/catalog-error';
 import Filters from '../filters/filters';
 import Loader from '../loader/loader';
 import Pagination from '../pagination/pagination';
@@ -72,7 +72,7 @@ export default function Catalog(): JSX.Element {
       :
       <section className="catalog">
         {camerasFetchStatus === FetchStatus.Rejected
-          ? <Error />
+          ? <CatalogError />
           :
           <div className="container">
             <h1 className="title title--h2">Каталог фото- и видеотехники</h1>

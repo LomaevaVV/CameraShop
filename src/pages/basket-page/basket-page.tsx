@@ -4,11 +4,14 @@ import Footer from '../../components/footer/footer';
 import Basket from '../../components/basket/basket';
 import { useAppSelector } from '../../hooks';
 import { getModalState } from '../../store/app-process/selectors';
-import { ModalState } from '../../const';
+import { FetchStatus, ModalState } from '../../const';
 import Modal from '../../components/modal/modal';
+import { getOrderPostStatus } from '../../store/order/selectors';
+import BasketError from '../../components/basket-error/basket-error';
 
 export default function BasketPage(): JSX.Element {
   const modalState: string = useAppSelector(getModalState);
+  const postOrderStatus: string = useAppSelector(getOrderPostStatus);
 
   return (
     <div className="wrapper">
@@ -16,7 +19,9 @@ export default function BasketPage(): JSX.Element {
 
       <main>
         <PageContent>
-          <Basket />
+          {postOrderStatus === FetchStatus.Rejected
+            ? <BasketError />
+            : <Basket />}
         </PageContent>
         {modalState !== ModalState.Closed && <Modal modalState={modalState}/>}
       </main>

@@ -1,6 +1,6 @@
 import { commerce, datatype, image, internet } from 'faker';
 import { Promo } from '../types/promo';
-import { Camera, Cameras } from '../types/camera';
+import { Camera, Cameras, CamerasInBasket } from '../types/camera';
 import { Review } from '../types/review';
 import { ReviewComment } from '../types/review';
 import { configureMockStore } from '@jedmao/redux-mock-store';
@@ -51,6 +51,30 @@ export const makeFakeCameras = (): Cameras => ([{
   previewImgWebp2x: image.imageUrl(),
   reviewCount: datatype.number()
 }]);
+
+export const makeFakeCamerasInBasket = (): CamerasInBasket => {
+  const CameraId = datatype.number({min: 0, max: 15 });
+
+  return ([{
+    id: CameraId,
+    amount: datatype.number({min: 1, max: 99 }),
+    camera: {
+      id: CameraId,
+      name: commerce.product(),
+      vendorCode: datatype.string(),
+      type: datatype.string(),
+      category: datatype.string(),
+      description: commerce.productDescription(),
+      level: datatype.string(),
+      rating: datatype.number({min: 0, max: 5}),
+      price: datatype.number(),
+      previewImg: image.imageUrl(),
+      previewImg2x: image.imageUrl(),
+      previewImgWebp: image.imageUrl(),
+      previewImgWebp2x: image.imageUrl(),
+      reviewCount: datatype.number()
+    }}]);
+};
 
 export const makeFakeReviews = (): Review[] => ([{
   id: datatype.uuid(),

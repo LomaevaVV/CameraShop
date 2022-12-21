@@ -4,7 +4,7 @@ import { store } from '../../store';
 import { fetchCamerasAction } from '../../store/api-actions';
 
 
-export default function Error(): JSX.Element {
+export default function CatalogError(): JSX.Element {
   const onErrorButtonHover = () => {
     const camerasFetchParams = {
       pageId: DEFAULT_CATALOG_PAGE,

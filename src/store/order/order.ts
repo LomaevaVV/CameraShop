@@ -14,6 +14,9 @@ export const dataOrder = createSlice({
   name: NameSpace.Order,
   initialState,
   reducers: {
+    setOrderPostStatus: (state, action: {payload: string}) => {
+      state.orderPostStatus = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -28,3 +31,5 @@ export const dataOrder = createSlice({
       });
   }
 });
+
+export const {setOrderPostStatus} = dataOrder.actions;

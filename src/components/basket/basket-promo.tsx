@@ -11,6 +11,7 @@ export default function BasketPromo(): JSX.Element {
   const couponPostStatus = useAppSelector(getCouponPostStatus);
   const coupon = useAppSelector(getCoupon);
   const [couponValue, setCouponValue] = useState('');
+  const reWhiteSpace = new RegExp('\\s+');
 
   const isRenderedRef = useRef<boolean>(false);
 
@@ -27,8 +28,8 @@ export default function BasketPromo(): JSX.Element {
     dispatch(postCouponGetDiscount(couponValue));
   };
 
-  const handleSearchChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setCouponValue(String(evt.target.value));
+  const handlePromoChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    !reWhiteSpace.test(evt.target.value) && setCouponValue(String(evt.target.value));
   };
 
   const getClassName = () => cn('custom-input', {
@@ -46,7 +47,7 @@ export default function BasketPromo(): JSX.Element {
               <input
                 type="text"
                 placeholder="Введите промокод"
-                onChange={handleSearchChange}
+                onChange={handlePromoChange}
                 value={couponValue}
               />
             </label>
