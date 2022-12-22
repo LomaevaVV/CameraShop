@@ -20,6 +20,11 @@ const fakeStore = storeForFake({
     productFetchStatus: FetchStatus.Success,
     product: fakeProduct,
     similar: fakeCameras,
+    camerasByName: [],
+    priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
+    priceRangeFetchStatus: FetchStatus.Idle,
+    carrentSearchParams: [],
+    camerasInBasket: []
   },
   REVIEWS: {
     reviews: fakeReviews,

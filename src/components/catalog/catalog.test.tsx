@@ -4,10 +4,11 @@ import { Provider } from 'react-redux';
 import HistoryRouter from '../history-route/history-route';
 import Catalog from './catalog';
 import { FetchStatus } from '../../const';
-import { makeFakeCameras, storeForFake } from '../../tests/mocks';
+import { makeFakeCameras, makeFakeCamerasInBasket, storeForFake } from '../../tests/mocks';
 
 const history = createMemoryHistory();
 const fakeCameras = makeFakeCameras();
+const fakeCamerasInBasket = makeFakeCamerasInBasket();
 
 describe('Component: Catalog', () => {
   it('should render catalog in case camerasFetchStatus = Success', () => {
@@ -17,6 +18,7 @@ describe('Component: Catalog', () => {
         camerasFetchStatus: FetchStatus.Success,
         carrentSearchParams: [],
         camerasTotalCount: 0,
+        camerasInBasket: fakeCamerasInBasket
       },
       APP: {
         sortType: null,

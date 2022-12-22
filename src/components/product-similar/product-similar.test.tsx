@@ -2,12 +2,13 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../../components/history-route/history-route';
-import { ModalState } from '../../const';
-import { makeFakeCameras, storeForFake } from '../../tests/mocks';
+import { FetchStatus, ModalState } from '../../const';
+import { makeFakeCameras, storeForFake, makeFakeCamerasInBasket } from '../../tests/mocks';
 import ProductSimilar from './product-similar';
 
 const history = createMemoryHistory();
 const fakeCameras = makeFakeCameras();
+const fakeCamerasInBasket = makeFakeCamerasInBasket();
 
 describe('Component: ProductSimilar', () => {
   it('should render correctly', () => {
@@ -15,6 +16,10 @@ describe('Component: ProductSimilar', () => {
       APP: {
         selectedCameraId: undefined,
         ModalState: ModalState.Closed,
+      },
+      CAMERAS: {
+        priceRangeFetchStatus: FetchStatus.Idle,
+        camerasInBasket: fakeCamerasInBasket
       },
     });
 

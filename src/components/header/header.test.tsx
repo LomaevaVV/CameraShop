@@ -7,14 +7,14 @@ import { makeFakeCamerasInBasket, makeFakeCameras, storeForFake } from '../../te
 
 const history = createMemoryHistory();
 const fakeCameras = makeFakeCameras();
-const fakeCamerasOnBasket = makeFakeCamerasInBasket();
+const fakeCamerasInBasket = makeFakeCamerasInBasket();
 
 describe('Component: Header', () => {
   it('should render correctly', () => {
     const fakeStore = storeForFake({
       CAMERAS: {
         camerasByName: fakeCameras,
-        camerasInBasket: fakeCamerasOnBasket
+        camerasInBasket: fakeCamerasInBasket
       },
     });
 

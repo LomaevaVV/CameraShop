@@ -3,11 +3,12 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../../components/history-route/history-route';
 import { ModalState } from '../../const';
-import { makeFakeProduct, storeForFake } from '../../tests/mocks';
+import { makeFakeCamerasInBasket, makeFakeProduct, storeForFake } from '../../tests/mocks';
 import ProductCard from './product-card';
 
 const history = createMemoryHistory();
 const fakeProduct = makeFakeProduct();
+const fakeCamerasInBasket = makeFakeCamerasInBasket();
 
 describe('Component: ProductCard', () => {
   it('should render correctly', () => {
@@ -15,6 +16,9 @@ describe('Component: ProductCard', () => {
       APP: {
         selectedCameraId: undefined,
         ModalState: ModalState.Closed,
+      },
+      CAMERAS: {
+        camerasInBasket: fakeCamerasInBasket
       },
     });
 

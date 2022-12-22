@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import { makeFakeCameras, makeFakeProduct, makeFakeReviews, storeForFake } from '../../tests/mocks';
+import { makeFakeCameras, makeFakeCamerasInBasket, makeFakeProduct, makeFakeReviews, storeForFake } from '../../tests/mocks';
 import HistoryRoute from '../../components/history-route/history-route';
 import ProductPage from './product-page';
 import { FetchStatus, ModalState, MORE_REVIEWS_STEP } from '../../const';
@@ -10,6 +10,7 @@ const history = createMemoryHistory();
 const fakeProduct = makeFakeProduct();
 const fakeCameras = makeFakeCameras();
 const fakeReviews = makeFakeReviews();
+const fakeCamerasInBasket = makeFakeCamerasInBasket();
 
 describe('Component: ProductPage', () => {
   it('should render correctly', () => {
@@ -22,6 +23,7 @@ describe('Component: ProductPage', () => {
         product: fakeProduct,
         similar: fakeCameras,
         camerasByName: fakeCameras,
+        camerasInBasket: fakeCamerasInBasket
       },
       REVIEWS: {
         reviews: fakeReviews,
