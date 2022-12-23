@@ -29,7 +29,9 @@ export default function PriceRange(): JSX.Element {
     if (paramValue !== '' ) {
       if (searchParams.has(paramKey)) {
         searchParams.set(paramKey, paramValue);
-      } else {
+      }
+
+      if (!searchParams.has(paramKey)) {
         searchParams.append(paramKey, paramValue);
       }
     }

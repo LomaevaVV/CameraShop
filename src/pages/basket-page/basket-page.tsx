@@ -11,7 +11,7 @@ import BasketError from '../../components/basket-error/basket-error';
 
 export default function BasketPage(): JSX.Element {
   const modalState: string = useAppSelector(getModalState);
-  const postOrderStatus: string = useAppSelector(getOrderPostStatus);
+  const postOrderActionStatus: string = useAppSelector(getOrderPostStatus);
 
   return (
     <div className="wrapper">
@@ -19,7 +19,7 @@ export default function BasketPage(): JSX.Element {
 
       <main>
         <PageContent>
-          {postOrderStatus === FetchStatus.Rejected
+          {postOrderActionStatus === FetchStatus.Rejected
             ? <BasketError />
             : <Basket />}
         </PageContent>

@@ -237,11 +237,12 @@ export const postCouponGetDiscount = createAsyncThunk<number, string, {
         position: toast.POSITION.TOP_CENTER,
       });
 
+      window.console.log(e);
       throw e;
     }
   });
 
-export const postOrder = createAsyncThunk<void, Order, {
+export const postOrderAction = createAsyncThunk<void, Order, {
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
@@ -258,6 +259,7 @@ export const postOrder = createAsyncThunk<void, Order, {
         dispatch(setCamerasInBasket([]));
         dispatch(setCoupon(''));
       } catch(e) {
+        window.console.log(e);
         toast.error('Order post error', {
           position: toast.POSITION.TOP_CENTER,
         });

@@ -5,11 +5,30 @@ import { Action } from 'redux';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import { APIRoute, DEFAULT_CATALOG_PAGE } from '../const';
 import { createAPI } from '../services/api';
-import { makeFakeProduct, makeFakeReviewComment, makeFakePromo, makeFakeReviews, makeFakeCameras, FAKE_CAMERAS_AMOUNT } from '../tests/mocks';
+import {
+  makeFakeProduct,
+  makeFakeReviewComment,
+  makeFakePromo,
+  makeFakeReviews,
+  makeFakeCameras,
+  FAKE_CAMERAS_AMOUNT,
+  makeFakeOrder
+} from '../tests/mocks';
 import { State } from '../types/state';
 import { Camera } from '../types/camera';
-import { fetchProductAction, fetchPriceRangeAction, fetchCamerasAction, fetchPromoAction, fetchReviewsAction, fetchSimilarAction, postReviewAction } from './api-actions';
+import {
+  fetchProductAction,
+  fetchPriceRangeAction,
+  fetchCamerasAction,
+  fetchPromoAction,
+  fetchReviewsAction,
+  fetchSimilarAction,
+  postReviewAction,
+  postOrderAction
+} from './api-actions';
 import { appProcess } from './app-process/app-process';
+import { dataCameras } from './cameras/cameras';
+import { dataCoupons } from './coupons/coupons';
 
 
 describe('Async actions', () => {
@@ -171,6 +190,28 @@ describe('Async actions', () => {
       postReviewAction.pending.type,
       appProcess.actions.changeModalState.type,
       postReviewAction.fulfilled.type,
+    ]);
+  });
+
+  it('should dispatch postOrderAction when POST /orders', async () => {
+    const fakeOrder = makeFakeOrder();
+
+    mockAPI
+      .onPost(APIRoute.Orders)
+      .reply(200, []);
+
+    const store = mockStore();
+
+    await store.dispatch(postOrderAction(fakeOrder));
+
+    const actions = store.getActions().map(({ type }: Action<string> ) => type);
+
+    expect(actions).toEqual([
+      postOrderAction.pending.type,
+      appProcess.actions.changeModalState.type,
+      dataCameras.actions.setCamerasInBasket.type,
+      dataCoupons.actions.setCoupon.type,
+      postOrderAction.fulfilled.type,
     ]);
   });
 });

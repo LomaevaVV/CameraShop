@@ -25,7 +25,7 @@ describe('Reducer: cameras', () => {
 
   describe('fetchReviewsAction test', () => {
 
-    it('should update cameras, camerasTotalCount and camerasFetchStatus by load cameras', () => {
+    it('should update reviews, reviewPostStatus by load review', () => {
       expect(dataReviews.reducer(state, { type: fetchReviewsAction.fulfilled.type, payload: FakeReviews }))
         .toEqual({
           reviews: FakeReviews,

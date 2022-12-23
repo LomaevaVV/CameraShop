@@ -19,7 +19,9 @@ export default function SearchForm(): JSX.Element {
     if (evt.target.value) {
       dispatch(fetchCamerasBySearchAction(String(evt.target.value)));
       setListOpened(true);
-    } else {
+    }
+
+    if (!evt.target.value) {
       setListOpened(false);
     }
   };

@@ -6,6 +6,7 @@ import { ReviewComment } from '../types/review';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import thunk from 'redux-thunk';
 import { createAPI } from '../services/api';
+import { Order } from '../types/order';
 
 export const FAKE_CAMERAS_AMOUNT = 37;
 
@@ -94,6 +95,11 @@ export const makeFakeReviewComment = (): ReviewComment => ({
   advantage: datatype.string(),
   disadvantage: datatype.string(),
   cameraId: datatype.number(),
+});
+
+export const makeFakeOrder = (): Order => ({
+  camerasIds: [datatype.number({min: 0, max: 5}), datatype.number({min: 0, max: 5}), datatype.number({min: 0, max: 5})],
+  coupon: 'camera-333',
 });
 
 const api = createAPI();

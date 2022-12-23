@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { FetchStatus, NameSpace } from '../../const';
-import { postOrder } from '../api-actions';
+import { postOrderAction } from '../api-actions';
 
 export type DataOrder = {
   orderPostStatus: string;
@@ -20,13 +20,13 @@ export const dataOrder = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(postOrder.fulfilled, (state) => {
+      .addCase(postOrderAction.fulfilled, (state) => {
         state.orderPostStatus = FetchStatus.Success;
       })
-      .addCase(postOrder.pending, (state) => {
+      .addCase(postOrderAction.pending, (state) => {
         state.orderPostStatus = FetchStatus.Loading;
       })
-      .addCase(postOrder.rejected, (state) => {
+      .addCase(postOrderAction.rejected, (state) => {
         state.orderPostStatus = FetchStatus.Rejected;
       });
   }

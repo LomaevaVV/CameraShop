@@ -5,7 +5,7 @@ import BasketPromo from './basket-promo';
 import { getCoupon, getDiscount } from '../../store/coupons/selectors';
 import { getBasketValue } from '../../store/app-process/selectors';
 import cn from 'classnames';
-import { postOrder } from '../../store/api-actions';
+import { postOrderAction } from '../../store/api-actions';
 import { getOrderPostStatus } from '../../store/order/selectors';
 import { FetchStatus } from '../../const';
 
@@ -21,7 +21,7 @@ export default function Basket(): JSX.Element {
   const handleBasketClick = () => {
     const camerasIds = camerasInBasket.map((item) => item.id);
 
-    dispatch(postOrder({
+    dispatch(postOrderAction({
       camerasIds: camerasIds,
       coupon: coupon === '' ? null : coupon
     }));
