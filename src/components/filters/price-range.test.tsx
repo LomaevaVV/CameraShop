@@ -16,6 +16,7 @@ describe('Component: PriceRange', () => {
         priceRangeFetchStatus: FetchStatus.Idle,
         priceRange: {camerasMinPrice: 0, camerasMaxPrice: 0},
         priceRangeByFilters: {camerasMinPrice: 0, camerasMaxPrice: 0},
+        carrentSearchParams: [],
       },
     });
 

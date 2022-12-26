@@ -236,8 +236,6 @@ export const postCouponGetDiscount = createAsyncThunk<number, string, {
       toast.error('Coupon post error', {
         position: toast.POSITION.TOP_CENTER,
       });
-
-      window.console.log(e);
       throw e;
     }
   });
