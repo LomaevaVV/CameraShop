@@ -32,8 +32,8 @@ export default function Catalog(): JSX.Element {
       pageId: activePage,
       sortType: sortType,
       sortOrder: sortOrder,
-      minPrice: searchParams.getAll(queryParams.minPrice),
-      maxPrice: searchParams.getAll(queryParams.maxPrice),
+      minPrice: [],
+      maxPrice: [],
       category: searchParams.getAll(queryParams.category),
       type: searchParams.getAll(queryParams.type),
       level: searchParams.getAll(queryParams.level)
